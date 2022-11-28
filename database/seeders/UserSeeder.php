@@ -17,20 +17,20 @@ class UserSeeder extends Seeder
     {
         for ($i = 0; $i < 2; $i++) {
             if ($i == 0) {
-                $email = "super.admin@gmail.com";
-                $name = "Super Admin";
-                $role = "super_admin";
+                $email = 'super.admin@gmail.com';
+                $name = 'Super Admin';
+                $role = 'super_admin';
             } else {
-                $role = "admin";
-                $email = "admin@gmail.com";
-                $name = "Admin";
+                $role = 'admin';
+                $email = 'admin@gmail.com';
+                $name = 'Admin';
             }
             User::create([
                 'name' => $name,
                 'email' => $email,
                 'password' => Hash::make('12345678'),
                 'role_user' => $role,
-                'email_verified_at' => date('Y-m-d H:i:s')
+                'email_verified_at' => date('Y-m-d H:i:s'),
             ]);
         }
     }

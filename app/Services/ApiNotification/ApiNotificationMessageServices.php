@@ -13,7 +13,6 @@ use Throwable;
  * Created by Deyan Ardi 2022.
  * API Services Message connect to http://sv1.notif.ganadev.com.
  */
-
 class ApiNotificationMessageServices
 {
     // Init services variable
@@ -66,7 +65,7 @@ class ApiNotificationMessageServices
         DB::beginTransaction();
         try {
             $reset = DB::table('password_resets')->where('token', $token)->where('email', $email)->first();
-            if (!empty($reset)) {
+            if (! empty($reset)) {
                 $expired = Carbon::parse($reset->created_at)->addMinutes(30)->format('Y-m-d H:i:s');
                 $now = Carbon::now()->format('Y-m-d H:i:s');
                 if ($now <= $expired) {

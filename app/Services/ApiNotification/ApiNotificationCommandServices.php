@@ -2,7 +2,6 @@
 
 namespace App\Services\ApiNotification;
 
-
 use Exception;
 use GuzzleHttp\Client;
 
@@ -10,10 +9,8 @@ use GuzzleHttp\Client;
  * Created by Deyan Ardi 2022.
  * API Services connect to http://sv1.notif.ganadev.com.
  */
-
 class ApiNotificationCommandServices
 {
-
     public function sendMailMessage($to, $subject, $text)
     {
         try {
@@ -23,7 +20,7 @@ class ApiNotificationCommandServices
                 'subject' => $subject,
                 'html' => $text,
             ];
-            $url = config('general.api_url') . '/email/send/message';
+            $url = config('general.api_url').'/email/send/message';
             $client = new Client();
             $response = $client->request(
                 'POST',
@@ -64,7 +61,7 @@ class ApiNotificationCommandServices
                 'filename' => $filename,
                 'link' => $link,
             ];
-            $url = config('general.api_url') . '/email/send/media';
+            $url = config('general.api_url').'/email/send/media';
             $client = new Client();
             $response = $client->request(
                 'POST',
@@ -99,10 +96,10 @@ class ApiNotificationCommandServices
         try {
             $data = [
                 'apiToken' => config('general.api_token'),
-                'no_hp' => intval('62' . $receiver), //include string 62 to the front of user's phone number
+                'no_hp' => intval('62'.$receiver), //include string 62 to the front of user's phone number
                 'pesan' => $message,
             ];
-            $url = config('general.api_url') . '/whatsapp/send/message';
+            $url = config('general.api_url').'/whatsapp/send/message';
             $client = new Client();
             $response = $client->request(
                 'POST',
@@ -138,11 +135,11 @@ class ApiNotificationCommandServices
         try {
             $data = [
                 'apiToken' => config('general.api_token'),
-                'no_hp' => (int) '62' . $receiver, //include string 62 to the front of user's phone number
+                'no_hp' => (int) '62'.$receiver, //include string 62 to the front of user's phone number
                 'pesan' => $message,
                 'link' => $file,
             ];
-            $url = config('general.api_url') . '/whatsapp/send/media';
+            $url = config('general.api_url').'/whatsapp/send/media';
             $client = new Client();
             $response = $client->request(
                 'POST',
@@ -178,7 +175,7 @@ class ApiNotificationCommandServices
             $data = [
                 'apiToken' => config('general.api_token'),
             ];
-            $url = config('general.api_url') . '/target-api/single';
+            $url = config('general.api_url').'/target-api/single';
             $client = new Client();
             $response = $client->request(
                 'POST',
@@ -214,7 +211,7 @@ class ApiNotificationCommandServices
             $data = [
                 'apiToken' => config('general.api_token'),
             ];
-            $url = config('general.api_url') . '/app-access/single';
+            $url = config('general.api_url').'/app-access/single';
             $client = new Client();
             $response = $client->request(
                 'POST',

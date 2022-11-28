@@ -6,7 +6,6 @@ use App\Models\User;
 
 class UserQueryServices
 {
-
     public function findById(string $id)
     {
         return User::where('id', $id)->first();

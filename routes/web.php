@@ -22,7 +22,7 @@ Route::get('/', function () {
 
 // Route Auth
 Auth::routes([
-    'reset' => false
+    'reset' => false,
 ]);
 
 // Reset Password Module

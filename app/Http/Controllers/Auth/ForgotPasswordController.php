@@ -12,7 +12,6 @@ use Carbon\Carbon;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Session;
 use Throwable;
 
 class ForgotPasswordController extends Controller
@@ -51,14 +50,15 @@ class ForgotPasswordController extends Controller
         try {
             DB::beginTransaction();
             $find = $this->userQueryServices->findByEmail($request->email);
-            if (!empty($find)) {
+            if (! empty($find)) {
                 $link = $this->apiNotificationMessageServices->generateLinkResetPassword($find->email);
-                if (!$link) {
+                if (! $link) {
                     return redirect()->back()->with('error', 'Gagal Generate Link Ganti Kata Sandi');
                 }
                 $send_email = $this->apiNotificationMessageServices->resetPasswordByEmail($find->email, $find->name, $link);
                 if ($send_email) {
                     DB::commit();
+
                     return redirect()->route('login')->with('success', 'Email untuk reset kata sandi dikirim');
                 }
                 DB::rollBack();
@@ -83,9 +83,9 @@ class ForgotPasswordController extends Controller
 
     public function resetPassword(Request $request, $token)
     {
-        if (!empty($token) && !empty($request->email)) {
+        if (! empty($token) && ! empty($request->email)) {
             $reset = DB::table('password_resets')->where('token', $token)->where('email', $request->email)->first();
-            if (!empty($reset)) {
+            if (! empty($reset)) {
                 $expired = Carbon::parse($reset->created_at)->addMinutes(30)->format('Y-m-d H:i:s');
                 $now = Carbon::now()->format('Y-m-d H:i:s');
                 if ($now >= $expired) {
