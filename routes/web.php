@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Admin\HomeController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,11 +15,32 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+// Redirect to Login
 Route::get('/', function () {
-    return view('welcome');
+    return redirect(route('login'));
 });
 
-Auth::routes();
+// Route Auth
+Auth::routes([
+    'reset' => false
+]);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Reset Password Module
+Route::prefix('reset-password')->group(function () {
+    Route::prefix('email')->group(function () {
+        Route::get('/', [ForgotPasswordController::class, 'forgetPasswordEmailView'])->name('reset.password.email');
+        Route::post('/aksi', [ForgotPasswordController::class, 'forgetPasswordStore'])->name('reset.password.aksi');
+    });
+
+    Route::prefix('change-password')->group(function () {
+        Route::get('token/{token}', [ForgotPasswordController::class, 'resetPassword'])->name('reset.password.getEmail');
+        Route::post('aksi', [ForgotPasswordController::class, 'resetPasswordStore'])->name('reset.password.update');
+    });
+});
+
+// Route Admin
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth', 'verified', 'role:admin|super_admin']], function () {
+    Route::prefix('home')->group(function () {
+        Route::get('/', [HomeController::class, 'index'])->name('admin.home');
+    });
+});

@@ -4,12 +4,13 @@
 
 @section('content')
     <div class="auth-content text-center">
-        <img src="assets/images/logo-dark.png" alt="" class="img-fluid mb-4">
+        <img src="{{ asset('assets/images/logo-dark.png') }}" alt="" class="img-fluid mb-4">
+        @include('generals._validation')
         <div class="card">
             <div class="row align-items-center">
                 <div class="col-md-12">
                     <div class="card-body">
-                        <h4 class="mb-3 f-w-400">Masuk Aplikasi</h4>
+                        <h4 class="mb-3 f-w-400">Masuk aplikasi</h4>
                         <form method="POST" action="{{ route('login') }}">
                             @csrf
                             <div class="input-group mb-3">
@@ -40,10 +41,8 @@
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-block btn-primary mb-4 rounded-pill">Masuk</button>
-                            @if (Route::has('password.request'))
-                                <p class="mb-2 text-muted">Lupa kata sandi? <a href="{{ route('password.request') }}"
-                                        class="f-w-400">Reset Sandi</a></p>
-                            @endif
+                            <p class="mb-2 text-muted">Lupa kata sandi? <a href="{{ route('reset.password.email') }}"
+                                    class="f-w-400">Reset Sandi</a></p>
 
                         </form>
                     </div>

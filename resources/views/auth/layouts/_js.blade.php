@@ -1,8 +1,12 @@
+{{-- General JS --}}
 <script src="{{ asset('assets/js/vendor-all.min.js') }}"></script>
 <script src="{{ asset('assets/js/plugins/bootstrap.min.js') }}"></script>
 <script src="{{ asset('assets/js/waves.min.js') }}"></script>
 <script src="{{ asset('assets/js/pages/TweenMax.min.js') }}"></script>
 <script src="{{ asset('assets/js/pages/jquery.wavify.js') }}"></script>
+{{-- Sweetalert --}}
+<script src="{{ asset('assets/js/plugins/sweetalert.min.js') }}"></script>
+<script src="{{ asset('assets/js/pages/ac-alert.js') }}"></script>
 <script>
     $('#feel-the-wave').wavify({
         height: 100,

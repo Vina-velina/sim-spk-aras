@@ -14,6 +14,8 @@
 </head>
 
 <body>
+    <div class="berhasil" data-berhasil="{{ Session::get('success') }}"></div>
+    <div class="gagal" data-gagal="{{ Session::get('error') }}"></div>
     <!-- [ auth-signin ] start -->
     <div class="auth-wrapper">
         @yield('content')
@@ -22,6 +24,7 @@
 
     {{-- JavaScripts --}}
     @include('auth.layouts._js')
+    @include('generals._sweetalert')
 </body>
 
 </html>
