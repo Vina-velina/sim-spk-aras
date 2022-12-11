@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="auth-content text-center">
-        <img src="{{ asset('assets/images/logo-dark.png') }}" alt="" class="img-fluid mb-4">
+        <img src="{{ config('general.icon-text') }}" alt="" class="img-fluid w-75 mb-4">
         @include('generals._validation')
         <div class="card">
             <div class="row align-items-center">
@@ -41,9 +41,14 @@
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-block btn-primary mb-4 rounded-pill">Masuk</button>
-                            <p class="mb-2 text-muted">Lupa kata sandi? <a href="{{ route('reset.password.email') }}"
+                            <p class="mb-4 text-muted">Lupa kata sandi? <a href="{{ route('reset.password.email') }}"
                                     class="f-w-400">Reset Sandi</a></p>
 
+                            <small>
+                                <a href="{{ route('admin.general.privacy-policy') }}"> Privacy Policy </a>
+                                <span>·</span>
+                                <a href="{{ route('admin.general.terms-conditions') }}"> Terms & Conditions</a>
+                            </small>
                         </form>
                     </div>
                 </div>

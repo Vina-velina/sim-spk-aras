@@ -548,12 +548,12 @@
                                                                             href="mailto:info@ganadev.com?subject=Request Unsubscribe"
                                                                             style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#666666;font-size:12px">Unsubscribe</a>
                                                                         <span>·</span>
-                                                                        <a href="https://sv1.notif.ganadev.com/kebijakan-privasi"
+                                                                        <a href="{{ route('admin.general.privacy-policy') }}"
                                                                             style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#666666;font-size:12px">
                                                                             Privacy
                                                                             Policy</a>
                                                                         <span>·</span>
-                                                                        <a href="https://sv1.notif.ganadev.com/syarat-ketentuan"
+                                                                        <a href="{{ route('admin.general.terms-conditions') }}"
                                                                             style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#666666;font-size:12px">
                                                                             Terms
                                                                             & Conditions</a>

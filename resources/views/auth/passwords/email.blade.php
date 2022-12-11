@@ -4,13 +4,13 @@
 
 @section('content')
     <div class="auth-content text-center">
-        <img src="{{ asset('assets/images/logo-dark.png') }}" alt="" class="img-fluid mb-4">
+        <img src="{{ config('general.icon-text') }}" alt="" class="img-fluid w-75 mb-4">
+        @include('generals._validation')
         <div class="card">
             <div class="row align-items-center ">
                 <div class="col-md-12">
                     <div class="card-body">
                         <h4 class="mb-3 f-w-400">Lupa kata sandi</h4>
-                        @include('generals._validation')
                         @if (session('status'))
                             <div class="alert alert-success" role="alert">
                                 {{ session('status') }}

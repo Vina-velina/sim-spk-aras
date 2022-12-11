@@ -3,7 +3,8 @@
 @section('content')
     <!-- [ change-password ] start -->
     <div class="auth-content text-center">
-        <img src="{{ asset('assets/images/logo-dark.png') }}" alt="" class="img-fluid mb-4">
+        <img src="{{ config('general.icon-text') }}" alt="" class="img-fluid w-75 mb-4">
+        @include('generals._validation')
         <div class="card ">
             <div class="row align-items-center">
                 <div class="col-md-12">
@@ -11,7 +12,6 @@
                         <div class="text-center">
                             <h4 class="mb-4 f-w-400">Perbaharui kata sandi</h4>
                         </div>
-                        @include('generals._validation')
                         <form method="POST" action="{{ route('reset.password.update') }}">
                             @csrf
                             <input type="hidden" name="token" value="{{ $token }}">
