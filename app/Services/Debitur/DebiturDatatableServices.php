@@ -2,8 +2,6 @@
 
 namespace App\Services\Debitur;
 
-use Exception;
-
 class DebiturDatatableServices
 {
     protected $property1;

@@ -17,18 +17,18 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-# Redirect to Login
+// Redirect to Login
 Route::get('/', function () {
     return redirect(route('login'));
 });
 
-# Route Auth
+// Route Auth
 Auth::routes([
     'register' => false,
     'reset' => false,
 ]);
 
-# Reset Password Module
+// Reset Password Module
 Route::prefix('reset-password')->group(function () {
     Route::prefix('email')->group(function () {
         Route::get('/', [ForgotPasswordController::class, 'forgetPasswordEmailView'])->name('reset.password.email');
@@ -41,25 +41,23 @@ Route::prefix('reset-password')->group(function () {
     });
 });
 
-# General Page
+// General Page
 Route::prefix('help')->group(function () {
     Route::get('/privacy-policy', [GeneralController::class, 'index'])->name('admin.general.privacy-policy');
     Route::get('/terms-conditions', [GeneralController::class, 'terms'])->name('admin.general.terms-conditions');
     Route::get('/sitemap.xml', [GeneralController::class, 'sitemap'])->name('admin.general.sitemaps');
 });
 
-# Route Admin
+// Route Admin
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth', 'verified', 'role:admin|super_admin']], function () {
-
-    # Dashboard
+    // Dashboard
     Route::prefix('home')->group(function () {
         Route::get('/', [HomeController::class, 'index'])->name('admin.home');
     });
 
-    # Master Data
+    // Master Data
     Route::group(['prefix' => 'master-data',  'middleware' => ['role:super_admin']], function () {
-
-        # Data Debitur
+        // Data Debitur
         Route::prefix('debitur')->group(function () {
             Route::get('/', [DebiturController::class, 'index'])->name('admin.master-data.debitur.index');
         });

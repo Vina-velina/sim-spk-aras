@@ -2,8 +2,6 @@
 
 namespace App\Services\Debitur;
 
-use Exception;
-
 class DebiturCommandServices
 {
     protected $property1;
