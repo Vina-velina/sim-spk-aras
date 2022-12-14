@@ -5,7 +5,7 @@
             swal({
                 title: "Berhasil!",
                 text: success,
-                icon: "success",
+                type: "success",
                 buttons: {
                     confirm: {
                         text: "Tutup",
@@ -25,7 +25,7 @@
             swal({
                 title: "Gagal!",
                 text: gagal,
-                icon: "error",
+                type: "error",
                 buttons: {
                     confirm: {
                         text: "Tutup",

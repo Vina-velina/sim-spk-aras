@@ -3,17 +3,30 @@
 @section('tittle', 'Login Aplikasi')
 
 @section('content')
-    <div class="auth-content text-center">
-        <img src="{{ config('general.icon-text') }}" alt="" class="img-fluid w-75 mb-4">
-        @include('generals._validation')
-        <div class="card">
-            <div class="row align-items-center">
-                <div class="col-md-12">
-                    <div class="card-body">
-                        <h4 class="mb-3 f-w-400">Masuk aplikasi</h4>
+    <!-- main-signin-wrapper -->
+    <div class="my-auto page page-h">
+        <div class="main-signin-wrapper error-wrapper">
+            <div class="main-card-signin d-md-flex wd-100p">
+                <div class="wd-md-50p login d-none d-md-block page-signin-style p-5 text-white">
+                    <div class="my-auto authentication-pages">
+                        <div>
+                            <img src="{{ config('general.icon-text-white') }}" alt="logo" class="m-0 w-75 mb-4">
+                            <h5 class="mb-4">Sistem Informasi Manajemen Pendukung Keputusan Metode ARAS</h5>
+                            <p class="mb-5">Sistem informasi ini dikembangkan guna membantu Koperasi dalam meningkatkan
+                                minat pembayaran tagihan debitur melalui program pemberian penghargaan bagi debitur terbaik,
+                                dimana proses perhitungan ini menggunakan salah satu metode dalam Sistem Pendukung Keputusan
+                                yaitu Metode ARAS</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-5 wd-md-50p">
+                    <div class="main-signin-header">
+                        <h2>Selamat Datang!</h2>
+                        <h4>Masuk untuk melanjutkan</h4>
                         <form method="POST" action="{{ route('login') }}">
                             @csrf
-                            <div class="input-group mb-3">
+                            <div class="form-group">
+                                <label for="email">Email</label>
                                 <input id="email" type="email"
                                     class="form-control @error('email') is-invalid @enderror" name="email"
                                     value="{{ old('email') }}" required autocomplete="email" autofocus>
@@ -23,7 +36,8 @@
                                     </span>
                                 @enderror
                             </div>
-                            <div class="input-group mb-4">
+                            <div class="form-group">
+                                <label for="password">Password</label>
                                 <input id="password" type="password"
                                     class="form-control @error('password') is-invalid @enderror" name="password" required
                                     autocomplete="current-password" placeholder="********">
@@ -40,34 +54,20 @@
                                     <label for="remember" class="cr"> Ingat Saya</label>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-block btn-primary mb-4 rounded-pill">Masuk</button>
-                            <p class="mb-4 text-muted">Lupa kata sandi? <a href="{{ route('reset.password.email') }}"
-                                    class="f-w-400">Reset Sandi</a></p>
-
-                            <small>
-                                <a href="{{ route('admin.general.privacy-policy') }}"> Privacy Policy </a>
-                                <span>·</span>
-                                <a href="{{ route('admin.general.terms-conditions') }}"> Terms & Conditions</a>
-                            </small>
+                            <button type="submit" class="btn btn-main-primary btn-block">Masuk</button>
                         </form>
                     </div>
+                    <div class="main-signin-footer mt-3 mg-t-5">
+                        <p><a href="{{ route('reset.password.email') }}">Lupa Kata Sandi?</a></p>
+                    </div>
+                    <small>
+                        <a href="{{ route('admin.general.privacy-policy') }}"> Privacy Policy </a>
+                        <span>·</span>
+                        <a href="{{ route('admin.general.terms-conditions') }}"> Terms & Conditions</a>
+                    </small>
                 </div>
             </div>
         </div>
     </div>
-    <svg width="100%" height="250px" version="1.1" xmlns="http://www.w3.org/2000/svg" class="wave bg-wave">
-        <title>Wave</title>
-        <defs></defs>
-        <path id="feel-the-wave" d="" />
-    </svg>
-    <svg width="100%" height="250px" version="1.1" xmlns="http://www.w3.org/2000/svg" class="wave bg-wave">
-        <title>Wave</title>
-        <defs></defs>
-        <path id="feel-the-wave-two" d="" />
-    </svg>
-    <svg width="100%" height="250px" version="1.1" xmlns="http://www.w3.org/2000/svg" class="wave bg-wave">
-        <title>Wave</title>
-        <defs></defs>
-        <path id="feel-the-wave-three" d="" />
-    </svg>
+    <!-- /main-signin-wrapper -->
 @endsection
