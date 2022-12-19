@@ -11,7 +11,9 @@ use Illuminate\Http\Request;
 class DebiturController extends Controller
 {
     protected $debiturCommandServices;
+
     protected $debiturDatatableServices;
+
     protected $debiturQueryServices;
 
     public function __construct(
@@ -23,6 +25,7 @@ class DebiturController extends Controller
         $this->debiturDatatableServices = $debiturDatatableServices;
         $this->debiturQueryServices = $debiturQueryServices;
     }
+
     public function index()
     {
         return view('admin.pages.master-data.debitur.index');

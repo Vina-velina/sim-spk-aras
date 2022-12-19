@@ -9,5 +9,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Debitur extends Model
 {
     use HasFactory, SoftDeletes;
+
     protected $guarded = [];
 }
