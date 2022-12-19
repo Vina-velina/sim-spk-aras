@@ -1,7 +1,35 @@
 @extends('admin.layouts.app')
 
 @section('tittle', 'Dashboard')
+@section('otherJsPlugin')
+    <!--Internal  Chart.bundle js -->
+    <script src="{{ asset('assets/plugins/chart.js/Chart.bundle.min.js') }}"></script>
 
+    <!--Internal Sparkline js -->
+    <script src="{{ asset('assets/plugins/jquery-sparkline/jquery.sparkline.min.js') }}"></script>
+
+    <!-- Moment js -->
+    <script src="{{ asset('assets/plugins/raphael/raphael.min.js') }}"></script>
+
+    <!--Internal  Flot js-->
+    <script src="{{ asset('assets/plugins/jquery.flot/jquery.flot.js') }}"></script>
+    <script src="{{ asset('assets/plugins/jquery.flot/jquery.flot.pie.js') }}"></script>
+    <script src="{{ asset('assets/plugins/jquery.flot/jquery.flot.resize.js') }}"></script>
+    <script src="{{ asset('assets/plugins/jquery.flot/jquery.flot.categories.js') }}"></script>
+    <script src="{{ asset('assets/js/dashboard.sampledata.js') }}"></script>
+    <script src="{{ asset('assets/js/chart.flot.sampledata.js') }}"></script>
+
+    <!-- Chart-circle js -->
+    <script src="{{ asset('assets/plugins/circle-progress/circle-progress.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/chart-circle/chart-circle.js') }}"></script>
+
+    <!-- ECharts js-->
+    <script src="{{ asset('assets/plugins/echart/echart.js') }}"></script>
+
+    <!--Internal  index js -->
+    <script src="{{ asset('assets/plugins/apexcharts/apexcharts.js') }}"></script>
+    <script src="{{ asset('assets/js/index.js') }}"></script>
+@endsection
 @section('content')
 
     <div class="container-fluid mg-t-20">
