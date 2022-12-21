@@ -9,6 +9,7 @@ class FileHelpers
     public static function saveFile($file, $path, $filename)
     {
         $file->move($path, $filename);
+
         return $filename;
     }
 
@@ -38,11 +39,13 @@ class FileHelpers
                         if (last($extesion) == 'pdf' || last($extesion) == 'png' || last($extesion) == 'jpg' || last($extesion) == 'jpeg') {
                             return response()->file($path);
                         }
+
                         return response()->download(
                             $path,
-                            \Str::slug($filename) . '.' . last($extesion)
+                            \Str::slug($filename).'.'.last($extesion)
                         );
                     }
+
                     return response()->download(
                         $path
                     );
