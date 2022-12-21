@@ -62,8 +62,10 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
             Route::get('/', [DebiturController::class, 'index'])->name('admin.master-data.debitur.index');
             Route::get('/datatable', [DebiturController::class, 'datatable'])->name('admin.master-data.debitur.datatable');
             Route::get('/edit/{id}', [DebiturController::class, 'edit'])->name('admin.master-data.debitur.edit');
+            Route::get('/detail/{id}', [DebiturController::class, 'detail'])->name('admin.master-data.debitur.detail');
             Route::get('/create', [DebiturController::class, 'create'])->name('admin.master-data.debitur.create');
             Route::patch('/update/{id}', [DebiturController::class, 'update'])->name('admin.master-data.debitur.update');
+            Route::get('/update-status/{id}', [DebiturController::class, 'updateStatus'])->name('admin.master-data.debitur.update.status');
             Route::post('/store', [DebiturController::class, 'store'])->name('admin.master-data.debitur.store');
             Route::delete('/delete/{id}', [DebiturController::class, 'delete'])->name('admin.master-data.debitur.delete');
         });

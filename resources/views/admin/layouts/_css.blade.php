@@ -14,8 +14,7 @@
  <link rel="stylesheet" href="{{ asset('assets/css/sidemenu.css') }}">
 
  <!--- Dashboard-2 css-->
- <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
- <link href="{{ asset('assets/css/style-dark.css') }}" rel="stylesheet">
+ <link href="{{ asset('assets/css/all.css') }}" rel="stylesheet">
 
  <!--- Color css-->
  <link id="theme" href="{{ asset('assets/css/colors/color.css') }}" rel="stylesheet">
@@ -37,13 +36,9 @@
  <!-- Jvectormap css -->
  <link href="{{ asset('assets/plugins/jqvmap/jquery-jvectormap-2.0.2.css') }}" rel="stylesheet" />
 
-
- <!---Skinmodes css-->
- <link href="{{ asset('assets/css/skin-modes.css') }}" rel="stylesheet" />
-
  <!--- Animations css-->
  <link href="{{ asset('assets/css/animate.css') }}" rel="stylesheet">
-
+ <link rel="stylesheet" href="{{ asset('assets/plugins/sweet-alert/sweetalert.css') }}">
  @yield('otherCssPlugin')
 
  @yield('otherCssQuery')

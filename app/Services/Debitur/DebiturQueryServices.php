@@ -2,22 +2,13 @@
 
 namespace App\Services\Debitur;
 
+use App\Models\Debitur;
+
 class DebiturQueryServices
 {
-    protected $property1;
 
-    public function __construct($property1 = null)
+    public function getOne(string $id)
     {
-        $this->property1 = $property1;
-    }
-
-    public function getProperty1()
-    {
-        return $this->property1;
-    }
-
-    public function setProperty1($property1)
-    {
-        $this->property1 = $property1;
+        return $query = Debitur::find($id);
     }
 }

@@ -2,22 +2,81 @@
 
 namespace App\Services\Debitur;
 
+use App\Helpers\FileHelpers;
+use App\Http\Requests\DebiturStoreRequest;
+use App\Http\Requests\DebiturUpdateRequest;
+use App\Models\Debitur;
+
 class DebiturCommandServices
 {
-    protected $property1;
-
-    public function __construct($property1 = null)
+    public function updateStatus(string $id)
     {
-        $this->property1 = $property1;
+        $query = Debitur::find($id);
+        $query->status = $query->status == "aktif" ? "nonaktif" : "aktif";
+        $query->save();
+        return $query;
     }
 
-    public function getProperty1()
+    public function store(DebiturStoreRequest $request)
     {
-        return $this->property1;
+        $request->validated();
+        $filenamesave = null;
+        if ($request->hasFile('foto_debitur')) {
+            $filename = self::generateNameImage($request->file('foto_debitur')->getClientOriginalExtension(), $request->nomor_ktp);
+            $path = storage_path('app/public/images/foto-debitur');
+            $filenamesave = FileHelpers::saveFile($request->file('foto_debitur'), $path, $filename);
+        }
+        $query = new Debitur();
+        $query->nama = ucWords(strtolower($request->nama_debitur));
+        $query->alamat = $request->alamat_debitur;
+        $query->foto = $filenamesave;
+        $query->pekerjaan = $request->pekerjaan_debitur;
+        $query->no_telp = $request->nomor_telepon;
+        $query->no_ktp = $request->nomor_ktp;
+        $query->status = $request->status;
+        $query->save();
+        return $query;
     }
 
-    public function setProperty1($property1)
+    public function update(DebiturUpdateRequest $request, string $id)
     {
-        $this->property1 = $property1;
+        $request->validated();
+        $query = Debitur::find($id);
+        $filenamesave = null;
+        if ($request->hasFile('foto_debitur')) {
+            $path = storage_path('app/public/images/foto-debitur');
+            if (isset($query->foto)) {
+                $pathOld = $path . '/' . $query->foto;
+                FileHelpers::removeFile($pathOld);
+            }
+            $filename = self::generateNameImage($request->file('foto_debitur')->getClientOriginalExtension(), $request->nomor_ktp);
+            $filenamesave = FileHelpers::saveFile($request->file('foto_debitur'), $path, $filename);
+        }
+        $query->nama = ucWords(strtolower($request->nama_debitur));
+        $query->alamat = $request->alamat_debitur;
+        $query->foto = $filenamesave;
+        $query->pekerjaan = $request->pekerjaan_debitur;
+        $query->no_telp = $request->nomor_telepon;
+        $query->no_ktp = $request->nomor_ktp;
+        $query->status = $request->status;
+        $query->save();
+        return $query;
+    }
+
+    public function delete(string $id)
+    {
+        $find = Debitur::find($id);
+        if (isset($find->foto)) {
+            $path = storage_path('app/public/images/foto-debitur');
+            $pathOld = $path . '/' . $find->foto;
+            FileHelpers::removeFile($pathOld);
+        }
+        return $find->delete();
+    }
+
+    protected static function generateNameImage($extension, $unique)
+    {
+        $name = 'foto-debitur-' . $unique . '-' . time() . '.' . $extension;
+        return $name;
     }
 }

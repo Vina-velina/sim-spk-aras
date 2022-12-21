@@ -43,6 +43,7 @@
   <script src="{{ asset('assets/plugins/datatable/js/buttons.colVis.min.js') }}"></script>
   <script src="{{ asset('assets/plugins/datatable/js/dataTables.responsive.min.js') }}"></script>
   <script src="{{ asset('assets/plugins/datatable/js/responsive.bootstrap4.min.js') }}"></script>
+  <script src="{{ asset('assets/plugins/sweet-alert/sweetalert.min.js') }}"></script>
 
   @yield('otherJsPlugin')
 
