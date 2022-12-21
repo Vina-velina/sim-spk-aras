@@ -23,9 +23,9 @@ class DebiturExport implements FromQuery, WithTitle, WithHeadings, WithStyles, S
     public function query()
     {
         $data_debitur = Debitur::query();
-        if (isset($status)) {
-            if ($status != "semua") {
-                $data_debitur->where('status', $status);
+        if (isset($this->status)) {
+            if ($this->status != "semua") {
+                $data_debitur->where('status', $this->status);
             }
         }
         $data_debitur->get();
