@@ -70,6 +70,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
             Route::delete('/delete/{id}', [DebiturController::class, 'delete'])->name('admin.master-data.debitur.delete');
             Route::get('download-template-import', [DebiturController::class, 'downloadTemplate'])->name('admin.master-data.debitur.download-template');
             Route::post('import-debitur', [DebiturController::class, 'import'])->name('admin.master-data.debitur.import');
+            Route::get('export-debitur', [DebiturController::class, 'export'])->name('admin.master-data.debitur.export');
         });
     });
 });

@@ -62,6 +62,7 @@
 
         const filterDatatable = () => {
             table.DataTable().ajax.reload();
+            $('#statusAktifExport').val($('#statusDebiturFilter').val());
         }
         const changeStatusDebitur = (button) => {
             const url_update = $(button).data('url_update');
@@ -158,14 +159,19 @@
                         </div>
                         <div class="d-flex justify-content-end">
                             <div class="btn-icon-list">
-                                <a href="{{ route('admin.master-data.debitur.create') }}">
-                                    <button class="btn btn-sm btn-primary btn-icon"><i class="typcn typcn-plus"></i>
-                                        Tambah</button>
-                                </a>
-                                <button class="btn btn-sm btn-info btn-icon" data-target="#modalImportDebitur" data-toggle="modal"><i class="typcn typcn-document-add"></i>
-                                    Import</button>
-                                <button class="btn btn-sm btn-success btn-icon"><i class="typcn typcn-document-text"></i>
-                                    Export</button>
+                                <form action="{{ route('admin.master-data.debitur.export') }}" method="get">
+                                    <a href="{{ route('admin.master-data.debitur.create') }}">
+                                        <button class="btn btn-sm btn-primary btn-icon"><i class="typcn typcn-plus"></i>
+                                            Tambah</button>
+                                    </a>
+                                    <button type="button" class="btn btn-sm btn-info btn-icon" data-target="#modalImportDebitur"
+                                        data-toggle="modal"><i class="typcn typcn-document-add"></i>
+                                        Import</button>
+                                    <input type="hidden" name="status_aktif" id="statusAktifExport" value="semua">
+                                    <button class="btn btn-sm btn-success btn-icon" type="submit"><i
+                                            class="typcn typcn-document-text"></i>
+                                        Export</button>
+                                </form>
                             </div>
                         </div>
                     </div>

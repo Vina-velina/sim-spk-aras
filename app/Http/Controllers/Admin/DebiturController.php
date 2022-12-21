@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\DebiturExport;
 use App\Exports\FormatImportDataExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DebiturImportRequest;
@@ -53,6 +54,10 @@ class DebiturController extends Controller
         } catch (Throwable $th) {
             return to_route('admin.master-data.debitur.index')->with('error', 'Data Gagal Di Import');
         }
+    }
+    public function export(Request $request)
+    {
+        return Excel::download(new DebiturExport($request->status_aktif), 'data-debitur.xlsx');
     }
     public function store(DebiturStoreRequest $request)
     {
