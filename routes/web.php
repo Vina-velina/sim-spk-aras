@@ -68,6 +68,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
             Route::get('/update-status/{id}', [DebiturController::class, 'updateStatus'])->name('admin.master-data.debitur.update.status');
             Route::post('/store', [DebiturController::class, 'store'])->name('admin.master-data.debitur.store');
             Route::delete('/delete/{id}', [DebiturController::class, 'delete'])->name('admin.master-data.debitur.delete');
+            Route::get('download-template-import', [DebiturController::class, 'downloadTemplate'])->name('admin.master-data.debitur.download-template');
+            Route::post('import-debitur', [DebiturController::class, 'import'])->name('admin.master-data.debitur.import');
         });
     });
 });

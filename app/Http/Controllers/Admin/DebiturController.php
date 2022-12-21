@@ -2,14 +2,18 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\FormatImportDataExport;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\DebiturImportRequest;
 use App\Http\Requests\DebiturStoreRequest;
 use App\Http\Requests\DebiturUpdateRequest;
+use App\Imports\DebiturImport;
 use App\Services\Debitur\DebiturCommandServices;
 use App\Services\Debitur\DebiturDatatableServices;
 use App\Services\Debitur\DebiturQueryServices;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 use Throwable;
 
 class DebiturController extends Controller
@@ -34,7 +38,22 @@ class DebiturController extends Controller
     {
         return view('admin.pages.master-data.debitur.index');
     }
+    public function downloadTemplate()
+    {
+        return Excel::download(new FormatImportDataExport, 'template-import-debitur.xlsx');
+    }
 
+    public function import(DebiturImportRequest $request)
+    {
+        try {
+            DB::beginTransaction();
+            $response = Excel::import(new DebiturImport(), $request->file('file_excel'));
+            DB::commit();
+            return to_route('admin.master-data.debitur.index')->with('success', 'Data Berhasil Di Import');
+        } catch (Throwable $th) {
+            return to_route('admin.master-data.debitur.index')->with('error', 'Data Gagal Di Import');
+        }
+    }
     public function store(DebiturStoreRequest $request)
     {
         try {
@@ -88,7 +107,7 @@ class DebiturController extends Controller
     {
         try {
             $detail = $this->debiturQueryServices->getOne($id);
-            $detail->link_foto = asset('storage/images/foto-debitur/'.$detail->foto);
+            $detail->link_foto = asset('storage/images/foto-debitur/' . $detail->foto);
 
             return response()->json([
                 'success' => true,
