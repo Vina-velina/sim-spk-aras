@@ -37,7 +37,9 @@
         </a>
         <ul class="slide-menu">
             <li>
-                <a class="sub-side-menu__item" href="#"><span class="sub-side-menu__label">Data User</span></a>
+                <a class="sub-side-menu__item" href="{{ route('admin.master-data.user.index') }}"><span
+                        class="sub-side-menu__label {{ Route::is('admin.master-data.user.*') ? 'text-white text-bold' : '' }}">Data
+                        User</span></a>
             </li>
             <li>
                 <a class="sub-side-menu__item" href="{{ route('admin.master-data.debitur.index') }}"><span

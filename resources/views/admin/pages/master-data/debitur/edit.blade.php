@@ -24,87 +24,88 @@
                             enctype="multipart/form-data">
                             @csrf
                             @method('patch')
-                            <div class="pd-30 pd-sm-40 bg-gray-100">
-                                <div class="row row-xs align-items-center mg-b-20">
-                                    <div class="col-md-12">
-                                        <label class="form-label mg-b-0">Nama Debitur</label>
-                                    </div>
-                                    <div class="col-md-12 mg-t-5">
-                                        <input class="form-control form-control-sm" name="nama_debitur"
-                                            placeholder="Masukkan Nama Debitur" value="{{ $detail->nama }}" type="text">
-                                    </div>
+                            <div class="row row-xs align-items-center mg-b-20">
+                                <div class="col-md-12">
+                                    <label class="form-label mg-b-0">Nama Debitur</label>
                                 </div>
-                                <div class="row row-xs align-items-center mg-b-20">
-                                    <div class="col-md-12">
-                                        <label class="form-label mg-b-0">Alamat Debitur</label>
-                                    </div>
-                                    <div class="col-md-12 mg-t-5">
-                                        <textarea class="form-control form-control-sm" rows="5" name="alamat_debitur"
-                                            placeholder="Masukkan Alamat Debitur" type="text">{{ $detail->alamat }}</textarea>
-                                    </div>
+                                <div class="col-md-12 mg-t-5">
+                                    <input class="form-control form-control-sm" name="nama_debitur"
+                                        placeholder="Masukkan Nama Debitur" value="{{ $detail->nama }}" type="text">
                                 </div>
-                                <div class="row row-xs align-items-center mg-b-20">
-                                    <div class="col-md-12">
-                                        <label class="form-label mg-b-0">Pekerjaan Debitur</label>
-                                    </div>
-                                    <div class="col-md-12 mg-t-5">
-                                        <input class="form-control form-control-sm" name="pekerjaan_debitur"
-                                            placeholder="Masukkan Pekerjaan Debitur" value="{{ $detail->pekerjaan }}"
-                                            type="text">
-                                    </div>
-                                </div>
-                                <div class="row row-xs align-items-center mg-b-20">
-                                    <div class="col-md-12">
-                                        <label class="form-label mg-b-0">Nomor Telepon/WhatsApp</label>
-                                    </div>
-                                    <div class="col-md-12 mg-t-5">
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">+62</span>
-                                            </div>
-                                            <input class="form-control form-control-sm" value="{{ $detail->no_telp }}"
-                                                name="nomor_telepon" placeholder="8xxxxxxxxxx" type="number">
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <div class="row row-xs align-items-center mg-b-20">
-                                    <div class="col-md-12">
-                                        <label class="form-label mg-b-0">Nomor KTP</label>
-                                    </div>
-                                    <div class="col-md-12 mg-t-5">
-                                        <input class="form-control form-control-sm" name="nomor_ktp"
-                                            placeholder="xxxxxxxxxxxxxxxx" value="{{ $detail->no_ktp }}" type="number">
-                                    </div>
-                                </div>
-                                <div class="row row-xs align-items-center mg-b-20">
-                                    <div class="col-md-12">
-                                        <label class="form-label mg-b-0">Status</label>
-                                    </div>
-                                    <div class="col-md-12 mg-t-5">
-                                        <select name="status" class="form-control form-control-sm" id="">
-                                            <option value="aktif" {{ $detail->status == 'aktif' ? 'selected' : '' }}>Aktif
-                                            </option>
-                                            <option value="nonaktif" {{ $detail->status == 'nonaktif' ? 'selected' : '' }}>
-                                                Non
-                                                Aktif</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="row row-xs align-items-center mg-b-20">
-                                    <div class="col-md-12">
-                                        <label class="form-label mg-b-0">Foto Debitur</label>
-                                    </div>
-                                    <div class="col-md-12 mg-t-5">
-                                        <input class="form-control form-control-sm" name="foto_debitur"
-                                            accept=".png,.jpg,.jpeg" type="file">
-                                    </div>
-                                </div>
-                                <button class="btn btn-sm btn-main-primary pd-x-30 mg-r-5 mg-t-5">Simpan</button>
-                                <a href="{{ route('admin.master-data.debitur.index') }}"
-                                    class="btn btn-sm btn-dark pd-x-30 mg-t-5">Batalkan
-                                </a>
                             </div>
+                            <div class="row row-xs align-items-center mg-b-20">
+                                <div class="col-md-12">
+                                    <label class="form-label mg-b-0">Alamat Debitur</label>
+                                </div>
+                                <div class="col-md-12 mg-t-5">
+                                    <textarea class="form-control form-control-sm" rows="5" name="alamat_debitur"
+                                        placeholder="Masukkan Alamat Debitur" type="text">{{ $detail->alamat }}</textarea>
+                                </div>
+                            </div>
+                            <div class="row row-xs align-items-center mg-b-20">
+                                <div class="col-md-12">
+                                    <label class="form-label mg-b-0">Pekerjaan Debitur</label>
+                                </div>
+                                <div class="col-md-12 mg-t-5">
+                                    <input class="form-control form-control-sm" name="pekerjaan_debitur"
+                                        placeholder="Masukkan Pekerjaan Debitur" value="{{ $detail->pekerjaan }}"
+                                        type="text">
+                                </div>
+                            </div>
+                            <div class="row row-xs align-items-center mg-b-20">
+                                <div class="col-md-12">
+                                    <label class="form-label mg-b-0">Nomor Telepon/WhatsApp</label>
+                                </div>
+                                <div class="col-md-12 mg-t-5">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">+62</span>
+                                        </div>
+                                        <input class="form-control form-control-sm" value="{{ $detail->no_telp }}"
+                                            name="nomor_telepon" placeholder="8xxxxxxxxxx"
+                                            onkeyup="this.value = +this.value.replace(/[^0-9]/g, '');" type="text">
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row row-xs align-items-center mg-b-20">
+                                <div class="col-md-12">
+                                    <label class="form-label mg-b-0">Nomor KTP</label>
+                                </div>
+                                <div class="col-md-12 mg-t-5">
+                                    <input class="form-control form-control-sm" name="nomor_ktp"
+                                        placeholder="xxxxxxxxxxxxxxxx"
+                                        onkeyup="this.value = +this.value.replace(/[^0-9]/g, '');"
+                                        value="{{ $detail->no_ktp }}" type="text">
+                                </div>
+                            </div>
+                            <div class="row row-xs align-items-center mg-b-20">
+                                <div class="col-md-12">
+                                    <label class="form-label mg-b-0">Status</label>
+                                </div>
+                                <div class="col-md-12 mg-t-5">
+                                    <select name="status" class="form-control form-control-sm" id="">
+                                        <option value="aktif" {{ $detail->status == 'aktif' ? 'selected' : '' }}>Aktif
+                                        </option>
+                                        <option value="nonaktif" {{ $detail->status == 'nonaktif' ? 'selected' : '' }}>
+                                            Non
+                                            Aktif</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row row-xs align-items-center mg-b-20">
+                                <div class="col-md-12">
+                                    <label class="form-label mg-b-0">Foto Debitur</label>
+                                </div>
+                                <div class="col-md-12 mg-t-5">
+                                    <input class="form-control form-control-sm" name="foto_debitur" accept=".png,.jpg,.jpeg"
+                                        type="file">
+                                </div>
+                            </div>
+                            <button class="btn btn-sm btn-main-primary pd-x-30 mg-r-5 mg-t-5">Simpan</button>
+                            <a href="{{ route('admin.master-data.debitur.index') }}"
+                                class="btn btn-sm btn-dark pd-x-30 mg-t-5">Batalkan
+                            </a>
                         </form>
                     </div><!-- bd -->
                 </div><!-- bd -->

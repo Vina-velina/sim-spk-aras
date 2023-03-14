@@ -8,6 +8,6 @@ class DebiturQueryServices
 {
     public function getOne(string $id)
     {
-        return $query = Debitur::find($id);
+        return Debitur::find($id);
     }
 }

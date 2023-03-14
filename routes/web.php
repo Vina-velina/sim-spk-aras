@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\DebiturController;
 use App\Http\Controllers\Admin\HomeController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\General\GeneralController;
 use Illuminate\Support\Facades\Auth;
@@ -75,7 +76,12 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
 
         # Data User
         Route::prefix('user')->group(function () {
-
+            Route::get('/', [UserController::class, 'index'])->name('admin.master-data.user.index');
+            Route::get('/create', [UserController::class, 'create'])->name('admin.master-data.user.create');
+            Route::get('/edit/{id}', [UserController::class, 'edit'])->name('admin.master-data.user.edit');
+            Route::post('/store', [UserController::class, 'store'])->name('admin.master-data.user.store');
+            Route::delete('/delete', [UserController::class, 'delete'])->name('admin.master-data.user.delete');
+            Route::get('/datatable', [UserController::class, 'datatable'])->name('admin.master-data.user.datatable');
         });
     });
 });

@@ -9,11 +9,10 @@
                 <div class="modal-body row row-xs">
                     <div class="col-md-4 col-12">
                         <div class="row row-xs align-items-center mg-b-20">
-                            <div class="col-md-12">
-                                <label class="form-label mg-b-0">Foto Debitur</label>
-                            </div>
-                            <div class="col-md-12 mg-t-5">
-                                <img src="" alt="Foto Debitur" id="fotoDebitur">
+                            <div class="col-md-12 mg-t-5 text-center">
+                                <img src="" alt="Foto Debitur"
+                                    style="object-fit: cover;height: 200px;width: 200px;" class="rounded-circle"
+                                    id="fotoDebitur">
                             </div>
                         </div>
                     </div>

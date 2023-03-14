@@ -3,8 +3,8 @@
 namespace App\Services\Debitur;
 
 use App\Helpers\FileHelpers;
-use App\Http\Requests\DebiturStoreRequest;
-use App\Http\Requests\DebiturUpdateRequest;
+use App\Http\Requests\Debitur\DebiturStoreRequest;
+use App\Http\Requests\Debitur\DebiturUpdateRequest;
 use App\Models\Debitur;
 
 class DebiturCommandServices

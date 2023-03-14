@@ -161,11 +161,13 @@
                             <div class="btn-icon-list">
                                 <form action="{{ route('admin.master-data.debitur.export') }}" method="get">
                                     <a href="{{ route('admin.master-data.debitur.create') }}">
-                                        <button class="btn btn-sm btn-primary btn-icon"><i class="typcn typcn-plus"></i>
+                                        <button type="button" class="btn btn-sm btn-primary btn-icon"><i
+                                                class="typcn typcn-plus"></i>
                                             Tambah</button>
                                     </a>
-                                    <button type="button" class="btn btn-sm btn-info btn-icon" data-target="#modalImportDebitur"
-                                        data-toggle="modal"><i class="typcn typcn-document-add"></i>
+                                    <button type="button" class="btn btn-sm btn-info btn-icon"
+                                        data-target="#modalImportDebitur" data-toggle="modal"><i
+                                            class="typcn typcn-document-add"></i>
                                         Import</button>
                                     <input type="hidden" name="status_aktif" id="statusAktifExport" value="semua">
                                     <button class="btn btn-sm btn-success btn-icon" type="submit"><i
