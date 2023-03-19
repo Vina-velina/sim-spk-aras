@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\DebiturController;
 use App\Http\Controllers\Admin\HomeController;
+use App\Http\Controllers\Admin\PeriodeController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\General\GeneralController;
@@ -82,6 +83,19 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
             Route::post('/store', [UserController::class, 'store'])->name('admin.master-data.user.store');
             Route::delete('/delete', [UserController::class, 'delete'])->name('admin.master-data.user.delete');
             Route::get('/datatable', [UserController::class, 'datatable'])->name('admin.master-data.user.datatable');
+        });
+
+        # Data Periode
+        Route::prefix('periode')->group(function () {
+            Route::get('/', [PeriodeController::class, 'index'])->name('admin.master-data.periode.index');
+            Route::get('/detail/{id}', [PeriodeController::class, 'detail'])->name('admin.master-data.periode.detail');
+            Route::get('/create', [PeriodeController::class, 'create'])->name('admin.master-data.periode.create');
+            Route::get('/edit/{id}', [PeriodeController::class, 'edit'])->name('admin.master-data.periode.edit');
+            Route::get('update-status/{id}', [PeriodeController::class, 'updateStatus'])->name('admin.master-data.periode.update.status');
+            Route::post('/store', [PeriodeController::class, 'store'])->name('admin.master-data.periode.store');
+            Route::post('/update/{periode:id}', [PeriodeController::class, 'update'])->name('admin.master-data.periode.update');
+            Route::delete('/delete/{periode:id}', [PeriodeController::class, 'delete'])->name('admin.master-data.periode.delete');
+            Route::get('/datatable', [PeriodeController::class, 'datatable'])->name('admin.master-data.periode.datatable');
         });
     });
 });
