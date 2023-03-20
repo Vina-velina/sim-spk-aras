@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AccountController;
 use App\Http\Controllers\Admin\DebiturController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\PeriodeController;
@@ -97,5 +98,13 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
             Route::delete('/delete/{periode:id}', [PeriodeController::class, 'delete'])->name('admin.master-data.periode.delete');
             Route::get('/datatable', [PeriodeController::class, 'datatable'])->name('admin.master-data.periode.datatable');
         });
+    });
+
+    # Account
+    Route::prefix('account')->group(function () {
+        Route::get('/', [AccountController::class, 'index'])->name('admin.account.index');
+        Route::post('/update', [AccountController::class, 'update'])->name('admin.account.update');
+        Route::get('/change-password', [AccountController::class, 'editPassword'])->name('admin.account.change-password');
+        Route::post('/update-password', [AccountController::class, 'updatePassword'])->name('admin.account.update-password');
     });
 });

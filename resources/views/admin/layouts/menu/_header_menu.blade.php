@@ -95,11 +95,12 @@
                 <img src="https://ui-avatars.com/api/?name={{ Auth::user()->nama_user ?? 'No Name' }}&background=5066e0&color=fff"
                     alt="Profil">
             @else
-                <img src="{{ asset('storage/' . Auth::user()->foto_profil) }}" alt="Profil">
+                <img src="{{ asset('storage/images/foto-user/' . Auth::user()->foto_profil) }}" alt="Profil">
             @endif
             <div class="p-text d-none">
-                <span class="p-name font-weight-bold">Mintrona Pechon</span>
-                <small class="p-sub-text">Premium Member</small>
+                <span class="p-name font-weight-bold">{{ Auth::user()->name }}</span>
+                <small
+                    class="p-sub-text">{{ Auth::user()->role_user == 'super_admin' ? 'Super Admin' : 'Admin' }}</small>
             </div>
         </a>
         <div class="dropdown-menu shadow">
@@ -109,13 +110,15 @@
                         <img src="https://ui-avatars.com/api/?name={{ Auth::user()->nama_user ?? 'No Name' }}&background=fff&color=5066e0"
                             alt="Profil">
                     @else
-                        <img src="{{ asset('storage/' . Auth::user()->foto_profil) }}" alt="Profil">
+                        <img src="{{ asset('storage/images/foto-user/' . Auth::user()->foto_profil) }}" alt="Profil">
                     @endif
                 </div>
-                <h6>Mintrona Pechon</h6><span>Premium Member</span>
+                <h6>{{ Auth::user()->name }}</h6>
+                <span>{{ Auth::user()->role_user == 'super_admin' ? 'Super Admin' : 'Admin' }}</span>
             </div>
-            <a class="dropdown-item" href="#"><i class="far fa-user"></i> Profil</a>
-            <a class="dropdown-item" href="#"><i class="fas fa-sliders-h"></i> Keamanan</a>
+            <a class="dropdown-item" href="{{ route('admin.account.index') }}"><i class="far fa-user"></i> Profil</a>
+            <a class="dropdown-item" href="{{ route('admin.account.change-password') }}"><i
+                    class="fas fa-sliders-h"></i> Keamanan</a>
             <a class="dropdown-item" href="{{ route('logout') }}"
                 onclick="event.preventDefault();
       document.getElementById('logout-form').submit();"><i
