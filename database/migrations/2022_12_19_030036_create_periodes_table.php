@@ -17,9 +17,9 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('nama_periode');
             $table->string('keterangan');
-            $table->timestamp('tgl_awal_penilaian');
-            $table->timestamp('tgl_akhir_penilaian');
-            $table->timestamp('tgl_pengumuman');
+            $table->timestamp('tgl_awal_penilaian')->nullable();
+            $table->timestamp('tgl_akhir_penilaian')->nullable();
+            $table->timestamp('tgl_pengumuman')->nullable();
             $table->enum('status', ['aktif', 'nonaktif']);
             $table->timestamps();
             $table->softDeletes();

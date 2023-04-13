@@ -47,7 +47,9 @@
                         Debitur</span></a>
             </li>
             <li>
-                <a class="sub-side-menu__item" href="#"><span class="sub-side-menu__label">Data Periode</span></a>
+                <a class="sub-side-menu__item" href="{{ route('admin.master-data.periode.index') }}"><span
+                        class="sub-side-menu__label {{ Route::is('admin.master-data.periode.*') ? 'text-white text-bold' : '' }}">Data
+                        Periode</span></a>
             </li>
             <li>
                 <a class="sub-side-menu__item" href="#"><span class="sub-side-menu__label">Data
