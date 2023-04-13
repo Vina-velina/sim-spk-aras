@@ -27,7 +27,7 @@
                                     <label class="form-label mg-b-0">Nama Periode</label>
                                 </div>
                                 <div class="col-md-12 mg-t-5">
-                                    <input class="form-control form-control-sm" name="nama_periode"
+                                    <input class="form-control form-control-sm @error('nama_periode') is-invalid @enderror" name="nama_periode"
                                         placeholder="Masukkan Nama Periode" type="text">
                                 </div>
                             </div>
