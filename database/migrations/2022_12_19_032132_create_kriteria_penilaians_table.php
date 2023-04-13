@@ -21,7 +21,6 @@ return new class extends Migration
             $table->enum('status', ['aktif', 'nonaktif']);
             $table->enum('is_statis', [1, 0]);
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 

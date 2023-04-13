@@ -23,7 +23,6 @@ return new class extends Migration
             $table->string('no_ktp', 20)->unique()->nullable();
             $table->enum('status', ['aktif', 'nonaktif']);
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 

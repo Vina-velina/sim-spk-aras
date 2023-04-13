@@ -22,7 +22,6 @@ return new class extends Migration
             $table->timestamp('tgl_pengumuman')->nullable();
             $table->enum('status', ['aktif', 'nonaktif']);
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
