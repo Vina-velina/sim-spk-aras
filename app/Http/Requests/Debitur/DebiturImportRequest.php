@@ -24,7 +24,7 @@ class DebiturImportRequest extends FormRequest
     public function rules()
     {
         return [
-            'file_excel' => 'required|mimes:xlsx,xls|max:2048'
+            'file_excel' => 'required|mimes:xlsx,xls|max:2048',
         ];
     }
 }

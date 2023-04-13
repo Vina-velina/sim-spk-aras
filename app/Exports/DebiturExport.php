@@ -15,6 +15,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 class DebiturExport implements FromQuery, WithTitle, WithHeadings, WithStyles, ShouldAutoSize, WithMapping
 {
     protected $status;
+
     public function __construct($status)
     {
         $this->status = $status;
@@ -24,11 +25,12 @@ class DebiturExport implements FromQuery, WithTitle, WithHeadings, WithStyles, S
     {
         $data_debitur = Debitur::query();
         if (isset($this->status)) {
-            if ($this->status != "semua") {
+            if ($this->status != 'semua') {
                 $data_debitur->where('status', $this->status);
             }
         }
         $data_debitur->get();
+
         return $data_debitur;
     }
 
@@ -45,9 +47,10 @@ class DebiturExport implements FromQuery, WithTitle, WithHeadings, WithStyles, S
             $item->pekerjaan,
             $item->no_telp,
             $item->no_ktp,
-            $item->status
+            $item->status,
         ];
     }
+
     public function styles(Worksheet $sheet)
     {
         return [
@@ -62,8 +65,8 @@ class DebiturExport implements FromQuery, WithTitle, WithHeadings, WithStyles, S
             AfterSheet::class => function (AfterSheet $event) {
                 $highestRow = $event->sheet->getHighestRow();
                 $highestColumn = $event->sheet->getHighestColumn();
-                $lastCell = $highestColumn . $highestRow;
-                $rangeCell = 'A1:' . $lastCell;
+                $lastCell = $highestColumn.$highestRow;
+                $rangeCell = 'A1:'.$lastCell;
                 $event->sheet->getDelegate()->getStyle($rangeCell)->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
             },
         ];

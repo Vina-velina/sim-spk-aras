@@ -7,11 +7,10 @@ use App\Http\Requests\Account\AccountPasswordRequest;
 use App\Http\Requests\Account\AccountUpdateRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 
 class AccountCommandServices
 {
-    function update(AccountUpdateRequest $request)
+    public function update(AccountUpdateRequest $request)
     {
         // dd($request->all());
         $user = Auth::user();
@@ -41,7 +40,7 @@ class AccountCommandServices
         return $user;
     }
 
-    function updatePassword(AccountPasswordRequest $request)
+    public function updatePassword(AccountPasswordRequest $request)
     {
         $user = Auth::user();
         $request->validated();
@@ -56,7 +55,7 @@ class AccountCommandServices
 
     protected static function generateNameImage($extension, $unique)
     {
-        $name = 'foto-user-' . $unique . '-' . time() . '.' . $extension;
+        $name = 'foto-user-'.$unique.'-'.time().'.'.$extension;
 
         return $name;
     }

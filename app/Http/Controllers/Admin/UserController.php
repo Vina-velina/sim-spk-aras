@@ -12,8 +12,11 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
     protected $userQueryServices;
+
     protected $userCommandServices;
+
     protected $userDatatableServices;
+
     public function __construct(
         UserQueryServices $userQueryServices,
         UserDatatableServices $userDatatableServices,

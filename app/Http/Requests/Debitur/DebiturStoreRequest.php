@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\Debitur;
 
-
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 

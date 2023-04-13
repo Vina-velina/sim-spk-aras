@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 namespace App\Http\Requests\Periode;
 
 use Illuminate\Foundation\Http\FormRequest;
@@ -32,4 +33,3 @@ class PeriodeStoreRequest extends FormRequest
         ];
     }
 }
-?>

@@ -2,8 +2,6 @@
 
 namespace App\Services\User;
 
-use Exception;
-
 class UserCommandServices
 {
     protected $property1;

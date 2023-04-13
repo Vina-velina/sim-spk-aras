@@ -25,6 +25,7 @@ class FormatImportDataExport implements FromCollection, WithTitle, WithHeadings,
                 'notif' => '(Ini Adalah Contoh Pengisian Data, Hapus Baris Ini Sebelum Mengisi Data)',
             ],
         ]);
+
         return $data_debitur;
     }
 
@@ -47,8 +48,8 @@ class FormatImportDataExport implements FromCollection, WithTitle, WithHeadings,
             AfterSheet::class => function (AfterSheet $event) {
                 $highestRow = $event->sheet->getHighestRow();
                 $highestColumn = $event->sheet->getHighestColumn();
-                $lastCell = $highestColumn . $highestRow;
-                $rangeCell = 'A1:' . $lastCell;
+                $lastCell = $highestColumn.$highestRow;
+                $rangeCell = 'A1:'.$lastCell;
                 $event->sheet->getDelegate()->getStyle($rangeCell)->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
             },
         ];

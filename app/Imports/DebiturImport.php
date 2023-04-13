@@ -3,10 +3,8 @@
 namespace App\Imports;
 
 use App\Models\Debitur;
-use Illuminate\Support\Collection;
 use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Concerns\Importable;
-use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithStartRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
@@ -14,6 +12,7 @@ use Maatwebsite\Excel\Concerns\WithValidation;
 class DebiturImport implements ToModel, WithStartRow, WithValidation
 {
     use Importable;
+
     public function startRow(): int
     {
         return 2;
@@ -29,6 +28,7 @@ class DebiturImport implements ToModel, WithStartRow, WithValidation
             'no_ktp' => $row[4],
             'status' => $row[5],
         ]);
+
         return $data_debitur;
     }
 

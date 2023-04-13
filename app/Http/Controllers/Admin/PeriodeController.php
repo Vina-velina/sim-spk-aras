@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Periode\PeriodeStoreRequest;
 use App\Http\Requests\Periode\PeriodeUpdateRequest;
 use App\Models\Periode;
 use App\Services\Periode\PeriodeCommandServices;
 use App\Services\Periode\PeriodeDatatableServices;
 use App\Services\Periode\PeriodeQueryServices;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Throwable;
 
@@ -30,7 +30,7 @@ class PeriodeController extends Controller
         $this->periodeQueryServices = $periodeQueryServices;
     }
 
-    # Halaman index periode
+    // Halaman index periode
     public function index()
     {
         return view('admin.pages.master-data.periode.index');
@@ -57,7 +57,7 @@ class PeriodeController extends Controller
         }
     }
 
-    # Penambahan data periode
+    // Penambahan data periode
     public function create()
     {
         return view('admin.pages.master-data.periode.create');
@@ -70,7 +70,7 @@ class PeriodeController extends Controller
         return redirect()->route('admin.master-data.periode.index')->with('success', 'Data berhasil disimpan');
     }
 
-    # Pengubahan data periode
+    // Pengubahan data periode
     public function edit($id)
     {
         $periode = $this->periodeQueryServices->getOne($id);
@@ -91,6 +91,7 @@ class PeriodeController extends Controller
             DB::beginTransaction();
             $status = $this->periodeCommandServices->updateStatus($id);
             DB::commit();
+
             return response()->json([
                 'success' => true,
                 'message' => 'Berhasil mengubah status debitur',
@@ -104,7 +105,7 @@ class PeriodeController extends Controller
         }
     }
 
-    # Penghapusan data periode
+    // Penghapusan data periode
     public function delete(Periode $periode)
     {
         $this->periodeCommandServices->delete($periode);
@@ -112,7 +113,7 @@ class PeriodeController extends Controller
         return redirect()->route('admin.master-data.periode.index')->with('success', 'Data berhasil dihapus');
     }
 
-    # Datatable
+    // Datatable
     public function datatable()
     {
         return $this->periodeDatatableServices->datatable();

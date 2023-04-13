@@ -39,6 +39,7 @@ class DebiturController extends Controller
     {
         return view('admin.pages.master-data.debitur.index');
     }
+
     public function downloadTemplate()
     {
         return Excel::download(new FormatImportDataExport, 'template-import-debitur.xlsx');
@@ -50,15 +51,18 @@ class DebiturController extends Controller
             DB::beginTransaction();
             $response = Excel::import(new DebiturImport(), $request->file('file_excel'));
             DB::commit();
+
             return to_route('admin.master-data.debitur.index')->with('success', 'Data Berhasil Di Import');
         } catch (Throwable $th) {
             return to_route('admin.master-data.debitur.index')->with('error', 'Data Gagal Di Import');
         }
     }
+
     public function export(Request $request)
     {
         return Excel::download(new DebiturExport($request->status_aktif), 'data-debitur.xlsx');
     }
+
     public function store(DebiturStoreRequest $request)
     {
         try {
@@ -112,7 +116,7 @@ class DebiturController extends Controller
     {
         try {
             $detail = $this->debiturQueryServices->getOne($id);
-            $detail->link_foto = asset('storage/images/foto-debitur/' . $detail->foto);
+            $detail->link_foto = asset('storage/images/foto-debitur/'.$detail->foto);
 
             return response()->json([
                 'success' => true,
