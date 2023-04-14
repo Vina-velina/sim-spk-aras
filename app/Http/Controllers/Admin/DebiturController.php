@@ -116,7 +116,7 @@ class DebiturController extends Controller
     {
         try {
             $detail = $this->debiturQueryServices->getOne($id);
-            $detail->link_foto = asset('storage/images/foto-debitur/'.$detail->foto);
+            $detail->link_foto = asset('images/foto-debitur/' . $detail->foto);
 
             return response()->json([
                 'success' => true,
