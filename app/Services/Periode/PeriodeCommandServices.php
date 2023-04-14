@@ -16,7 +16,6 @@ class PeriodeCommandServices
         $query->keterangan = $request->keterangan;
         $query->tgl_awal_penilaian = $request->tgl_awal_penilaian;
         $query->tgl_akhir_penilaian = $request->tgl_akhir_penilaian;
-        $query->tgl_pengumuman = $request->tgl_pengumuman;
         $query->status = 'aktif';
         $query->save();
 
@@ -30,7 +29,6 @@ class PeriodeCommandServices
         $periode->keterangan = $request->keterangan;
         $periode->tgl_awal_penilaian = $request->tgl_awal_penilaian;
         $periode->tgl_akhir_penilaian = $request->tgl_akhir_penilaian;
-        $periode->tgl_pengumuman = $request->tgl_pengumuman;
         $periode->status = $periode->status;
         $periode->save();
 

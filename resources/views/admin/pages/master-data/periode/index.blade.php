@@ -41,8 +41,8 @@
                         }
                     },
                     {
-                        data: "tgl_pengumuman",
-                        name: 'tgl_pengumuman',
+                        data: "tgl_akhir_penilaian",
+                        name: 'tgl_akhir_penilaian',
                         render: function(d) {
                             return d != null ? d : 'Tidak Ada'
                         }
@@ -150,7 +150,7 @@
                                         <th class="wd-15p border-bottom-0">#</th>
                                         <th class="wd-10p border-bottom-0">Nama Periode</th>
                                         <th class="wd-10p border-bottom-0">Tgl Awal Penilaian</th>
-                                        <th class="wd-10p border-bottom-0">Tgl Pengumuman</th>
+                                        <th class="wd-10p border-bottom-0">Tgl Akhir Penilaian</th>
                                         <th class="wd-10p border-bottom-0">Status</th>
                                     </tr>
                                 </thead>

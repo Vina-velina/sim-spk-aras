@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Helpers\FormatDateToIndonesia;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Periode\PeriodeStoreRequest;
 use App\Http\Requests\Periode\PeriodeUpdateRequest;
@@ -41,6 +42,9 @@ class PeriodeController extends Controller
         try {
             $detail = $this->periodeQueryServices->getOne($id);
             // $detail->link_foto = asset('storage/images/foto-periode/' . $detail->foto);
+
+            $detail->tgl_awal_penilaian = FormatDateToIndonesia::getIndonesiaDateTime($detail->tgl_awal_penilaian);
+            $detail->tgl_akhir_penilaian = FormatDateToIndonesia::getIndonesiaDateTime($detail->tgl_akhir_penilaian);
 
             return response()->json([
                 'success' => true,

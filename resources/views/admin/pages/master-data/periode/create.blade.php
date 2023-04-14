@@ -22,13 +22,15 @@
                     <div class="card-body">
                         <form action="{{ route('admin.master-data.periode.store') }}" method="POST">
                             @csrf
+                            <p class="text-danger">* wajib di isi</p>
                             <div class="row row-xs align-items-center mg-b-20">
                                 <div class="col-md-12">
-                                    <label class="form-label mg-b-0">Nama Periode</label>
+                                    <label class="form-label mg-b-0">Nama Periode <span class="text-danger">*</span></label>
                                 </div>
                                 <div class="col-md-12 mg-t-5">
-                                    <input class="form-control form-control-sm @error('nama_periode') is-invalid @enderror" name="nama_periode"
-                                        placeholder="Masukkan Nama Periode" type="text">
+                                    <input class="form-control form-control-sm @error('nama_periode') is-invalid @enderror"
+                                        name="nama_periode" placeholder="Masukkan Nama Periode" type="text"
+                                        value="{{ old('nama_periode') }}">
                                 </div>
                             </div>
                             <div class="row row-xs align-items-center mg-b-20">
@@ -36,34 +38,32 @@
                                     <label class="form-label mg-b-0">Keterangan</label>
                                 </div>
                                 <div class="col-md-12 mg-t-5">
-                                    <textarea class="form-control form-control-sm" name="keterangan" placeholder="Masukkan Keterangan" type="text"></textarea>
+                                    <textarea class="form-control form-control-sm @error('keterangan') is-invalid @enderror" name="keterangan"
+                                        placeholder="Masukkan Keterangan" type="text">{!! old('keterangan') !!}</textarea>
                                 </div>
                             </div>
                             <div class="row row-xs align-items-center mg-b-20">
                                 <div class="col-md-12">
-                                    <label class="form-label mg-b-0">Tanggal Awal Penilaian</label>
+                                    <label class="form-label mg-b-0">Tanggal Awal Penilaian <span
+                                            class="text-danger">*</span></label>
                                 </div>
                                 <div class="col-md-12 mg-t-5">
-                                    <input class="form-control form-control-sm" name="tgl_awal_penilaian"
-                                        placeholder="Masukkan Tanggal Awal Penilaian" type="date">
+                                    <input
+                                        class="form-control form-control-sm @error('tgl_awal_penilaian') is-invalid @enderror"
+                                        name="tgl_awal_penilaian" placeholder="Masukkan Tanggal Awal Penilaian"
+                                        type="datetime-local" value="{{ old('tgl_awal_penilaian') }}">
                                 </div>
                             </div>
                             <div class="row row-xs align-items-center mg-b-20">
                                 <div class="col-md-12">
-                                    <label class="form-label mg-b-0">Tanggal Akhir Penilaian</label>
+                                    <label class="form-label mg-b-0">Tanggal Akhir Penilaian <span
+                                            class="text-danger">*</span></label>
                                 </div>
                                 <div class="col-md-12 mg-t-5">
-                                    <input class="form-control form-control-sm" name="tgl_akhir_penilaian"
-                                        placeholder="Masukkan Tanggal Akhir Penilaian" type="date">
-                                </div>
-                            </div>
-                            <div class="row row-xs align-items-center mg-b-20">
-                                <div class="col-md-12">
-                                    <label for="from-label mg-b-0">Tanggal Pengumuman</label>
-                                </div>
-                                <div class="col-md-12 mg-t-5">
-                                    <input class="form-control form-control-sm" name="tgl_pengumuman"
-                                        placeholder="Masukkan Tanggal Akhir Penilaian" type="date">
+                                    <input
+                                        class="form-control form-control-sm @error('tgl_akhir_penilaian') is-invalid @enderror"
+                                        name="tgl_akhir_penilaian" placeholder="Masukkan Tanggal Akhir Penilaian"
+                                        type="datetime-local" value="{{ old('tgl_akhir_penilaian') }}">
                                 </div>
                             </div>
                             <button class="btn btn-sm btn-main-primary pd-x-30 mg-r-5 mg-t-5">Simpan</button>
