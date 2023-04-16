@@ -20,6 +20,11 @@
                     <div class="card-header">
                         <h6 class="card-title">Keamanan Akun</h6>
                     </div>
+                    <div class="row mx-3 justify-content-center">
+                        <a href="{{ route('admin.account.index') }}" class="btn btn-outline-primary col-md-5">Profil</a>
+                        <div class="col-md-1"></div>
+                        <a href="{{ route('admin.account.change-password') }}" class="btn btn-primary col-md-5">Keamanan</a>
+                    </div>
                     <form action="{{ route('admin.account.update-password') }}" method="POST">
                         <div class="card-body row row-xs">
                             @csrf
@@ -44,8 +49,10 @@
                                         <label class="form-label mg-b-0">Password Baru</label>
                                     </div>
                                     <div class="col-md-12 mg-t-5">
-                                        <input class="form-control form-control-sm" name="password_baru"
-                                            placeholder="Masukkan Password" value="" type="password">
+                                        <input
+                                            class="form-control form-control-sm @error('password_baru') is-invalid @enderror"
+                                            name="password_baru" placeholder="Masukkan Password" value=""
+                                            type="password">
                                     </div>
                                 </div>
                                 <div class="row row-xs align-items-center mg-b-20">
@@ -53,8 +60,10 @@
                                         <label class="form-label mg-b-0">Konfirmasi Password</label>
                                     </div>
                                     <div class="col-md-12 mg-t-5">
-                                        <input class="form-control form-control-sm" name="password_baru_confirmation"
-                                            placeholder="Masukkan Password" value="" type="password">
+                                        <input
+                                            class="form-control form-control-sm @error('password_baru_confirmation') is-invalid @enderror"
+                                            name="password_baru_confirmation" placeholder="Masukkan Password" value=""
+                                            type="password">
                                     </div>
                                 </div>
                                 <hr>
@@ -63,8 +72,8 @@
                                         <label class="form-label mg-b-0">Password Lama</label>
                                     </div>
                                     <div class="col-md-12 mg-t-5">
-                                        <input class="form-control form-control-sm" name="password"
-                                            placeholder="Masukkan Password" value="" type="password">
+                                        <input class="form-control form-control-sm @error('password') is-invalid @enderror"
+                                            name="password" placeholder="Masukkan Password" value="" type="password">
                                     </div>
                                 </div>
                             </div>

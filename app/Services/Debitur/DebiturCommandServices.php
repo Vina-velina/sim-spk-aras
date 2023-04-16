@@ -51,7 +51,7 @@ class DebiturCommandServices
                 $pathOld = $path . '/' . $query->foto;
                 FileHelpers::removeFile($pathOld);
             }
-            $filename = self::generateNameImage($request->file('foto_debitur')->getClientOriginalExtension(), $request->nomor_ktp);
+            $filename = $query->foto;
             $filenamesave = FileHelpers::saveFile($request->file('foto_debitur'), $path, $filename);
         }
         $query->nama = ucwords(strtolower($request->nama_debitur));
