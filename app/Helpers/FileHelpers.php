@@ -3,6 +3,8 @@
 namespace App\Helpers;
 
 use File;
+use Illuminate\Support\Facades\File as FacadesFile;
+use Illuminate\Support\Str;
 
 class FileHelpers
 {
@@ -18,7 +20,7 @@ class FileHelpers
         if (file_exists($path)) {
             if (is_file($path)) {
                 if (is_readable($path)) {
-                    File::delete($path);
+                    FacadesFile::delete($path);
 
                     return true;
                 }
@@ -42,7 +44,7 @@ class FileHelpers
 
                         return response()->download(
                             $path,
-                            \Str::slug($filename).'.'.last($extesion)
+                            Str::slug($filename) . '.' . last($extesion)
                         );
                     }
 
@@ -77,7 +79,7 @@ class FileHelpers
         if (file_exists($path)) {
             if (is_file($path)) {
                 if (is_readable($path)) {
-                    File::delete($path);
+                    FacadesFile::delete($path);
 
                     return true;
                 }

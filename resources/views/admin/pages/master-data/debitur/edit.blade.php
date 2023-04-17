@@ -25,21 +25,56 @@
                             @csrf
                             @method('patch')
                             <div class="row row-xs align-items-center mg-b-20">
-                                <div class="col-md-12">
-                                    <label class="form-label mg-b-0">Nama Debitur</label>
+                                <div class="col-xs-3">
+                                    {{-- preview image --}}
+                                    <div style="width: 200px; height: 200px;">
+                                        @if ($detail->foto)
+                                            <img alt="photo" src="{{ asset('images/foto-debitur/' . $detail->foto) }}"
+                                                style="object-fit: cover; object-position: center; width: 200px; height: 200px;"
+                                                class="preview-image img-thumbnail rounded-circle">
+                                        @else
+                                            <img alt="photo"
+                                                src="https://ui-avatars.com/api/?name={{ $detail->nama }}&background=5066e0&color=fff"
+                                                style="object-fit: cover; object-position: center; width: 200px; height: 200px;"
+                                                class="preview-image img-thumbnail rounded-circle">
+                                        @endif
+                                    </div>
                                 </div>
-                                <div class="col-md-12 mg-t-5">
-                                    <input class="form-control form-control-sm" name="nama_debitur"
-                                        placeholder="Masukkan Nama Debitur" value="{{ $detail->nama }}" type="text">
+                                <div class="col-xs-9">
+                                    <p class="text-danger">* wajib diisi</p>
+                                    <div class="row row-xs align-items-center mg-b-20">
+                                        <div class="col-md-12">
+                                            <label class="form-label mg-b-0">Foto Debitur</label>
+                                        </div>
+                                        <div class="col-md-12 mg-t-5">
+                                            <input
+                                                class="form-control form-control-sm @error('foto_debitur') is-invalid @enderror"
+                                                name="foto_debitur" accept=".png,.jpg,.jpeg" type="file">
+                                        </div>
+                                    </div>
+                                    <div class="row row-xs align-items-center mg-b-20">
+                                        <div class="col-md-12">
+                                            <label class="form-label mg-b-0">Nama Debitur <span
+                                                    class="text-danger">*</span></label>
+                                        </div>
+                                        <div class="col-md-12 mg-t-5">
+                                            <input
+                                                class="form-control form-control-sm @error('nama_debitur') is-invalid @enderror"
+                                                name="nama_debitur" placeholder="Masukkan Nama Debitur"
+                                                value="{{ old('nama_debitur') ? old('nama_debitur') : $detail->nama }}"
+                                                type="text">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="row row-xs align-items-center mg-b-20">
                                 <div class="col-md-12">
-                                    <label class="form-label mg-b-0">Alamat Debitur</label>
+                                    <label class="form-label mg-b-0">Alamat Debitur <span
+                                            class="text-danger">*</span></label>
                                 </div>
                                 <div class="col-md-12 mg-t-5">
-                                    <textarea class="form-control form-control-sm" rows="5" name="alamat_debitur"
-                                        placeholder="Masukkan Alamat Debitur" type="text">{{ $detail->alamat }}</textarea>
+                                    <textarea class="form-control form-control-sm @error('alamat_debitur') is-invalid @enderror" rows="5"
+                                        name="alamat_debitur" placeholder="Masukkan Alamat Debitur" type="text">{{ old('alamat_debitur') ? old('alamat_debitur') : $detail->alamat }}</textarea>
                                 </div>
                             </div>
                             <div class="row row-xs align-items-center mg-b-20">
@@ -47,8 +82,10 @@
                                     <label class="form-label mg-b-0">Pekerjaan Debitur</label>
                                 </div>
                                 <div class="col-md-12 mg-t-5">
-                                    <input class="form-control form-control-sm" name="pekerjaan_debitur"
-                                        placeholder="Masukkan Pekerjaan Debitur" value="{{ $detail->pekerjaan }}"
+                                    <input
+                                        class="form-control form-control-sm @error('pekerjaan_debitur') is-invalid @enderror"
+                                        name="pekerjaan_debitur" placeholder="Masukkan Pekerjaan Debitur"
+                                        value="{{ old('pekerjaan_debitur') ? old('pekerjaan_debitur') : $detail->pekerjaan }}"
                                         type="text">
                                 </div>
                             </div>
@@ -61,7 +98,9 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">+62</span>
                                         </div>
-                                        <input class="form-control form-control-sm" value="{{ $detail->no_telp }}"
+                                        <input
+                                            class="form-control form-control-sm @error('nomor_telepon') is-invalid @enderror"
+                                            value="{{ old('nomor_telepon') ? old('nomor_telepon') : $detail->no_telp }}"
                                             name="nomor_telepon" placeholder="8xxxxxxxxxx"
                                             onkeyup="this.value = +this.value.replace(/[^0-9]/g, '');" type="text">
                                     </div>
@@ -73,10 +112,10 @@
                                     <label class="form-label mg-b-0">Nomor KTP</label>
                                 </div>
                                 <div class="col-md-12 mg-t-5">
-                                    <input class="form-control form-control-sm" name="nomor_ktp"
-                                        placeholder="xxxxxxxxxxxxxxxx"
+                                    <input class="form-control form-control-sm @error('nomor_ktp') is-invalid @enderror"
+                                        name="nomor_ktp" placeholder="xxxxxxxxxxxxxxxx"
                                         onkeyup="this.value = +this.value.replace(/[^0-9]/g, '');"
-                                        value="{{ $detail->no_ktp }}" type="text">
+                                        value="{{ old('nomor_ktp') ? old('nomor_ktp') : $detail->no_ktp }}" type="text">
                                 </div>
                             </div>
                             <div class="row row-xs align-items-center mg-b-20">
@@ -84,22 +123,15 @@
                                     <label class="form-label mg-b-0">Status</label>
                                 </div>
                                 <div class="col-md-12 mg-t-5">
-                                    <select name="status" class="form-control form-control-sm" id="">
+                                    <select name="status"
+                                        class="form-control form-control-sm @error('status') is-invalid @enderror"
+                                        id="">
                                         <option value="aktif" {{ $detail->status == 'aktif' ? 'selected' : '' }}>Aktif
                                         </option>
                                         <option value="nonaktif" {{ $detail->status == 'nonaktif' ? 'selected' : '' }}>
                                             Non
                                             Aktif</option>
                                     </select>
-                                </div>
-                            </div>
-                            <div class="row row-xs align-items-center mg-b-20">
-                                <div class="col-md-12">
-                                    <label class="form-label mg-b-0">Foto Debitur</label>
-                                </div>
-                                <div class="col-md-12 mg-t-5">
-                                    <input class="form-control form-control-sm" name="foto_debitur" accept=".png,.jpg,.jpeg"
-                                        type="file">
                                 </div>
                             </div>
                             <button class="btn btn-sm btn-main-primary pd-x-30 mg-r-5 mg-t-5">Simpan</button>
@@ -114,4 +146,21 @@
         </div>
     </div>
 
+@endsection
+
+@section('otherJsQuery')
+    <script>
+        $(document).ready(function() {
+            // $('.preview-image-col').hide();
+            $('input[name="foto_debitur"]').change(function() {
+                var file = $(this)[0].files[0];
+                var reader = new FileReader();
+                reader.onload = function() {
+                    $('.preview-image').attr('src', reader.result);
+                }
+                reader.readAsDataURL(file);
+                // $('.preview-image-col').show();
+            });
+        });
+    </script>
 @endsection

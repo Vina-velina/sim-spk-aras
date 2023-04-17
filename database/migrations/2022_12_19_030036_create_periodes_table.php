@@ -16,12 +16,12 @@ return new class extends Migration
         Schema::create('periodes', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('nama_periode');
-            $table->string('keterangan');
+            $table->string('keterangan')->nullable();
             $table->timestamp('tgl_awal_penilaian')->nullable();
             $table->timestamp('tgl_akhir_penilaian')->nullable();
-            $table->timestamp('tgl_pengumuman')->nullable();
             $table->enum('status', ['aktif', 'nonaktif']);
             $table->timestamps();
+            // $table->timestamp('tgl_pengumuman')->nullable();
         });
     }
 

@@ -16,8 +16,8 @@ class AccountCommandServices
         $user = Auth::user();
         // check if user upload new profile picture
         if ($request->hasFile('foto_profil')) {
-            $filename = $filename = self::generateNameImage($request->file('foto_profil')->getClientOriginalExtension(), $user->id);
-            $path = storage_path('app/public/images/foto-user');
+            $filename = $user->foto_profil;
+            $path = 'images/foto-user';
             $file = FileHelpers::saveFile($request->file('foto_profil'), $path, $filename);
         }
 
@@ -55,7 +55,7 @@ class AccountCommandServices
 
     protected static function generateNameImage($extension, $unique)
     {
-        $name = 'foto-user-'.$unique.'-'.time().'.'.$extension;
+        $name = 'foto-user' . $unique . '-' . time() . '.' . $extension;
 
         return $name;
     }

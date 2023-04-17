@@ -20,6 +20,12 @@
                     <div class="card-header">
                         <h6 class="card-title">Detail Akun</h6>
                     </div>
+                    <div class="row mx-3 justify-content-center">
+                        <a href="{{ route('admin.account.index') }}" class="btn btn-primary col-md-5">Profil</a>
+                        <div class="col-md-1"></div>
+                        <a href="{{ route('admin.account.change-password') }}"
+                            class="btn btn-outline-primary col-md-5">Keamanan</a>
+                    </div>
                     <form action="{{ route('admin.account.update') }}" method="POST" enctype="multipart/form-data">
                         <div class="card-body row row-xs">
                             @csrf
@@ -28,11 +34,13 @@
                                     <div class="col-md-12 mg-t-5 text-center">
                                         @if (empty(Auth::user()->foto_profil))
                                             <img style="object-fit: cover;height: 200px;width: 200px;"
-                                                class="rounded-circle"
+                                                class="rounded-circle preview-image"
                                                 src="https://ui-avatars.com/api/?name={{ Auth::user()->nama_user ?? 'No Name' }}&background=5066e0&color=fff"
                                                 alt="Profil">
                                         @else
-                                            <img src="{{ asset('storage/images/foto-user/' . Auth::user()->foto_profil) }}"
+                                            <img style="object-fit: cover;height: 200px;width: 200px;"
+                                                class="rounded-circle preview-image"
+                                                src="{{ asset('images/foto-user/' . Auth::user()->foto_profil) }}"
                                                 alt="Profil">
                                         @endif
                                     </div>
@@ -44,8 +52,10 @@
                                         <label class="form-label mg-b-0">Foto Profil</label>
                                     </div>
                                     <div class="col-md-12 mg-t-5">
-                                        <input class="form-control form-control-sm" name="foto_profil"
-                                            placeholder="Masukkan Image" type="file">
+                                        <input
+                                            class="form-control form-control-sm @error('foto_porfil') is-invalid @enderror"
+                                            accept=".png,.jpg,.jpeg" name="foto_profil" placeholder="Masukkan Image"
+                                            type="file">
                                     </div>
                                 </div>
                                 <div class="row row-xs align-items-center mg-b-20">
@@ -53,8 +63,9 @@
                                         <label class="form-label mg-b-0">Nama</label>
                                     </div>
                                     <div class="col-md-12 mg-t-5">
-                                        <input class="form-control form-control-sm" name="name"
-                                            placeholder="Masukkan Nama" value="{{ Auth::user()->name }}" type="text">
+                                        <input class="form-control form-control-sm @error('name') is-invalid @enderror"
+                                            name="name" placeholder="Masukkan Nama" value="{{ Auth::user()->name }}"
+                                            type="text">
                                     </div>
                                 </div>
                                 <div class="row row-xs align-items-center mg-b-20">
@@ -62,8 +73,9 @@
                                         <label class="form-label mg-b-0">Email</label>
                                     </div>
                                     <div class="col-md-12 mg-t-5">
-                                        <input class="form-control form-control-sm" name="email"
-                                            placeholder="Masukkan Email" type="email" value="{{ Auth::user()->email }}">
+                                        <input class="form-control form-control-sm @error('email') is-invalid @enderror"
+                                            name="email" placeholder="Masukkan Email" type="email"
+                                            value="{{ Auth::user()->email }}">
                                     </div>
                                 </div>
                                 {{-- <div class="row row-xs align-items-center mg-b-20">
@@ -125,4 +137,21 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('otherJsQuery')
+    <script>
+        $(document).ready(function() {
+            // $('.preview-image-col').hide();
+            $('input[name="foto_profil"]').change(function() {
+                var file = $(this)[0].files[0];
+                var reader = new FileReader();
+                reader.onload = function() {
+                    $('.preview-image').attr('src', reader.result);
+                }
+                reader.readAsDataURL(file);
+                // $('.preview-image-col').show();
+            });
+        });
+    </script>
 @endsection

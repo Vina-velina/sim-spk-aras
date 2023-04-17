@@ -24,7 +24,7 @@ class DebiturCommandServices
         $filenamesave = null;
         if ($request->hasFile('foto_debitur')) {
             $filename = self::generateNameImage($request->file('foto_debitur')->getClientOriginalExtension(), $request->nomor_ktp);
-            $path = storage_path('app/public/images/foto-debitur');
+            $path = 'images/foto-debitur';
             $filenamesave = FileHelpers::saveFile($request->file('foto_debitur'), $path, $filename);
         }
         $query = new Debitur();
@@ -46,12 +46,12 @@ class DebiturCommandServices
         $query = Debitur::find($id);
         $filenamesave = null;
         if ($request->hasFile('foto_debitur')) {
-            $path = storage_path('app/public/images/foto-debitur');
+            $path = 'images/foto-debitur';
             if (isset($query->foto)) {
-                $pathOld = $path.'/'.$query->foto;
+                $pathOld = $path . '/' . $query->foto;
                 FileHelpers::removeFile($pathOld);
             }
-            $filename = self::generateNameImage($request->file('foto_debitur')->getClientOriginalExtension(), $request->nomor_ktp);
+            $filename = $query->foto;
             $filenamesave = FileHelpers::saveFile($request->file('foto_debitur'), $path, $filename);
         }
         $query->nama = ucwords(strtolower($request->nama_debitur));
@@ -70,8 +70,8 @@ class DebiturCommandServices
     {
         $find = Debitur::find($id);
         if (isset($find->foto)) {
-            $path = storage_path('app/public/images/foto-debitur');
-            $pathOld = $path.'/'.$find->foto;
+            $path = 'images/foto-debitur';
+            $pathOld = $path . '/' . $find->foto;
             FileHelpers::removeFile($pathOld);
         }
 
@@ -80,7 +80,7 @@ class DebiturCommandServices
 
     protected static function generateNameImage($extension, $unique)
     {
-        $name = 'foto-debitur-'.$unique.'-'.time().'.'.$extension;
+        $name = 'foto-debitur' . $unique . '-' . time() . '.' . $extension;
 
         return $name;
     }
