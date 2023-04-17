@@ -17,7 +17,7 @@ class AccountCommandServices
         // check if user upload new profile picture
         if ($request->hasFile('foto_profil')) {
             $filename = $user->foto_profil;
-            $path = 'images/foto-user';
+            $path = storage_path('app/public/foto-user');
             $file = FileHelpers::saveFile($request->file('foto_profil'), $path, $filename);
         }
 

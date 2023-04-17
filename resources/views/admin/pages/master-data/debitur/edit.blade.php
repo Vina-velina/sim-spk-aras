@@ -29,7 +29,7 @@
                                     {{-- preview image --}}
                                     <div style="width: 200px; height: 200px;">
                                         @if ($detail->foto)
-                                            <img alt="photo" src="{{ asset('images/foto-debitur/' . $detail->foto) }}"
+                                            <img alt="photo" src="{{ asset('storage/foto-debitur/' . $detail->foto) }}"
                                                 style="object-fit: cover; object-position: center; width: 200px; height: 200px;"
                                                 class="preview-image img-thumbnail rounded-circle">
                                         @else

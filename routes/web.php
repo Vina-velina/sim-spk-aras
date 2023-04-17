@@ -81,6 +81,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
             Route::get('/', [UserController::class, 'index'])->name('admin.master-data.user.index');
             Route::get('/create', [UserController::class, 'create'])->name('admin.master-data.user.create');
             Route::get('/edit/{id}', [UserController::class, 'edit'])->name('admin.master-data.user.edit');
+            Route::post('/update/{id}', [UserController::class, 'update'])->name('admin.master-data.user.update');
             Route::post('/store', [UserController::class, 'store'])->name('admin.master-data.user.store');
             Route::delete('/delete', [UserController::class, 'delete'])->name('admin.master-data.user.delete');
             Route::get('/datatable', [UserController::class, 'datatable'])->name('admin.master-data.user.datatable');

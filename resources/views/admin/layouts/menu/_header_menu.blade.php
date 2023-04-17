@@ -95,7 +95,7 @@
                 <img src="https://ui-avatars.com/api/?name={{ Auth::user()->nama_user ?? 'No Name' }}&background=5066e0&color=fff"
                     alt="Profil">
             @else
-                <img src="{{ asset('images/foto-user/' . Auth::user()->foto_profil) }}" alt="Profil">
+                <img src="{{ asset('storage/foto-user/' . Auth::user()->foto_profil) }}" alt="Profil">
             @endif
             <div class="p-text d-none">
                 <span class="p-name font-weight-bold">{{ Auth::user()->name }}</span>
@@ -110,7 +110,7 @@
                         <img src="https://ui-avatars.com/api/?name={{ Auth::user()->nama_user ?? 'No Name' }}&background=fff&color=5066e0"
                             alt="Profil">
                     @else
-                        <img src="{{ asset('images/foto-user/' . Auth::user()->foto_profil) }}" alt="Profil">
+                        <img src="{{ asset('storage/foto-user/' . Auth::user()->foto_profil) }}" alt="Profil">
                     @endif
                 </div>
                 <h6>{{ Auth::user()->name }}</h6>

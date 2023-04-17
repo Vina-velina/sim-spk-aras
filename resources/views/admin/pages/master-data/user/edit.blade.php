@@ -6,7 +6,7 @@
     <div class="container-fluid mg-t-20">
 
         <!-- breadcrumb -->
-        @include('admin.layouts.menu._breadcrumb', ['page' => 'Data User', 'active' => 'Tambah Data'])
+        @include('admin.layouts.menu._breadcrumb', ['page' => 'Data User', 'active' => 'Edit Data'])
         <!-- breadcrumb -->
 
         <!-- row opened -->
@@ -16,22 +16,26 @@
                 <div class="card">
                     <div class="card-header pb-0 pd-t-25">
                         <div class="d-flex justify-content-between">
-                            <h4 class="card-title mg-b-0">Tambah Data User</h4>
+                            <h4 class="card-title mg-b-0">Edit Data User</h4>
                         </div>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('admin.master-data.user.store') }}" method="post"
+                        <form action="{{ route('admin.master-data.user.update', $user->id) }}" method="post"
                             enctype="multipart/form-data">
                             @csrf
                             <div class="row mg-b-20">
                                 <div class="col-xl-3 col-12">
                                     {{-- preview image --}}
-                                    <div style="width: 200px; height: 200px;">
-                                        <img alt="photo"
-                                            src="https://ui-avatars.com/api/?name=PP&background=5066e0&color=fff"
+                                    @if ($user->foto_profil)
+                                        <img alt="photo" src="{{ asset('storage/foto-user/' . $user->foto_profil) }}"
                                             style="object-fit: cover; object-position: center; width: 200px; height: 200px;"
                                             class="preview-image img-thumbnail rounded-circle">
-                                    </div>
+                                    @else
+                                        <img alt="photo"
+                                            src="https://ui-avatars.com/api/?name={{ $user->name }}&background=5066e0&color=fff"
+                                            style="object-fit: cover; object-position: center; width: 200px; height: 200px;"
+                                            class="preview-image img-thumbnail rounded-circle">
+                                    @endif
                                 </div>
                                 <div class="col-xl-9 col-12">
                                     <p class="text-danger">* wajib diisi</p>
@@ -54,30 +58,34 @@
                                         <div class="col-md-12 mg-t-5">
                                             <input class="form-control form-control-sm @error('name') is-invalid @enderror"
                                                 name="name" placeholder="Masukkan Nama User" type="text"
-                                                value="{{ old('name') }}">
+                                                value="{{ old('name') ? old('name') : $user->name }}">
                                         </div>
                                     </div>
                                     <div class="row row-xs align-items-center mg-b-20">
                                         <div class="col-md-12">
-                                            <label class="form-label mg-b-0">Email <span
-                                                    class="text-danger">*</span></label>
+                                            <label class="form-label mg-b-0">Email<span class="text-danger">*</span></label>
                                         </div>
                                         <div class="col-md-12 mg-t-5">
                                             <input class="form-control form-control-sm @error('email') is-invalid @enderror"
                                                 name="email" placeholder="Masukkan Email User" type="email"
-                                                value="{{ old('email') }}">
+                                                value="{{ old('email') ? old('email') : $user->email }}">
                                         </div>
                                     </div>
                                     <div class="row row-xs align-items-center mg-b-20">
                                         <div class="col-md-12">
-                                            <label class="form-label mg-b-0">Role <span class="text-danger">*</span></label>
+                                            <label class="form-label mg-b-0">Role<span class="text-danger">*</span></label>
                                         </div>
                                         <div class="col-md-12 mg-t-5">
                                             <select name="role_user"
                                                 class="form-control form-control-sm @error('role_user') is-invalid @enderror"
                                                 id="">
-                                                <option value="super_admin" selected>Super Admin</option>
-                                                <option value="admin">Admin</option>
+                                                @if ($user->role_user == 'super_admin')
+                                                    <option value="super_admin" selected>Super Admin</option>
+                                                    <option value="admin">Admin</option>
+                                                @else
+                                                    <option value="super_admin">Super Admin</option>
+                                                    <option value="admin" selected>Admin</option>
+                                                @endif
                                             </select>
                                         </div>
                                     </div>
