@@ -6,14 +6,14 @@ use App\Traits\Uuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class KriteriaPenilaian extends Model
+class SubKriteriaPenilaian extends Model
 {
     use HasFactory, Uuid;
 
     protected $guarded = [];
 
-    public function subKriteriaPenilaian()
+    public function kriteriaPenilaian()
     {
-        return $this->hasMany(SubKriteriaPenilaian::class, 'id_kriteria', 'id');
+        return $this->belongsTo(KriteriaPenilaian::class, 'id_kriteria', 'id');
     }
 }

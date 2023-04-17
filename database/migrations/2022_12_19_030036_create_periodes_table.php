@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('periodes', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('nama_periode');
-            $table->string('keterangan')->nullable();
+            $table->text('keterangan')->nullable();
             $table->timestamp('tgl_awal_penilaian')->nullable();
             $table->timestamp('tgl_akhir_penilaian')->nullable();
             $table->enum('status', ['aktif', 'nonaktif']);
