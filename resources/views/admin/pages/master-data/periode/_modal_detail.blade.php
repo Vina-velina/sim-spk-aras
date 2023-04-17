@@ -54,8 +54,6 @@
                                     type="text">
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-4 col-12">
                         <div class="row row-xs align-items-center mg-b-20">
                             <div class="col-md-12">
                                 <label class="form-label mg-b-0">Status</label>

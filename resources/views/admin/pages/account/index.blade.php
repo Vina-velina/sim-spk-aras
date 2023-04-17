@@ -46,8 +46,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4 col-12">
-                                <div class="row row-xs align-items-center mg-b-20">
+                            <div class="col-md-8 col-12">
+                                <div class="row align-items-center mg-b-20">
                                     <div class="col-md-12">
                                         <label class="form-label mg-b-0">Foto Profil</label>
                                     </div>
@@ -58,7 +58,7 @@
                                             type="file">
                                     </div>
                                 </div>
-                                <div class="row row-xs align-items-center mg-b-20">
+                                <div class="row align-items-center mg-b-20">
                                     <div class="col-md-12">
                                         <label class="form-label mg-b-0">Nama</label>
                                     </div>
@@ -68,7 +68,7 @@
                                             type="text">
                                     </div>
                                 </div>
-                                <div class="row row-xs align-items-center mg-b-20">
+                                <div class="row align-items-center mg-b-20">
                                     <div class="col-md-12">
                                         <label class="form-label mg-b-0">Email</label>
                                     </div>
@@ -78,53 +78,7 @@
                                             value="{{ Auth::user()->email }}">
                                     </div>
                                 </div>
-                                {{-- <div class="row row-xs align-items-center mg-b-20">
-                                    <div class="col-md-12">
-                                        <label class="form-label mg-b-0">Password</label>
-                                    </div>
-                                    <div class="col-md-12 mg-t-5">
-                                        <input class="form-control form-control-sm" name="password"
-                                            placeholder="Masukkan Password" value="" type="password">
-                                    </div>
-                                </div>
-                                <div class="row row-xs align-items-center mg-b-20">
-                                    <div class="col-md-12">
-                                        <label class="form-label mg-b-0">Konfirmasi Password</label>
-                                    </div>
-                                    <div class="col-md-12 mg-t-5">
-                                        <input class="form-control form-control-sm" name="password_confirmation"
-                                            placeholder="Masukkan Password" value="" type="password">
-                                    </div>
-                                </div> --}}
-
                             </div>
-                            {{-- <div class="col-md-4 col-12">
-                                <div class="row row-xs align-items-center mg-b-20">
-                                    <div class="col-md-12">
-                                        <label class="form-label mg-b-0">Nomor Telepon/WhatsApp</label>
-                                    </div>
-                                    <div class="col-md-12 mg-t-5">
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">+62</span>
-                                            </div>
-                                            <input class="form-control form-control-sm" value="" name="nomor_telepon"
-                                                placeholder="8xxxxxxxxxx" type="number">
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <div class="row row-xs align-items-center mg-b-20">
-                                    <div class="col-md-12">
-                                        <label class="form-label mg-b-0">Nomor KTP</label>
-                                    </div>
-                                    <div class="col-md-12 mg-t-5">
-                                        <input class="form-control form-control-sm" name="nomor_ktp"
-                                            placeholder="xxxxxxxxxxxxxxxx" value="" type="number">
-                                    </div>
-                                </div>
-                            </div> --}}
-
                         </div><!-- bd -->
                         <div class="card-footer">
                             <div class="d-flex justify-content-between w-100">

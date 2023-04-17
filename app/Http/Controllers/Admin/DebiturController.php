@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Exports\DebiturExport;
 use App\Exports\FormatImportDataExport;
+use App\Helpers\FileHelpers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Debitur\DebiturImportRequest;
 use App\Http\Requests\Debitur\DebiturStoreRequest;
@@ -116,7 +117,8 @@ class DebiturController extends Controller
     {
         try {
             $detail = $this->debiturQueryServices->getOne($id);
-            $detail->link_foto = asset('images/foto-debitur/' . $detail->foto);
+            $path = 'storage/foto-debitur/';
+            $detail->link_foto = asset($path . $detail->foto);
 
             return response()->json([
                 'success' => true,

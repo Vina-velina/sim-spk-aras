@@ -23,8 +23,8 @@
                         <form action="{{ route('admin.master-data.debitur.store') }}" method="post"
                             enctype="multipart/form-data">
                             @csrf
-                            <div class="row row-xs align-items-center mg-b-20">
-                                <div class="col-xs-3">
+                            <div class="row mg-b-20">
+                                <div class="col-md-3 col-12">
                                     {{-- preview image --}}
                                     <div style="width: 200px; height: 200px;">
                                         <img alt="photo"
@@ -33,7 +33,7 @@
                                             class="preview-image img-thumbnail rounded-circle">
                                     </div>
                                 </div>
-                                <div class="col-xs-9">
+                                <div class="col-md-9 col-12">
                                     <p class="text-danger">* wajib diisi</p>
                                     <div class="row row-xs align-items-center mg-b-20">
                                         <div class="col-md-12">
@@ -58,75 +58,76 @@
                                                 value="{{ old('nama_debitur') }}">
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="row row-xs align-items-center mg-b-20">
-                                <div class="col-md-12">
-                                    <label class="form-label mg-b-0">Alamat Debitur <span
-                                            class="text-danger">*</span></label>
-                                </div>
-                                <div class="col-md-12 mg-t-5">
-                                    <textarea class="form-control form-control-sm @error('alamat_debitur') is-invalid @enderror" rows="5"
-                                        name="alamat_debitur" placeholder="Masukkan Alamat Debitur" type="text"> {!! old('alamat_debitur') !!}</textarea>
-                                </div>
-                            </div>
-                            <div class="row row-xs align-items-center mg-b-20">
-                                <div class="col-md-12">
-                                    <label class="form-label mg-b-0">Pekerjaan Debitur</label>
-                                </div>
-                                <div class="col-md-12 mg-t-5">
-                                    <input
-                                        class="form-control form-control-sm @error('pekerjaan_debitur') is-invalid @enderror"
-                                        name="pekerjaan_debitur" placeholder="Masukkan Pekerjaan Debitur" type="text"
-                                        value="{{ old('pekerjaan_debitur') }}">
-                                </div>
-                            </div>
-                            <div class="row row-xs align-items-center mg-b-20">
-                                <div class="col-md-12">
-                                    <label class="form-label mg-b-0">Nomor Telepon/WhatsApp</label>
-                                </div>
-                                <div class="col-md-12 mg-t-5">
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">+62</span>
+                                    <div class="row row-xs align-items-center mg-b-20">
+                                        <div class="col-md-12">
+                                            <label class="form-label mg-b-0">Alamat Debitur <span
+                                                    class="text-danger">*</span></label>
                                         </div>
-                                        <input
-                                            class="form-control form-control-sm @error('nomor_telepon') is-invalid @enderror"
-                                            name="nomor_telepon" placeholder="8xxxxxxxxxx"
-                                            onkeyup="this.value = +this.value.replace(/[^0-9]/g, '');" type="text"
-                                            value="{{ old('nomor_telepon') }}">
+                                        <div class="col-md-12 mg-t-5">
+                                            <textarea class="form-control form-control-sm @error('alamat_debitur') is-invalid @enderror" rows="5"
+                                                name="alamat_debitur" placeholder="Masukkan Alamat Debitur" type="text"> {!! old('alamat_debitur') !!}</textarea>
+                                        </div>
                                     </div>
-                                </div>
+                                    <div class="row row-xs align-items-center mg-b-20">
+                                        <div class="col-md-12">
+                                            <label class="form-label mg-b-0">Pekerjaan Debitur</label>
+                                        </div>
+                                        <div class="col-md-12 mg-t-5">
+                                            <input
+                                                class="form-control form-control-sm @error('pekerjaan_debitur') is-invalid @enderror"
+                                                name="pekerjaan_debitur" placeholder="Masukkan Pekerjaan Debitur"
+                                                type="text" value="{{ old('pekerjaan_debitur') }}">
+                                        </div>
+                                    </div>
+                                    <div class="row row-xs align-items-center mg-b-20">
+                                        <div class="col-md-12">
+                                            <label class="form-label mg-b-0">Nomor Telepon/WhatsApp</label>
+                                        </div>
+                                        <div class="col-md-12 mg-t-5">
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">+62</span>
+                                                </div>
+                                                <input
+                                                    class="form-control form-control-sm @error('nomor_telepon') is-invalid @enderror"
+                                                    name="nomor_telepon" placeholder="8xxxxxxxxxx"
+                                                    onkeyup="this.value = +this.value.replace(/[^0-9]/g, '');"
+                                                    type="text" value="{{ old('nomor_telepon') }}">
+                                            </div>
+                                        </div>
 
+                                    </div>
+                                    <div class="row row-xs align-items-center mg-b-20">
+                                        <div class="col-md-12">
+                                            <label class="form-label mg-b-0">Nomor KTP</label>
+                                        </div>
+                                        <div class="col-md-12 mg-t-5">
+                                            <input
+                                                class="form-control form-control-sm @error('nomor_ktp') is-invalid @enderror"
+                                                name="nomor_ktp" placeholder="xxxxxxxxxxxxxxxx"
+                                                onkeyup="this.value = +this.value.replace(/[^0-9]/g, '');" type="text"
+                                                value="{{ old('nomor_ktp') }}">
+                                        </div>
+                                    </div>
+                                    <div class="row row-xs align-items-center mg-b-20">
+                                        <div class="col-md-12">
+                                            <label class="form-label mg-b-0">Status</label>
+                                        </div>
+                                        <div class="col-md-12 mg-t-5">
+                                            <select name="status"
+                                                class="form-control form-control-sm @error('status') is-invalid @enderror"
+                                                id="">
+                                                <option value="aktif" selected>Aktif</option>
+                                                <option value="nonaktif">Non Aktif</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-sm btn-main-primary pd-x-30 mg-r-5 mg-t-5">Simpan</button>
+                                    <a href="{{ route('admin.master-data.debitur.index') }}"
+                                        class="btn btn-sm btn-dark pd-x-30 mg-t-5">Batalkan
+                                    </a>
+                                </div>
                             </div>
-                            <div class="row row-xs align-items-center mg-b-20">
-                                <div class="col-md-12">
-                                    <label class="form-label mg-b-0">Nomor KTP</label>
-                                </div>
-                                <div class="col-md-12 mg-t-5">
-                                    <input class="form-control form-control-sm @error('nomor_ktp') is-invalid @enderror"
-                                        name="nomor_ktp" placeholder="xxxxxxxxxxxxxxxx"
-                                        onkeyup="this.value = +this.value.replace(/[^0-9]/g, '');" type="text"
-                                        value="{{ old('nomor_ktp') }}">
-                                </div>
-                            </div>
-                            <div class="row row-xs align-items-center mg-b-20">
-                                <div class="col-md-12">
-                                    <label class="form-label mg-b-0">Status</label>
-                                </div>
-                                <div class="col-md-12 mg-t-5">
-                                    <select name="status"
-                                        class="form-control form-control-sm @error('status') is-invalid @enderror"
-                                        id="">
-                                        <option value="aktif" selected>Aktif</option>
-                                        <option value="nonaktif">Non Aktif</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <button class="btn btn-sm btn-main-primary pd-x-30 mg-r-5 mg-t-5">Simpan</button>
-                            <a href="{{ route('admin.master-data.debitur.index') }}"
-                                class="btn btn-sm btn-dark pd-x-30 mg-t-5">Batalkan
-                            </a>
                         </form>
                     </div><!-- bd -->
                 </div><!-- bd -->
