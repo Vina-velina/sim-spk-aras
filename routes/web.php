@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AccountController;
 use App\Http\Controllers\Admin\DebiturController;
 use App\Http\Controllers\Admin\HomeController;
+use App\Http\Controllers\Admin\KategoriController;
 use App\Http\Controllers\Admin\PeriodeController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
@@ -81,6 +82,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
             Route::get('/', [UserController::class, 'index'])->name('admin.master-data.user.index');
             Route::get('/create', [UserController::class, 'create'])->name('admin.master-data.user.create');
             Route::get('/edit/{id}', [UserController::class, 'edit'])->name('admin.master-data.user.edit');
+            Route::post('/update/{id}', [UserController::class, 'update'])->name('admin.master-data.user.update');
             Route::post('/store', [UserController::class, 'store'])->name('admin.master-data.user.store');
             Route::delete('/delete', [UserController::class, 'delete'])->name('admin.master-data.user.delete');
             Route::get('/datatable', [UserController::class, 'datatable'])->name('admin.master-data.user.datatable');
@@ -97,6 +99,28 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
             Route::post('/update/{periode:id}', [PeriodeController::class, 'update'])->name('admin.master-data.periode.update');
             Route::delete('/delete/{periode:id}', [PeriodeController::class, 'delete'])->name('admin.master-data.periode.delete');
             Route::get('/datatable', [PeriodeController::class, 'datatable'])->name('admin.master-data.periode.datatable');
+        });
+
+        // Data Kriteria
+        Route::prefix('kategori')->group(function () {
+            Route::get('/', [KategoriController::class, 'index'])->name('admin.master-data.kategori.index');
+            Route::get('/create', [KategoriController::class, 'create'])->name('admin.master-data.kategori.create');
+            Route::get('/update-status/{kriteria_penilaian:id}', [KategoriController::class, 'updateStatus'])->name('admin.master-data.kategori.update.status');
+            Route::get('/edit/{id}', [KategoriController::class, 'edit'])->name('admin.master-data.kategori.edit');
+            Route::post('/store', [KategoriController::class, 'store'])->name('admin.master-data.kategori.store');
+            Route::post('/update/{kriteria_penilaian:id}', [KategoriController::class, 'update'])->name('admin.master-data.kategori.update');
+            Route::delete('/delete/{kriteria_penilaian:id}', [KategoriController::class, 'delete'])->name('admin.master-data.kategori.delete');
+            Route::get('/datatable', [KategoriController::class, 'datatable'])->name('admin.master-data.kategori.datatable');
+
+            // sub Kriteria
+            Route::prefix('/sub-kriteria')->group(function () {
+                Route::get('/create/{kriteria_penilaian:id}', [KategoriController::class, 'subCreate'])->name('admin.master-data.sub-kategori.create');
+                Route::post('/store/{kriteria_penilaian:id}', [KategoriController::class, 'subStore'])->name('admin.master-data.sub-kategori.store');
+                Route::get('/edit/{sub_kriteria_penilaian:id}', [KategoriController::class, 'subEdit'])->name('admin.master-data.sub-kategori.edit');
+                Route::post('/update/{sub_kriteria_penilaian:id}', [KategoriController::class, 'subUpdate'])->name('admin.master-data.sub-kategori.update');
+                Route::delete('/delete/{sub_kriteria_penilaian:id}', [KategoriController::class, 'subDelete'])->name('admin.master-data.sub-kategori.delete');
+                Route::get('/sub_datatable/{kriteria_penilaian:id}', [KategoriController::class, 'sub_datatable'])->name('admin.master-data.kategori.sub-datatable');
+            });
         });
     });
 

@@ -13,13 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('kriteria_penilaians', function (Blueprint $table) {
+        Schema::create('sub_kriteria_penilaians', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->text('nama_kriteria')->nullable();
-            $table->string('keterangan');
-            $table->tinyInteger('bobot_kriteria');
-            $table->enum('status', ['aktif', 'nonaktif']);
-            // $table->enum('is_statis', [1, 0]);
+            $table->foreignUuid('id_kriteria')->constrained('kriteria_penilaians')->cascadeOnDelete();
+            $table->string('nama_sub_kriteria');
+            $table->tinyInteger('nilai_sub_kriteria');
             $table->timestamps();
         });
     }
@@ -31,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('kriteria_penilaians');
+        Schema::dropIfExists('sub_kriteria_penilaians');
     }
 };

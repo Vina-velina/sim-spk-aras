@@ -52,7 +52,8 @@
                         Periode</span></a>
             </li>
             <li>
-                <a class="sub-side-menu__item" href="#"><span class="sub-side-menu__label">Data
+                <a class="sub-side-menu__item" href="{{ route('admin.master-data.kategori.index') }}"><span
+                        class="sub-side-menu__label {{ Route::is('admin.master-data.kategori.*') ? 'text-white text-bold' : '' }}">Data
                         Kriteria</span></a>
             </li>
         </ul>

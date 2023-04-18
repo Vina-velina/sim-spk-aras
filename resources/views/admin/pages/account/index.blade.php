@@ -40,7 +40,7 @@
                                         @else
                                             <img style="object-fit: cover;height: 200px;width: 200px;"
                                                 class="rounded-circle preview-image"
-                                                src="{{ asset('images/foto-user/' . Auth::user()->foto_profil) }}"
+                                                src="{{ asset('storage/foto-user/' . Auth::user()->foto_profil) }}"
                                                 alt="Profil">
                                         @endif
                                     </div>

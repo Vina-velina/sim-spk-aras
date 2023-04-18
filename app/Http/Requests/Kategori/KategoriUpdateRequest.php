@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\User;
+namespace App\Http\Requests\Kategori;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserStoreRequest extends FormRequest
+class KategoriUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,11 +24,10 @@ class UserStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'foto_profil' => 'nullable|mimes:jpeg,png,jpg|max:2048|image',
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email',
-            'role_user' => 'required|in:super_admin,admin|string',
-            'password' => 'required|string|min:8|confirmed',
+            'nama_kriteria' => 'required|string|max:255',
+            'keterangan' => 'nullable|string|max:255',
+            'bobot_kriteria' => 'required|integer',
+            'status' => 'required|in:aktif,nonaktif|string',
         ];
     }
 }
