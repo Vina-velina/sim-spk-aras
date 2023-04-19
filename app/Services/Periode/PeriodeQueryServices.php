@@ -13,4 +13,9 @@ class PeriodeQueryServices
 
         return $periode;
     }
+
+    public function getAll()
+    {
+        return Periode::all();
+    }
 }
