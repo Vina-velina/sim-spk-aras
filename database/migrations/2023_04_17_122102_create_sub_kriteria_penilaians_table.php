@@ -17,7 +17,7 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->foreignUuid('id_kriteria')->constrained('kriteria_penilaians')->cascadeOnDelete();
             $table->string('nama_sub_kriteria');
-            $table->tinyInteger('nilai_sub_kriteria');
+            $table->float('nilai_sub_kriteria');
             $table->timestamps();
         });
     }

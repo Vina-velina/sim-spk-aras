@@ -65,9 +65,9 @@ class DebiturExport implements FromQuery, WithTitle, WithHeadings, WithStyles, S
             AfterSheet::class => function (AfterSheet $event) {
                 $highestRow = $event->sheet->getHighestRow();
                 $highestColumn = $event->sheet->getHighestColumn();
-                $lastCell = $highestColumn.$highestRow;
-                $rangeCell = 'A1:'.$lastCell;
-                $event->sheet->getDelegate()->getStyle($rangeCell)->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                $lastCell = $highestColumn . $highestRow;
+                $rangeCell = 'A1:' . $lastCell;
+                $event->sheet->getDelegate()->getStyle($rangeCell)->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM);
             },
         ];
     }

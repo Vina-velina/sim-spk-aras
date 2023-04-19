@@ -30,11 +30,13 @@
                         searchable: false,
                     },
                     {
-                        data: "profil",
+                        data: 'profil',
                         name: 'profil',
-                        render: function(d) {
-                            return d != null ? d : 'Tidak Ada'
-                        }
+                        orderable: false,
+                        searchable: false,
+                        // render: function(d) {
+                        //     return d != null ? d : 'Tidak Ada'
+                        // }
                     },
                     {
                         data: "name",

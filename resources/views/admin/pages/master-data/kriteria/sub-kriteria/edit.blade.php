@@ -37,6 +37,7 @@
                                     <input
                                         class="form-control form-control-sm @error('nama_sub_kriteria') is-invalid @enderror"
                                         name="nama_sub_kriteria" placeholder="Masukkan Nama Sub Kriteria" type="text"
+                                        step="any"
                                         value="{{ old('nama_sub_kriteria') ? old('nama_sub_kriteria') : $subKriteriaPenilaian->nama_sub_kriteria }}">
                                 </div>
                             </div>

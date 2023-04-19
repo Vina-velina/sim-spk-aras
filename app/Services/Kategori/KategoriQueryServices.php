@@ -13,7 +13,12 @@ class KategoriQueryServices
 
     public function getSubOne(KriteriaPenilaian $id)
     {
-        dd($id);
+        // dd($id);
         return KriteriaPenilaian::find($id)->subKriteriaPenilaian;
+    }
+
+    public function getAll()
+    {
+        return KriteriaPenilaian::all();
     }
 }

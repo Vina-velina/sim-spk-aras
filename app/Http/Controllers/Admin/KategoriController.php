@@ -36,20 +36,49 @@ class KategoriController extends Controller
 
     public function index()
     {
-        return view('admin.pages.master-data.kriteria.index');
+        $kriteria = $this->kategoriQueryServices->getAll();
+
+        // find total bobot
+        $total_bobot = 0;
+        foreach ($kriteria as $key => $value) {
+            $total_bobot += $value->bobot_kriteria;
+        }
+
+        return view('admin.pages.master-data.kriteria.index', compact('total_bobot'));
     }
 
     public function create()
     {
-        return view('admin.pages.master-data.kriteria.create');
+        $kriteria = $this->kategoriQueryServices->getAll();
+
+        // find total bobot
+        $total_bobot = 0;
+        foreach ($kriteria as $key => $value) {
+            $total_bobot += $value->bobot_kriteria;
+        }
+
+        return view('admin.pages.master-data.kriteria.create', compact('total_bobot'));
     }
 
     public function store(KategoriStoreRequest $request)
     {
         try {
+            $allKriteria = $this->kategoriQueryServices->getAll();
+
+            // find total bobot
+            $total_bobot = 0;
+            foreach ($allKriteria as $key => $value) {
+                $total_bobot += $value->bobot_kriteria;
+            }
+
+            if ($total_bobot + $request->bobot_kriteria > 100) {
+                return to_route('admin.master-data.kategori.index')->with('error', 'Total Bobot Kriteria Melebihi 100%');
+            }
+
             DB::beginTransaction();
             $kriteria = $this->kategoriCommandServices->store($request);
             DB::commit();
+            // dd($kriteria->id);
             return to_route('admin.master-data.kategori.edit', $kriteria->id)->with('success', 'Data Berhasil Di Simpan');
         } catch (Throwable $th) {
             DB::rollBack();
@@ -57,16 +86,38 @@ class KategoriController extends Controller
         }
     }
 
-    public function edit($id)
+    public function edit(KriteriaPenilaian $kriteriaPenilaian)
     {
-        $kriteria = $this->kategoriQueryServices->getOne($id)->with('subKriteriaPenilaian')->first();
+        $allKriteria = $this->kategoriQueryServices->getAll();
+
+        // find total bobot
+        $total_bobot = 0;
+        foreach ($allKriteria as $key => $value) {
+            $total_bobot += $value->bobot_kriteria;
+        }
+
+        $kriteria = $kriteriaPenilaian;
+
+        $bobot_kriteria = $kriteria->bobot_kriteria;
         // dd($kriteria->subKriteriaPenilaian);
-        return view('admin.pages.master-data.kriteria.edit', compact('kriteria'));
+        return view('admin.pages.master-data.kriteria.edit', compact('kriteria', 'total_bobot', 'bobot_kriteria'));
     }
 
     public function update(KategoriUpdateRequest $request, KriteriaPenilaian $kriteriaPenilaian)
     {
         try {
+            $allKriteria = $this->kategoriQueryServices->getAll();
+
+            // find total bobot
+            $total_bobot = 0;
+            foreach ($allKriteria as $key => $value) {
+                $total_bobot += $value->bobot_kriteria;
+            }
+
+            if ($total_bobot + $request->bobot_kriteria - $kriteriaPenilaian->bobot_kriteria > 100) {
+                return to_route('admin.master-data.kategori.index')->with('error', 'Total Bobot Kriteria Melebihi 100%');
+            }
+
             DB::beginTransaction();
             $this->kategoriCommandServices->update($request, $kriteriaPenilaian);
             DB::commit();

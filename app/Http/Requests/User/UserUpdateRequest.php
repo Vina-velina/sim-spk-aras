@@ -28,7 +28,7 @@ class UserUpdateRequest extends FormRequest
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255',
             'role_user' => 'required|in:super_admin,admin|string',
-            'password' => 'required|string|min:8|confirmed',
+            'password' => 'nullable|string|min:8|confirmed',
         ];
     }
 }

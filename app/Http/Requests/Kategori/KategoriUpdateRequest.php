@@ -26,7 +26,7 @@ class KategoriUpdateRequest extends FormRequest
         return [
             'nama_kriteria' => 'required|string|max:255',
             'keterangan' => 'nullable|string|max:255',
-            'bobot_kriteria' => 'required|integer',
+            'bobot_kriteria' => 'required|integer|between:1,100',
             'status' => 'required|in:aktif,nonaktif|string',
         ];
     }

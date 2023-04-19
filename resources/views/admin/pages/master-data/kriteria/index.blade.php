@@ -44,7 +44,7 @@
                         data: "bobot_kriteria",
                         name: 'bobot_kriteria',
                         render: function(d) {
-                            return d != null ? d : 'Tidak Ada'
+                            return d != null ? d + '%' : 'Tidak Ada'
                         }
                     },
                     {
@@ -100,13 +100,21 @@
                             <h4 class="card-title mg-b-0">Data Kriteria</h4>
                         </div>
                         <div class="d-flex justify-content-end">
-                            <div class="btn-icon-list">
-                                <a href="{{ route('admin.master-data.kategori.create') }}">
-                                    <button type="button" class="btn btn-sm btn-primary btn-icon"><i
+                            @if ($total_bobot < 100)
+                                <div class="btn-icon-list">
+                                    <a href="{{ route('admin.master-data.kategori.create') }}">
+                                        <button type="button" class="btn btn-sm btn-primary btn-icon"><i
+                                                class="typcn typcn-plus"></i>
+                                            Tambah</button>
+                                    </a>
+                                </div>
+                            @else
+                                <div class="btn-icon-list">
+                                    <button type="button" class="btn btn-sm btn-primary btn-icon" disabled><i
                                             class="typcn typcn-plus"></i>
                                         Tambah</button>
-                                </a>
-                            </div>
+                                </div>
+                            @endif
                         </div>
                     </div>
                     <div class="card-body">
