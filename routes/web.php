@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AccountController;
 use App\Http\Controllers\Admin\DebiturController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\KategoriController;
+use App\Http\Controllers\Admin\PenilaianController;
 use App\Http\Controllers\Admin\PeriodeController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
@@ -122,6 +123,21 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
                 Route::get('/sub_datatable/{kriteria_penilaian:id}', [KategoriController::class, 'sub_datatable'])->name('admin.master-data.kategori.sub-datatable');
             });
         });
+    });
+
+
+    // Data Penilaian
+    Route::prefix('data-penilaian')->group(function () {
+        Route::get('/', [PenilaianController::class, 'index'])->name('admin.penilaian.index');
+        Route::get('/{id}', [PenilaianController::class, 'detail'])->name('admin.penilaian.detail-penilaian');
+
+        // Route::get('/detail/{id}', [PeriodeController::class, 'detail'])->name('admin.penilaian.detail');
+        // Route::get('/create', [PeriodeController::class, 'create'])->name('admin.penilaian.create');
+        // Route::get('/edit/{id}', [PeriodeController::class, 'edit'])->name('admin.penilaian.edit');
+        // Route::get('update-status/{id}', [PeriodeController::class, 'updateStatus'])->name('admin.penilaian.update.status');
+        // Route::post('/store', [PeriodeController::class, 'store'])->name('admin.penilaian.store');
+        // Route::post('/update/{periode:id}', [PeriodeController::class, 'update'])->name('admin.penilaian.update');
+        // Route::delete('/delete/{periode:id}', [PeriodeController::class, 'delete'])->name('admin.penilaian.delete');
     });
 
     // Account
