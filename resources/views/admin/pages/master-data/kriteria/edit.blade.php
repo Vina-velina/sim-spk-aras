@@ -18,6 +18,9 @@
                 serverSide: true,
                 ajax: {
                     url: "{{ route('admin.master-data.kategori.sub-datatable', $kriteria->id) }}",
+                    data: function(d) {
+                        d.id_kriteria = "{{ $kriteria->id }}",
+                    }
                 },
                 columns: [{
                         data: "DT_RowIndex",

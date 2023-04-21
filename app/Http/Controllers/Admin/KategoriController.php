@@ -12,6 +12,7 @@ use App\Models\SubKriteriaPenilaian;
 use App\Services\Kategori\KategoriCommandServices;
 use App\Services\Kategori\KategoriDatatableServices;
 use App\Services\Kategori\KategoriQueryServices;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Throwable;
 
@@ -162,9 +163,9 @@ class KategoriController extends Controller
         }
     }
 
-    public function datatable()
+    public function datatable(Request $request)
     {
-        return $this->kategoriDatatableServices->datatable();
+        return $this->kategoriDatatableServices->datatable($request);
     }
 
     public function subCreate(KriteriaPenilaian $kriteriaPenilaian)
@@ -220,8 +221,8 @@ class KategoriController extends Controller
         }
     }
 
-    public function sub_datatable(KriteriaPenilaian $kriteriaPenilaian)
+    public function sub_datatable(Request $request)
     {
-        return $this->kategoriDatatableServices->sub_datatable($kriteriaPenilaian);
+        return $this->kategoriDatatableServices->sub_datatable($request);
     }
 }

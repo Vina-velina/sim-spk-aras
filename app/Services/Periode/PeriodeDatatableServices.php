@@ -17,7 +17,7 @@ class PeriodeDatatableServices
             $query->where('status', $request->status);
         }
 
-        return DataTables::of($query)
+        return DataTables::of($query->get())
             ->addColumn('action', function ($item) {
                 $element = '';
                 $element .= '<form id="delete-' . $item->id . '" action="' . route('admin.master-data.periode.delete', $item->id) . '" method="POST"> ';

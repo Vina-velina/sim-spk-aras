@@ -10,14 +10,10 @@ use Yajra\DataTables\DataTables;
 
 class KategoriDatatableServices
 {
-    public function datatable()
+    public function datatable(Request $request)
     {
         $query = KriteriaPenilaian::query();
-        // if (isset($request->is_aktif)) {
-        //     if ($request->is_aktif != 'semua') {
-        //         $query->where('status', $request->is_aktif);
-        //     }
-        // }
+
 
         return DataTables::of($query)
             ->addIndexColumn()
@@ -55,11 +51,15 @@ class KategoriDatatableServices
             ->make(true);
     }
 
-    public function sub_datatable(KriteriaPenilaian $kriteriaPenilaian)
+    public function sub_datatable(Request $request)
     {
-        $subKriteria = SubKriteriaPenilaian::where('id_kriteria', $kriteriaPenilaian->id)->get();
+        $query = SubKriteriaPenilaian::query();
 
-        return DataTables::of($subKriteria)
+        if (isset($request->id_kriteria)) {
+            $query->where('id_kriteria', $request->id_kriteria);
+        }
+
+        return DataTables::of($query->get())
             ->addIndexColumn()
             ->addColumn('action', function ($subKriteria) {
                 $element = '';
