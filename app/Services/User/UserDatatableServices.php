@@ -16,12 +16,12 @@ class UserDatatableServices
             ->addIndexColumn()
             ->addColumn('action', function ($item) {
                 $element = '';
-                $element .= '<form id="delete-'.$item->id.'" action="'.route('admin.master-data.user.delete', $item->id).'" method="POST"> ';
+                $element .= '<form id="delete-' . $item->id . '" action="' . route('admin.master-data.user.delete', $item->id) . '" method="POST"> ';
                 $element .= csrf_field();
                 $element .= method_field('DELETE');
                 $element .= '<div class="btn-icon-list">';
-                $element .= '<a href="'.route('admin.master-data.user.edit', $item->id).'" class="btn btn-sm btn-warning btn-icon mr-2" id=""><i class="typcn text-white typcn-edit"></i></a>';
-                $element .= '<button type="button" onclick ="alertConfirm(this)" data-id ="'.$item->id.'" class="btn btn-sm btn-danger btn-icon">
+                $element .= '<a href="' . route('admin.master-data.user.edit', $item->id) . '" class="btn btn-sm btn-warning btn-icon mr-2" id=""><i class="typcn text-white typcn-edit"></i></a>';
+                $element .= '<button type="button" onclick ="alertConfirm(this)" data-id ="' . $item->id . '" class="btn btn-sm btn-danger btn-icon">
                                 <i class="typcn typcn-trash text-white"></i>
                             </button>';
                 $element .= '</div>';
@@ -42,19 +42,17 @@ class UserDatatableServices
                 return $element;
             })
             ->addColumn('profil', function ($item) {
+
                 $element = '';
                 if (isset($item->foto_profil)) {
-                    $element .= '<img src="'.asset('storage/'.$item->foto_profil).'" alt="Foto Debitur"
-                    style="object-fit: cover;height: 200px;width: 200px;" class="rounded-circle"
-                    id="fotoDebitur">';
+                    $element .= '<img style="width:40px; height:40px; object-fit: cover; object-position: center;" src="' . asset('storage/foto-user/' . $item->foto_profil) . '" alt="Foto User" style="object-fit: cover;height: 200px;width: 200px;" class="rounded-circle" id="fotoUser">';
                 } else {
-                    $element .= '<img src="https://ui-avatars.com/api/?name='.$item->name.
-                        '&background=5174ff&color=fff" alt="Foto Debitur"
-                    style="object-fit: cover;height: 200px;width: 200px;" class="rounded-circle"
-                    id="fotoDebitur">';
+                    $element .= '<img style="width:40px; height:40px; object-fit: cover; object-position: center;" src="https://ui-avatars.com/api/?name=' . $item->name . '&background=5174ff&color=fff" alt="Foto User" style="object-fit: cover;height: 200px;width: 200px;" class="rounded-circle" id="fotoUser">';
                 }
+
+                return $element;
             })
-            ->rawColumns(['action', 'role'])
+            ->rawColumns(['action', 'role', 'profil'])
             ->make(true);
     }
 }

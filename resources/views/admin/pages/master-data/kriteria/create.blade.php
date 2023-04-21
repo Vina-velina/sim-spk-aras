@@ -1,5 +1,9 @@
 @extends('admin.layouts.app')
 
+@php
+    $jatah = 100 - $total_bobot;
+@endphp
+
 @section('tittle', 'Data Kriteria')
 @section('content')
     <!-- container -->
@@ -51,8 +55,8 @@
                                 <div class="col-md-12 mg-t-5">
                                     <input
                                         class="form-control form-control-sm @error('bobot_kriteria') is-invalid @enderror"
-                                        name="bobot_kriteria" placeholder="Masukkan Bobot Kriteria" type="number"
-                                        value="{{ old('bobot_kriteria') }}">
+                                        name="bobot_kriteria" placeholder="Masukkan Bobot Kriteria" min="1"
+                                        max="{{ $jatah }}" type="number" value="{{ old('bobot_kriteria') }}">
                                 </div>
                             </div>
                             <div class="row row-xs align-items-center mg-b-20">

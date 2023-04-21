@@ -68,7 +68,21 @@ class UserController extends Controller
             DB::commit();
             return redirect()->route('admin.master-data.user.index')->with('success', 'Berhasil mengubah data user');
         } catch (\Throwable $th) {
+            // dd($th);
             return redirect()->route('admin.master-data.user.index')->with('error', 'Gagal mengubah data user');
+        }
+    }
+
+    public function destroy(string $id)
+    {
+        try {
+            DB::beginTransaction();
+            $this->userCommandServices->destroy($id);
+            DB::commit();
+            return redirect()->route('admin.master-data.user.index')->with('success', 'Berhasil menghapus data user');
+        } catch (\Throwable $th) {
+            // dd($th);
+            return redirect()->route('admin.master-data.user.index')->with('error', 'Gagal menghapus data user');
         }
     }
 

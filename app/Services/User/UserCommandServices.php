@@ -59,7 +59,14 @@ class UserCommandServices
     public function update(UserUpdateRequest $request, $id)
     {
         $user = User::find($id);
-        $request->validated();
+        // check if user make a new password
+        if (isset($request->password)) {
+            $request->validated([
+                'password' => 'required|string|min:8|confirmed',
+            ]);
+        } else {
+            $request->validated();
+        }
 
         // check if user upload new profile picture
         if ($request->hasFile('foto_profil')) {
@@ -83,6 +90,18 @@ class UserCommandServices
             'password' => bcrypt($request->password),
             'role_user' => $request->role_user,
         ]);
+
+        return $user;
+    }
+
+    public function destroy($id)
+    {
+        $user = User::find($id);
+        // delete file
+        $path = storage_path('app/public/foto-user/' . $user->foto_profil);
+        FileHelpers::deleteFile($path);
+        // delete user
+        $user->delete();
 
         return $user;
     }

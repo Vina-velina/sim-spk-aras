@@ -49,7 +49,7 @@
                                     <input
                                         class="form-control form-control-sm @error('nilai_sub_kriteria') is-invalid @enderror"
                                         name="nilai_sub_kriteria" placeholder="Masukkan Bobot Sub Kriteria" type="number"
-                                        value="{{ old('nilai_sub_kriteria') }}">
+                                        step="any" value="{{ old('nilai_sub_kriteria') }}">
                                 </div>
                             </div>
                             <button class="btn btn-sm btn-main-primary pd-x-30 mg-r-5 mg-t-5">Simpan</button>

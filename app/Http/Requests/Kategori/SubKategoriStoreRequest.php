@@ -25,7 +25,7 @@ class SubKategoriStoreRequest extends FormRequest
     {
         return [
             'nama_sub_kriteria' => 'required|string|max:255',
-            'nilai_sub_kriteria' => 'required|integer',
+            'nilai_sub_kriteria' => 'required|numeric',
         ];
     }
 }

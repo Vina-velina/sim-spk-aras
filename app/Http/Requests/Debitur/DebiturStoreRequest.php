@@ -30,7 +30,7 @@ class DebiturStoreRequest extends FormRequest
             'pekerjaan_debitur' => 'nullable|string|max:255',
             'nomor_telepon' => ['nullable', 'unique:debiturs,no_telp', 'numeric', 'digits_between:10,13', Rule::phone()->detect()->country('ID')],
             'nomor_ktp' => 'nullable|numeric|unique:debiturs,no_ktp|digits_between:10,16',
-            'status' => 'nullable|in:aktif,nonaktif',
+            'status' => 'required|in:aktif,nonaktif',
             'foto_debitur' => 'nullable|mimes:jpeg,png,jpg|max:2048|image',
         ];
     }

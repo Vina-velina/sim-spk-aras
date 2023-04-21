@@ -17,6 +17,6 @@ class PeriodeQueryServices
 
     public function getAll()
     {
-        return Periode::where('status', 'aktif')->get();
+        return Periode::all();
     }
 }

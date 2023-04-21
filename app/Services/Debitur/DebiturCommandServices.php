@@ -70,9 +70,11 @@ class DebiturCommandServices
     {
         $find = Debitur::find($id);
         if (isset($find->foto)) {
-            $path = storage_path('app/public/foto-debitur');
-            $pathOld = $path . '/' . $find->foto;
-            FileHelpers::removeFile($pathOld);
+            // $path = storage_path('app/public/foto-debitur');
+            // $pathOld = $path . '/' . $find->foto;
+            $path = storage_path('app/public/foto-debitur/' . $find->foto);
+            FileHelpers::deleteFile($path);
+            // FileHelpers::removeFile($pathOld);
         }
 
         return $find->delete();

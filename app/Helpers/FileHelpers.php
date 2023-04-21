@@ -20,7 +20,7 @@ class FileHelpers
         if (file_exists($path)) {
             if (is_file($path)) {
                 if (is_readable($path)) {
-                    FacadesFile::delete($path);
+                    File::delete($path);
 
                     return true;
                 }
@@ -79,7 +79,7 @@ class FileHelpers
         if (file_exists($path)) {
             if (is_file($path)) {
                 if (is_readable($path)) {
-                    FacadesFile::delete($path);
+                    File::delete($path);
 
                     return true;
                 }
