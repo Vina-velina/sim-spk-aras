@@ -150,6 +150,7 @@
                     </div><!-- bd -->
                 </div><!-- bd -->
             </div>
+
             <!--div-->
             <div class="col-xl-12">
                 <div class="card">

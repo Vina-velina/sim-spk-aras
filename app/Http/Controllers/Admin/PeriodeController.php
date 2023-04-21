@@ -10,6 +10,7 @@ use App\Models\Periode;
 use App\Services\Periode\PeriodeCommandServices;
 use App\Services\Periode\PeriodeDatatableServices;
 use App\Services\Periode\PeriodeQueryServices;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Throwable;
 
@@ -118,8 +119,8 @@ class PeriodeController extends Controller
     }
 
     // Datatable
-    public function datatable()
+    public function datatable(Request $request)
     {
-        return $this->periodeDatatableServices->datatable();
+        return $this->periodeDatatableServices->datatable($request);
     }
 }

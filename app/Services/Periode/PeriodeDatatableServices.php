@@ -4,13 +4,18 @@ namespace App\Services\Periode;
 
 use App\Helpers\FormatDateToIndonesia;
 use App\Models\Periode;
+use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
 class PeriodeDatatableServices
 {
-    public function datatable()
+    public function datatable(Request $request)
     {
         $query = Periode::query();
+
+        if (isset($request->status)) {
+            $query->where('status', $request->status);
+        }
 
         return DataTables::of($query)
             ->addColumn('action', function ($item) {
@@ -29,6 +34,14 @@ class PeriodeDatatableServices
 
                 return $element;
             })
+            ->addColumn('action_penilaian', function ($item) {
+                $element = '';
+                $element .= '<div class="btn-icon-list">';
+                $element .= '<a href="' . route('admin.penilaian.detail-penilaian', $item->id) . '" class="btn btn-sm btn-info btn-icon mr-2" id=""><i class="typcn text-white typcn-eye"></i></a>';
+                $element .= '</div>';
+
+                return $element;
+            })
             ->addColumn('status', function ($item) {
                 if ($item->status == 'aktif') {
                     $query = 'on';
@@ -44,14 +57,18 @@ class PeriodeDatatableServices
 
                 return $toggle;
             })
-            ->editColumn('tgl_awal_penilaian', function ($item) {
+            ->addColumn('tgl_penilaian', function ($item) {
+                $element = FormatDateToIndonesia::getIndonesiaDate($item->tgl_awal_penilaian) . ' s/d ' . FormatDateToIndonesia::getIndonesiaDate($item->tgl_akhir_penilaian);
+                return $element;
+            })
+            ->addColumn('tgl_awal_penilaian', function ($item) {
                 return FormatDateToIndonesia::getIndonesiaDate($item->tgl_awal_penilaian);
             })
-            ->editColumn('tgl_akhir_penilaian', function ($item) {
+            ->addColumn('tgl_akhir_penilaian', function ($item) {
                 return FormatDateToIndonesia::getIndonesiaDate($item->tgl_akhir_penilaian);
             })
             ->addIndexColumn()
-            ->rawColumns(['action', 'status'])
+            ->rawColumns(['action', 'status', 'action_penilaian'])
             ->make(true);
     }
 }
