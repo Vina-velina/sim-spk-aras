@@ -24,8 +24,9 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('admin.master-data.kategori.store') }}" method="POST">
+                        <form action="{{ route('admin.master-data.kategori.store', $id) }}" method="POST">
                             @csrf
+                            <input type="hidden" name="id_periode" value="{{ $id }}">
                             <p class="text-danger">* wajib di isi</p>
                             <div class="row row-xs align-items-center mg-b-20">
                                 <div class="col-md-12">
@@ -33,9 +34,14 @@
                                             class="text-danger">*</span></label>
                                 </div>
                                 <div class="col-md-12 mg-t-5">
-                                    <input class="form-control form-control-sm @error('nama_kriteria') is-invalid @enderror"
-                                        name="nama_kriteria" placeholder="Masukkan Nama Kriteria" type="text"
-                                        value="{{ old('nama_kriteria') }}">
+                                    <select name="id_master_kriteria"
+                                        class="form-control form-control-sm @error('id_master_kriteria') is-invalid @enderror"
+                                        id="">
+                                        <option selected>-- Pilih Kriteria --</option>
+                                        @foreach ($master_kriteria as $item)
+                                            <option value="{{ $item->id }}">{{ $item->nama_kriteria }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <div class="row row-xs align-items-center mg-b-20">
@@ -73,7 +79,7 @@
                                 </div>
                             </div>
                             <button class="btn btn-sm btn-main-primary pd-x-30 mg-r-5 mg-t-5">Simpan</button>
-                            <a href="{{ route('admin.master-data.kategori.index') }}"
+                            <a href="{{ route('admin.master-data.kategori.kriteria', $id) }}"
                                 class="btn btn-sm btn-dark pd-x-30 mg-t-5">Batalkan
                             </a>
                         </form>

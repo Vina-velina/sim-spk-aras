@@ -1,6 +1,7 @@
 @extends('admin.layouts.app')
 
-@section('tittle', 'Kriteria')
+@section('tittle', 'Master Kriteria')
+
 @section('otherJsPlugin')
     <!--Internal  Datatable js -->
     {{-- <script src="{{ asset('assets/js/table-data.js') }}"></script> --}}
@@ -12,10 +13,7 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ route('admin.master-data.kategori.datatable.periode') }}",
-                    data: function(d) {
-                        d.status = "aktif";
-                    }
+                    url: "{{ route('admin.master-data.master-kategori.datatable') }}",
                 },
                 columns: [{
                         data: "DT_RowIndex",
@@ -30,26 +28,28 @@
                         searchable: false,
                     },
                     {
-                        data: "nama_periode",
-                        name: 'nama_periode',
+                        data: "nama_kriteria",
+                        name: 'nama_kriteria',
                         render: function(d) {
                             return d != null ? d : 'Tidak Ada'
                         }
                     },
                     {
-                        data: "tgl_awal_penilaian",
-                        name: 'tgl_awal_penilaian',
+                        data: "created_at",
+                        name: 'created_at',
                         render: function(d) {
                             return d != null ? d : 'Tidak Ada'
                         }
                     },
                     {
-                        data: "tgl_akhir_penilaian",
-                        name: 'tgl_akhir_penilaian',
+                        data: "updated_at",
+                        name: 'updated_at',
                         render: function(d) {
                             return d != null ? d : 'Tidak Ada'
                         }
                     },
+
+
                 ],
                 columnDefs: [
                     //Custom template data
@@ -58,14 +58,37 @@
             });
 
         });
+
+        const detailMasterKriteria = (button) => {
+            const url_detail = $(button).data('url_detail');
+            $.ajax({
+                url: url_detail,
+                type: "GET",
+                success: function(response) {
+                    console.log(response);
+                    if (response.success) {
+                        const data = response.data;
+                        const created_at = response.created_at;
+                        const updated_at = response.updated_at;
+                        const form = $('#detailMasterKriteria');
+                        form.find('input[name=nama_kriteria]').val(data.nama_kriteria);
+                        form.find('textarea[name=keterangan]').val(data.keterangan);
+                        form.find('input[name=created_at]').val(created_at);
+                        form.find('input[name=updated_at]').val(updated_at);
+                        $('#modalDetailMasterKriteria').modal('show');
+                    }
+                }
+            });
+        }
     </script>
 @endsection
+
 @section('content')
     <!-- container -->
     <div class="container-fluid mg-t-20">
 
         <!-- breadcrumb -->
-        @include('admin.layouts.menu._breadcrumb', ['page' => 'Data Kriteria', 'active' => 'Index'])
+        @include('admin.layouts.menu._breadcrumb', ['page' => 'Data Master Kriteria', 'active' => 'Index'])
         <!-- breadcrumb -->
 
         <!-- row opened -->
@@ -75,7 +98,16 @@
                 <div class="card">
                     <div class="card-header pb-0 pd-t-25">
                         <div class="d-flex justify-content-between">
-                            <h4 class="card-title mg-b-0">Pilih Kategori</h4>
+                            <h4 class="card-title mg-b-0">Data Master Kriteria</h4>
+                        </div>
+                        <div class="d-flex justify-content-end">
+                            <div class="btn-icon-list">
+                                <a href="{{ route('admin.master-data.master-kategori.create') }}">
+                                    <button type="button" class="btn btn-sm btn-primary btn-icon"><i
+                                            class="typcn typcn-plus"></i>
+                                        Tambah</button>
+                                </a>
+                            </div>
                         </div>
                     </div>
                     <div class="card-body">
@@ -85,9 +117,9 @@
                                     <tr>
                                         <th class="wd-5p border-bottom-0">No</th>
                                         <th class="wd-15p border-bottom-0">#</th>
-                                        <th class="wd-10p border-bottom-0">Nama Periode</th>
-                                        <th class="wd-10p border-bottom-0">Tgl Awal Penilaian</th>
-                                        <th class="wd-10p border-bottom-0">Tgl Akhir Penilaian</th>
+                                        <th class="wd-10p border-bottom-0">Nama Kriteria</th>
+                                        <th class="wd-10p border-bottom-0">Dibuat Pada</th>
+                                        <th class="wd-10p border-bottom-0">Diubah Pada</th>
                                     </tr>
                                 </thead>
 
@@ -97,8 +129,10 @@
                             </table>
                         </div>
                     </div><!-- bd -->
-                </div>
-                <!--/div-->
+                </div><!-- bd -->
             </div>
+            <!--/div-->
         </div>
-    @endsection
+    </div>
+    @include('admin.pages.master-data.master-kriteria._modal_detail')
+@endsection

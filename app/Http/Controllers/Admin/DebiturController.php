@@ -126,8 +126,7 @@ class DebiturController extends Controller
                 'data' => $detail,
             ]);
         } catch (Throwable $th) {
-            dd($th);
-
+            // dd($th);
             return response()->json([
                 'success' => false,
                 'message' => 'Gagal mendapatkan data debitur',

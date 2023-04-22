@@ -11,6 +11,11 @@ class KategoriQueryServices
         return KriteriaPenilaian::find($id);
     }
 
+    public function getByIdPeriode(string $id)
+    {
+        return KriteriaPenilaian::where('id_periode', $id)->get();
+    }
+
     public function getSubOne(KriteriaPenilaian $id)
     {
         // dd($id);

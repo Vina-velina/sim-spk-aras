@@ -17,7 +17,8 @@ class KategoriCommandServices
         $request->validated();
 
         $kriteria = KriteriaPenilaian::create([
-            'nama_kriteria' => $request->nama_kriteria,
+            'id_periode' => $request->id_periode,
+            'id_master_kriteria' => $request->id_master_kriteria,
             'bobot_kriteria' => $request->bobot_kriteria,
             'keterangan' => $request->keterangan,
         ]);
@@ -29,7 +30,8 @@ class KategoriCommandServices
     {
         $request->validated();
 
-        $kriteria->nama_kriteria = $request->nama_kriteria;
+        $kriteria->id_periode = $request->id_periode;
+        $kriteria->id_master_kriteria = $request->id_master_kriteria;
         $kriteria->bobot_kriteria = $request->bobot_kriteria;
         $kriteria->keterangan = $request->keterangan;
         $kriteria->save();
