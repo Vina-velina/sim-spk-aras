@@ -132,7 +132,6 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
                 Route::get('/datatable/kriteria-penilaian', [KriteriaController::class, 'datatable'])->name('admin.master-data.kriteria.datatable');
             });
 
-
             // sub Kriteria
             Route::prefix('/sub-kriteria')->group(function () {
                 Route::get('/create/{id_periode}/{id_kriteria}', [KriteriaController::class, 'subCreate'])->name('admin.master-data.sub-kriteria.create');
@@ -144,7 +143,6 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
             });
         });
     });
-
 
     // Data Penilaian
     Route::prefix('data-penilaian')->group(function () {

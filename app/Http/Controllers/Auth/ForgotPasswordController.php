@@ -32,7 +32,6 @@ class ForgotPasswordController extends Controller
 
     protected $userQueryServices;
 
-
     public function __construct(
         ApiNotificationMessageServices $apiNotificationMessageServices,
         UserQueryServices $userQueryServices,

@@ -9,10 +9,8 @@ use App\Services\Debitur\DebiturDatatableServices;
 use App\Services\Debitur\DebiturQueryServices;
 use App\Services\Kriteria\KriteriaQueryServices;
 use App\Services\Penilaian\PenilaianCommandService;
-use App\Services\Penilaian\PenilaianDatatableService;
 use App\Services\Periode\PeriodeQueryServices;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Throwable;
 
@@ -42,18 +40,17 @@ class PenilaianController extends Controller
         $this->penilaianCommandService = $penilaianCommandService;
     }
 
-
     public function index()
     {
         return view('admin.pages.penilaian.index');
     }
 
-
     public function detail(string $id)
     {
         $periode = $this->periodeQueryService->getOneWhereAktif($id);
         $periode->status_penilaian = Carbon::now()->format('Y-m-d H:i:s') < $periode->tgl_awal_penilaian || Carbon::now()->format('Y-m-d H:i:s') > $periode->tgl_akhir_penilaian ? '<div class="badge badge-danger"> Berakhir </div>' : '<div class="badge badge-success"> Berlangsung </div>';
-        $periode->tgl_penilaian =  FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_awal_penilaian) . ' s/d ' .  FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_akhir_penilaian);
+        $periode->tgl_penilaian = FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_awal_penilaian).' s/d '.FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_akhir_penilaian);
+
         return view('admin.pages.penilaian.detail', compact('periode'));
     }
 
@@ -64,7 +61,7 @@ class PenilaianController extends Controller
             return redirect()->back()->with('error', 'Periode Penilaian Debitur Telah Usai');
         }
 
-        $periode->tgl_penilaian =  FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_awal_penilaian) . ' s/d ' .  FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_akhir_penilaian);
+        $periode->tgl_penilaian = FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_awal_penilaian).' s/d '.FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_akhir_penilaian);
         $debitur = $this->debiturQueryService->getOneWhereAktif($id_debitur);
         $kriteria = $this->kriteriaQueryService->getByIdPeriode($id_periode);
         $kriteria->map(function ($item) use ($periode, $debitur) {
@@ -72,8 +69,10 @@ class PenilaianController extends Controller
                 ->where('id_periode', $periode->id)
                 ->where('id_debitur', $debitur->id)
                 ->first();
+
             return $item;
         });
+
         return view('admin.pages.penilaian.createOrEdit', compact('periode', 'debitur', 'kriteria'));
     }
 
@@ -83,9 +82,11 @@ class PenilaianController extends Controller
             DB::beginTransaction();
             $this->penilaianCommandService->storeOrUpdate($request, $id_periode, $id_debitur);
             DB::commit();
+
             return redirect()->route('admin.penilaian.detail-penilaian', [$id_periode, $id_debitur])->with('success', 'Data Berhasil Ditambahkan');
         } catch (Throwable $th) {
             DB::rollBack();
+
             return redirect()->route('admin.penilaian.detail-penilaian', [$id_periode, $id_debitur])->with('error', $th->getMessage());
         }
     }

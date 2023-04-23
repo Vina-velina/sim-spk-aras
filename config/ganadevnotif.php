@@ -9,14 +9,14 @@ return [
     | By default = https://sv1.notif.ganadev.com, change it if API Url is not available
     |
     */
-    'api_url' => "https://sv1.notif.ganadev.com",
+    'api_url' => 'https://sv1.notif.ganadev.com',
 
     /*
     |--------------------------------------------------------------------------
     |  Ganadev API Token
     |--------------------------------------------------------------------------
     |
-    | By default = is null, you must set it value to connect with 
+    | By default = is null, you must set it value to connect with
     | ganadev notification server. Contact me to goet your API Token.
     |
     */
@@ -27,7 +27,7 @@ return [
     | Ganadev Notification WhatsApp Status
     |--------------------------------------------------------------------------
     |
-    | By default = true, if false it means you cant use WhatsApp Notification Sender API. 
+    | By default = true, if false it means you cant use WhatsApp Notification Sender API.
     | This will be useful if you want to using Email Notification Sender only.
     |
     */
@@ -38,7 +38,7 @@ return [
     | Ganadev Notification Email Status
     |--------------------------------------------------------------------------
     |
-    | By default = true, if false it means you cant use Email Notification Sender API. 
+    | By default = true, if false it means you cant use Email Notification Sender API.
     | This will be useful if you want to using WhatsApp Notification Sender only.
     |
     */
@@ -63,7 +63,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | By default = true, if false it means this package not change
-    | email configuration in local project with configuration email from server. 
+    | email configuration in local project with configuration email from server.
     | This will be useful if you want to using local email configuration.
     |
     */

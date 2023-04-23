@@ -8,11 +8,9 @@ use App\Models\Penilaian;
 use App\Services\Debitur\DebiturQueryServices;
 use App\Services\Periode\PeriodeQueryServices;
 use Carbon\Carbon;
-use Exception;
 
 class PenilaianCommandService
 {
-
     protected $periodeQueryService;
 
     protected $debiturQueryService;
