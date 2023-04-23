@@ -50,6 +50,13 @@
                             return d != null ? d : 'Tidak Ada'
                         }
                     },
+                    {
+                        data: "status_penilaian",
+                        name: 'status_penilaian',
+                        render: function(d) {
+                            return d != null ? d : 'Tidak Ada'
+                        }
+                    },
                 ],
                 columnDefs: [
                     //Custom template data
@@ -88,6 +95,7 @@
                                         <th class="wd-10p border-bottom-0">Nama Periode</th>
                                         <th class="wd-10p border-bottom-0">Tgl Awal Penilaian</th>
                                         <th class="wd-10p border-bottom-0">Tgl Akhir Penilaian</th>
+                                        <th class="wd-10p border-bottom-0">Status Penilaian</th>
                                     </tr>
                                 </thead>
 

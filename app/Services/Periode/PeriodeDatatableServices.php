@@ -4,6 +4,7 @@ namespace App\Services\Periode;
 
 use App\Helpers\FormatDateToIndonesia;
 use App\Models\Periode;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
@@ -44,6 +45,15 @@ class PeriodeDatatableServices
 
                 return $element;
             })
+            ->addColumn('status_penilaian', function ($item) {
+                $element = '';
+                if (Carbon::now()->format('Y-m-d H:i:s') < $item->tgl_awal_penilaian || Carbon::now()->format('Y-m-d H:i:s') > $item->tgl_akhir_penilaian) {
+                    $element .= '<div class="badge badge-danger"> Berakhir </div>';
+                } else {
+                    $element .= '<div class="badge badge-success"> Berlangsung </div>';
+                }
+                return $element;
+            })
             ->addColumn('status', function ($item) {
                 if ($item->status == 'aktif') {
                     $query = 'on';
@@ -70,7 +80,7 @@ class PeriodeDatatableServices
                 return FormatDateToIndonesia::getIndonesiaDate($item->tgl_akhir_penilaian);
             })
             ->addIndexColumn()
-            ->rawColumns(['action', 'status', 'action_penilaian'])
+            ->rawColumns(['action', 'status', 'action_penilaian', 'status_penilaian'])
             ->make(true);
     }
 }
