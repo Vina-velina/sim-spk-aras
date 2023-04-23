@@ -10,7 +10,10 @@
     <div class="container-fluid mg-t-20">
 
         <!-- breadcrumb -->
-        @include('admin.layouts.menu._breadcrumb', ['page' => 'Data Kriteria', 'active' => 'Tambah Data'])
+        @include('admin.layouts.menu._breadcrumb', [
+            'page' => 'Data Kriteria',
+            'active' => 'Tambah Data Kriteria',
+        ])
         <!-- breadcrumb -->
         @include('admin.pages.master-data.kriteria._alert')
 

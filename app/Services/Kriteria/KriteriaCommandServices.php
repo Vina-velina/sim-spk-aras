@@ -26,9 +26,9 @@ class KriteriaCommandServices
         return $kriteria;
     }
 
-    public function update(KriteriaUpdateRequest $request, string $id)
+    public function update(KriteriaUpdateRequest $request, string $id_kriteria)
     {
-        $query = KriteriaPenilaian::find($id);
+        $query = KriteriaPenilaian::find($id_kriteria);
 
         $request->validated();
 
@@ -41,29 +41,29 @@ class KriteriaCommandServices
         return $query;
     }
 
-    public function updateStatus(string $id)
+    public function updateStatus(string $id_kriteria)
     {
-        $query = KriteriaPenilaian::find($id);
+        $query = KriteriaPenilaian::find($id_kriteria);
         $query->status = $query->status == 'aktif' ? 'nonaktif' : 'aktif';
         $query->save();
 
         return $query;
     }
 
-    public function destroy(string $id)
+    public function destroy(string $id_kriteria)
     {
-        $query = KriteriaPenilaian::find($id);
+        $query = KriteriaPenilaian::find($id_kriteria);
 
         $query->delete();
     }
 
-    public function subStore(SubKriteriaStoreRequest $request, string $id)
+    public function subStore(SubKriteriaStoreRequest $request, string $id_kriteria)
     {
         $request->validated();
 
         $subKriteria = SubKriteriaPenilaian::create([
             'id' => Uuid::uuid4(),
-            'id_kriteria' => $id,
+            'id_kriteria' => $id_kriteria,
             'nama_sub_kriteria' => $request->nama_sub_kriteria,
             'nilai_sub_kriteria' => $request->nilai_sub_kriteria,
         ]);
@@ -71,19 +71,22 @@ class KriteriaCommandServices
         return $subKriteria;
     }
 
-    public function subUpdate(SubKriteriaPenilaian $subKriteria, SubKriteriaUpdateRequest $request)
+    public function subUpdate(SubKriteriaUpdateRequest $request, string $id_sub_kirteria)
     {
+        $query = SubKriteriaPenilaian::find($id_sub_kirteria);
+
         $request->validated();
 
-        $subKriteria->nama_sub_kriteria = $request->nama_sub_kriteria;
-        $subKriteria->nilai_sub_kriteria = $request->nilai_sub_kriteria;
-        $subKriteria->save();
+        $query->nama_sub_kriteria = $request->nama_sub_kriteria;
+        $query->nilai_sub_kriteria = $request->nilai_sub_kriteria;
+        $query->save();
 
-        return $subKriteria;
+        return $query;
     }
 
-    public function subDestroy(SubKriteriaPenilaian $subKriteria)
+    public function subDestroy(string $id_sub_kriteria)
     {
+        $subKriteria = SubKriteriaPenilaian::find($id_sub_kriteria);
         $subKriteria->delete();
     }
 }

@@ -2,6 +2,14 @@
 
 @php
     $jatah = 100 - $total_bobot + $kriteria->bobot_kriteria;
+    
+    $nama_kriteria = '';
+    
+    foreach ($master_kriteria as $item) {
+        if ($item->id == $kriteria->id_master_kriteria) {
+            $nama_kriteria = $item->nama_kriteria;
+        }
+    }
 @endphp
 
 @section('tittle', 'Data Kriteria')
@@ -17,10 +25,10 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ route('admin.master-data.kriteria.sub-datatable', $kriteria->id) }}",
+                    url: "{{ route('admin.master-data.kriteria.sub-datatable', $kriteria->id_periode) }}",
                     data: function(d) {
                         d.id_kriteria = "{{ $kriteria->id }}";
-                        // d.id_periode = "{{ $kriteria->id_periode }}";
+                        d.id_periode = "{{ $kriteria->id_periode }}";
                     }
                 },
                 columns: [{
@@ -72,7 +80,10 @@
     <div class="container-fluid mg-t-20">
 
         <!-- breadcrumb -->
-        @include('admin.layouts.menu._breadcrumb', ['page' => 'Data Kriteria', 'active' => 'Edit Data'])
+        @include('admin.layouts.menu._breadcrumb', [
+            'page' => 'Data Kriteria',
+            'active' => 'Edit Data Kriteria ' . $nama_kriteria,
+        ])
         <!-- breadcrumb -->
         @include('admin.pages.master-data.kriteria._alert')
 

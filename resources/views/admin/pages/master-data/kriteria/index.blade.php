@@ -24,8 +24,8 @@
                         name: 'DT_RowIndex',
                     },
                     {
-                        data: 'action',
-                        name: 'action',
+                        data: 'action_kriteria',
+                        name: 'action_kirteria',
                         orderable: false,
                         searchable: false,
                     },

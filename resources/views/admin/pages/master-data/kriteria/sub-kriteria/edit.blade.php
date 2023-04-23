@@ -26,7 +26,7 @@
                     </div>
                     <div class="card-body">
                         <form
-                            action="{{ route('admin.master-data.sub-kriteria.update', [$id_kriteria, $subKriteriaPenilaian->id]) }}"
+                            action="{{ route('admin.master-data.sub-kriteria.update', [$id_periode, $id_kriteria, $subKriteriaPenilaian->id]) }}"
                             method="POST">
                             @csrf
                             {{-- <input type="hidden" name="id_kriteria" value="{{ $id_kriteria }}"> --}}

@@ -44,6 +44,14 @@ class PeriodeDatatableServices
 
                 return $element;
             })
+            ->addColumn('action_kriteria', function ($item) {
+                $element = '';
+                $element .= '<div class="btn-icon-list">';
+                $element .= '<a href="' . route('admin.master-data.kriteria.kriteria', $item->id) . '" class="btn btn-sm btn-warning btn-icon mr-2" id=""><i class="typcn text-white typcn-edit"></i></a>';
+                $element .= '</div>';
+
+                return $element;
+            })
             ->addColumn('status', function ($item) {
                 if ($item->status == 'aktif') {
                     $query = 'on';
@@ -70,7 +78,7 @@ class PeriodeDatatableServices
                 return FormatDateToIndonesia::getIndonesiaDate($item->tgl_akhir_penilaian);
             })
             ->addIndexColumn()
-            ->rawColumns(['action', 'status', 'action_penilaian'])
+            ->rawColumns(['action', 'status', 'action_penilaian', 'action_kriteria'])
             ->make(true);
     }
 }
