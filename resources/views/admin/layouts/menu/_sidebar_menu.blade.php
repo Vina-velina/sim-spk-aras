@@ -30,7 +30,7 @@
             <span class="side-menu__label">Penilaian SPK</span>
         </a>
     </li>
-    <li class="slide">
+    <li class="slide {{ Route::is('admin.master-data.*') ? 'is-expanded' : '' }}">
         <a class="side-menu__item {{ Route::is('admin.master-data.*') ? 'active' : '' }}" data-toggle="slide"
             href="#">
             <div class="side-angle1"></div>
@@ -66,6 +66,11 @@
                 <a class="sub-side-menu__item" href="{{ route('admin.master-data.kategori.index') }}"><span
                         class="sub-side-menu__label {{ Route::is('admin.master-data.kategori.*') ? 'text-white text-bold' : '' }}">Data
                         Kriteria</span></a>
+            </li>
+            <li>
+                <a class="sub-side-menu__item" href="{{ route('admin.master-data.master-kategori.index') }}"><span
+                        class="sub-side-menu__label {{ Route::is('admin.master-data.master-kategori.*') ? 'text-white text-bold' : '' }}">Data
+                        Master Kriteria</span></a>
             </li>
         </ul>
     </li>

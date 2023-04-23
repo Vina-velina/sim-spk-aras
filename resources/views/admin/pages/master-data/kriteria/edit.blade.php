@@ -13,13 +13,14 @@
         var table = $('#basic-datatables');
         $(document).ready(function() {
             table.DataTable({
-                responsive: true,
+                // responsive: true,
                 processing: true,
                 serverSide: true,
                 ajax: {
                     url: "{{ route('admin.master-data.kategori.sub-datatable', $kriteria->id) }}",
                     data: function(d) {
-                        d.id_kriteria = "{{ $kriteria->id }}",
+                        d.id_kriteria = "{{ $kriteria->id }}";
+                        // d.id_periode = "{{ $kriteria->id_periode }}";
                     }
                 },
                 columns: [{
@@ -85,8 +86,9 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('admin.master-data.kategori.update', $kriteria->id) }}" method="POST">
+                        <form action="{{ route('admin.master-data.kategori.update', [$id, $kriteria->id]) }}" method="POST">
                             @csrf
+                            <input type="hidden" name="id_periode" value="{{ $id }}">
                             <p class="text-danger">* wajib di isi</p>
                             <div class="row row-xs align-items-center mg-b-20">
                                 <div class="col-md-12">
@@ -94,9 +96,14 @@
                                             class="text-danger">*</span></label>
                                 </div>
                                 <div class="col-md-12 mg-t-5">
-                                    <input class="form-control form-control-sm @error('nama_kriteria') is-invalid @enderror"
-                                        name="nama_kriteria" placeholder="Masukkan Nama Kriteria" type="text"
-                                        value="{{ old('nama_kriteria') ? old('nama_kriteria') : $kriteria->nama_kriteria }}">
+                                    <select name="id_master_kriteria"
+                                        class="form-control form-control-sm @error('id_master_kriteria') is-invalid @enderror"
+                                        id="">
+                                        @foreach ($master_kriteria as $item)
+                                            <option {{ $kriteria->id_master_kriteria == $item->id ? 'selected' : '' }}
+                                                value="{{ $item->id }}">{{ $item->nama_kriteria }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <div class="row row-xs align-items-center mg-b-20">
@@ -140,7 +147,7 @@
                                 </div>
                             </div>
                             <button class="btn btn-sm btn-main-primary pd-x-30 mg-r-5 mg-t-5">Simpan</button>
-                            <a href="{{ route('admin.master-data.kategori.index') }}"
+                            <a href="{{ route('admin.master-data.kategori.kriteria', $id) }}"
                                 class="btn btn-sm btn-dark pd-x-30 mg-t-5">Batalkan
                             </a>
                         </form>
@@ -157,7 +164,7 @@
                         </div>
                         <div class="d-flex justify-content-end">
                             <div class="btn-icon-list">
-                                <a href="{{ route('admin.master-data.sub-kategori.create', $kriteria->id) }}">
+                                <a href="{{ route('admin.master-data.sub-kategori.create', [$id, $kriteria->id]) }}">
                                     <button type="button" class="btn btn-sm btn-primary btn-icon"><i
                                             class="typcn typcn-plus"></i>
                                         Tambah</button>

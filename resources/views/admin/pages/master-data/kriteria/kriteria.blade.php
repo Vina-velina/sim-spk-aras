@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
-
-@section('tittle', 'Data Periode')
+{{-- @dd(route('admin.master-data.kategori.datatable')) --}}
+@section('tittle', 'Kriteria')
 @section('otherJsPlugin')
     <!--Internal  Datatable js -->
     {{-- <script src="{{ asset('assets/js/table-data.js') }}"></script> --}}
@@ -12,7 +12,10 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ route('admin.master-data.periode.datatable') }}",
+                    url: "{{ route('admin.master-data.kategori.datatable') }}",
+                    data: function(d) {
+                        d.id_periode = "{{ $id }}";
+                    }
                 },
                 columns: [{
                         data: "DT_RowIndex",
@@ -26,25 +29,25 @@
                         orderable: false,
                         searchable: false,
                     },
+                    // {
+                    //     data: "periodes.nama_kriteria",
+                    //     name: 'periodes.nama_kriteria',
+                    //     render: function(d) {
+                    //         return d != null ? d : 'Tidak Ada'
+                    //     }
+                    // },
                     {
-                        data: "nama_periode",
-                        name: 'nama_periode',
+                        data: "keterangan",
+                        name: 'keterangan',
                         render: function(d) {
                             return d != null ? d : 'Tidak Ada'
                         }
                     },
                     {
-                        data: "tgl_awal_penilaian",
-                        name: 'tgl_awal_penilaian',
+                        data: "bobot_kriteria",
+                        name: 'bobot_kriteria',
                         render: function(d) {
-                            return d != null ? d : 'Tidak Ada'
-                        }
-                    },
-                    {
-                        data: "tgl_akhir_penilaian",
-                        name: 'tgl_akhir_penilaian',
-                        render: function(d) {
-                            return d != null ? d : 'Tidak Ada'
+                            return d != null ? d + '%' : 'Tidak Ada'
                         }
                     },
                     {
@@ -64,7 +67,7 @@
 
         });
 
-        const changeStatusPeriode = (button) => {
+        const changeStatusKriteria = (button) => {
             const url_update = $(button).data('url_update');
             $.ajax({
                 url: url_update,
@@ -80,38 +83,6 @@
                 }
             });
         }
-
-        const detailPeriode = (button) => {
-            const url_detail = $(button).data('url_detail');
-            $.ajax({
-                url: url_detail,
-                type: "GET",
-                success: function(response) {
-                    // console.log(response);
-                    if (response.success) {
-                        const data = response.data;
-                        const form = $('#detailPeriode');
-                        form.find('input[name=nama_periode]').val(data.nama_periode);
-                        form.find('textarea[name=keterangan]').val(data.keterangan);
-                        form.find('input[name=tgl_awal_penilaian]').val(data.tgl_awal_penilaian);
-                        form.find('input[name=tgl_akhir_penilaian]').val(data.tgl_akhir_penilaian);
-                        form.find('input[name=tgl_pengumuman]').val(data.tgl_pengumuman);
-                        form.find(`select[name=status] option[value="${data.status}"]`).attr('selected',
-                            true);
-                        // if (data.foto != null) {
-                        //     $('#fotoDebitur').attr('src', data.link_foto)
-                        // } else {
-                        //     $('#fotoDebitur').attr('src',
-                        //         'https://ui-avatars.com/api/?name=' + data.nama +
-                        //         '&background=5174ff&color=fff'
-                        //     );
-
-                        // }
-                        $('#modalDetailPeriode').modal('show');
-                    }
-                }
-            });
-        }
     </script>
 @endsection
 @section('content')
@@ -119,8 +90,10 @@
     <div class="container-fluid mg-t-20">
 
         <!-- breadcrumb -->
-        @include('admin.layouts.menu._breadcrumb', ['page' => 'Data periode', 'active' => 'Index'])
+        @include('admin.layouts.menu._breadcrumb', ['page' => 'Data Kriteria', 'active' => 'Index'])
         <!-- breadcrumb -->
+
+        @include('admin.pages.master-data.kriteria._alert')
 
         <!-- row opened -->
         <div class="row row-sm">
@@ -129,16 +102,24 @@
                 <div class="card">
                     <div class="card-header pb-0 pd-t-25">
                         <div class="d-flex justify-content-between">
-                            <h4 class="card-title mg-b-0">Data periode</h4>
+                            <h4 class="card-title mg-b-0">Data Kriteria</h4>
                         </div>
                         <div class="d-flex justify-content-end">
-                            <div class="btn-icon-list">
-                                <a href="{{ route('admin.master-data.periode.create') }}">
-                                    <button type="button" class="btn btn-sm btn-primary btn-icon"><i
+                            @if ($total_bobot < 100)
+                                <div class="btn-icon-list">
+                                    <a href="{{ route('admin.master-data.kategori.create', $id) }}">
+                                        <button type="button" class="btn btn-sm btn-primary btn-icon"><i
+                                                class="typcn typcn-plus"></i>
+                                            Tambah</button>
+                                    </a>
+                                </div>
+                                {{-- @else --}}
+                                {{-- <div class="btn-icon-list">
+                                    <button type="button" class="btn btn-sm btn-primary btn-icon" disabled><i
                                             class="typcn typcn-plus"></i>
                                         Tambah</button>
-                                </a>
-                            </div>
+                                </div> --}}
+                            @endif
                         </div>
                     </div>
                     <div class="card-body">
@@ -148,9 +129,9 @@
                                     <tr>
                                         <th class="wd-5p border-bottom-0">No</th>
                                         <th class="wd-15p border-bottom-0">#</th>
-                                        <th class="wd-10p border-bottom-0">Nama Periode</th>
-                                        <th class="wd-10p border-bottom-0">Tgl Awal Penilaian</th>
-                                        <th class="wd-10p border-bottom-0">Tgl Akhir Penilaian</th>
+                                        {{-- <th class="wd-10p border-bottom-0">Nama Kriteria</th> --}}
+                                        <th class="wd-10p border-bottom-0">Keterangan</th>
+                                        <th class="wd-10p border-bottom-0">Bobot Kriteria</th>
                                         <th class="wd-10p border-bottom-0">Status</th>
                                     </tr>
                                 </thead>
@@ -161,11 +142,21 @@
                             </table>
                         </div>
                     </div><!-- bd -->
+                    {{-- tombol kembali --}}
+                    <div class="card-footer">
+                        <div class="d-flex justify-content-end">
+                            <div class="btn-icon-list">
+                                <a href="{{ route('admin.master-data.kategori.index') }}">
+                                    <button type="button" class="btn btn-sm btn-primary btn-icon"><i
+                                            class="typcn typcn-arrow-back-outline"></i>
+                                        Kembali</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div><!-- bd -->
             </div>
             <!--/div-->
         </div>
     </div>
-    @include('admin.pages.master-data.periode._modal_detail')
-    {{-- @include('admin.pages.master-data.periode._modal_import') --}}
 @endsection

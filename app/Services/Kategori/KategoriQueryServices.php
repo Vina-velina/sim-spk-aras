@@ -3,6 +3,7 @@
 namespace App\Services\Kategori;
 
 use App\Models\KriteriaPenilaian;
+use App\Models\SubKriteriaPenilaian;
 
 class KategoriQueryServices
 {
@@ -11,14 +12,18 @@ class KategoriQueryServices
         return KriteriaPenilaian::find($id);
     }
 
-    public function getSubOne(KriteriaPenilaian $id)
+    public function getByIdPeriode(string $id)
     {
-        // dd($id);
-        return KriteriaPenilaian::find($id)->subKriteriaPenilaian;
+        return KriteriaPenilaian::where('id_periode', $id)->get();
     }
 
     public function getAll()
     {
         return KriteriaPenilaian::all();
+    }
+
+    public function getSubKriteriaById(string $id)
+    {
+        return SubKriteriaPenilaian::where('id', $id)->get()->first();
     }
 }

@@ -15,8 +15,9 @@ return new class extends Migration
     {
         Schema::create('kriteria_penilaians', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->text('nama_kriteria')->nullable();
-            $table->string('keterangan');
+            $table->foreignUuid('id_master_kriteria')->constrained('master_kriteria_penilaians')->cascadeOnDelete();
+            $table->foreignUuid('id_periode')->constrained('periodes')->cascadeOnDelete();
+            $table->text('keterangan');
             $table->tinyInteger('bobot_kriteria');
             $table->enum('status', ['aktif', 'nonaktif']);
             // $table->enum('is_statis', [1, 0]);

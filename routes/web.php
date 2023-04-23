@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AccountController;
 use App\Http\Controllers\Admin\DebiturController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\KategoriController;
+use App\Http\Controllers\Admin\MasterKriteriaController;
 use App\Http\Controllers\Admin\PenilaianController;
 use App\Http\Controllers\Admin\PeriodeController;
 use App\Http\Controllers\Admin\UserController;
@@ -102,24 +103,43 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
             Route::get('/datatable', [PeriodeController::class, 'datatable'])->name('admin.master-data.periode.datatable');
         });
 
+        // Data Master Kriteria
+        Route::prefix('master-kriteria')->group(function () {
+            Route::get('/', [MasterKriteriaController::class, 'index'])->name('admin.master-data.master-kategori.index');
+            Route::get('/detail/{master_kriteria_penilaian:id}', [MasterKriteriaController::class, 'detail'])->name('admin.master-data.master-kategori.detail');
+            Route::get('/create', [MasterKriteriaController::class, 'create'])->name('admin.master-data.master-kategori.create');
+            Route::post('/store', [MasterKriteriaController::class, 'store'])->name('admin.master-data.master-kategori.store');
+            Route::get('/edit/{master_kriteria_penilaian:id}', [MasterKriteriaController::class, 'edit'])->name('admin.master-data.master-kategori.edit');
+            Route::post('/update/{master_kriteria_penilaian:id}', [MasterKriteriaController::class, 'update'])->name('admin.master-data.master-kategori.update');
+            Route::delete('/delete/{master_kriteria_penilaian:id}', [MasterKriteriaController::class, 'delete'])->name('admin.master-data.master-kategori.delete');
+            Route::get('/datatable', [MasterKriteriaController::class, 'datatable'])->name('admin.master-data.master-kategori.datatable');
+        });
+
         // Data Kriteria
         Route::prefix('kategori')->group(function () {
             Route::get('/', [KategoriController::class, 'index'])->name('admin.master-data.kategori.index');
-            Route::get('/create', [KategoriController::class, 'create'])->name('admin.master-data.kategori.create');
-            Route::get('/update-status/{kriteria_penilaian:id}', [KategoriController::class, 'updateStatus'])->name('admin.master-data.kategori.update.status');
-            Route::get('/edit/{kriteria_penilaian:id}', [KategoriController::class, 'edit'])->name('admin.master-data.kategori.edit');
-            Route::post('/store', [KategoriController::class, 'store'])->name('admin.master-data.kategori.store');
-            Route::post('/update/{kriteria_penilaian:id}', [KategoriController::class, 'update'])->name('admin.master-data.kategori.update');
-            Route::delete('/delete/{kriteria_penilaian:id}', [KategoriController::class, 'delete'])->name('admin.master-data.kategori.delete');
+            Route::get('/datatable-periode', [KategoriController::class, 'periodeDataTable'])->name('admin.master-data.kategori.datatable.periode');
             Route::get('/datatable', [KategoriController::class, 'datatable'])->name('admin.master-data.kategori.datatable');
+
+            // Kriteria
+            Route::prefix('kriteria')->group(function () {
+                Route::get('/{id}', [KategoriController::class, 'kriteria'])->name('admin.master-data.kategori.kriteria');
+                Route::get('/create/{id}', [KategoriController::class, 'create'])->name('admin.master-data.kategori.create');
+                Route::get('/update-status/{kriteria_penilaian:id}', [KategoriController::class, 'updateStatus'])->name('admin.master-data.kategori.update.status');
+                Route::get('/edit/{id}/{kriteria_penilaian:id}', [KategoriController::class, 'edit'])->name('admin.master-data.kategori.edit');
+                Route::post('/store/{id}', [KategoriController::class, 'store'])->name('admin.master-data.kategori.store');
+                Route::post('/update/{id}/{kriteria_penilaian:id}', [KategoriController::class, 'update'])->name('admin.master-data.kategori.update');
+                Route::delete('/delete/{id}/{kriteria_penilaian:id}', [KategoriController::class, 'delete'])->name('admin.master-data.kategori.delete');
+            });
+
 
             // sub Kriteria
             Route::prefix('/sub-kriteria')->group(function () {
-                Route::get('/create/{kriteria_penilaian:id}', [KategoriController::class, 'subCreate'])->name('admin.master-data.sub-kategori.create');
-                Route::post('/store/{kriteria_penilaian:id}', [KategoriController::class, 'subStore'])->name('admin.master-data.sub-kategori.store');
-                Route::get('/edit/{sub_kriteria_penilaian:id}', [KategoriController::class, 'subEdit'])->name('admin.master-data.sub-kategori.edit');
-                Route::post('/update/{sub_kriteria_penilaian:id}', [KategoriController::class, 'subUpdate'])->name('admin.master-data.sub-kategori.update');
-                Route::delete('/delete/{sub_kriteria_penilaian:id}', [KategoriController::class, 'subDelete'])->name('admin.master-data.sub-kategori.delete');
+                Route::get('/create/{id}/{kriteria_penilaian:id}', [KategoriController::class, 'subCreate'])->name('admin.master-data.sub-kategori.create');
+                Route::post('/store/{id}/{kriteria_penilaian:id}', [KategoriController::class, 'subStore'])->name('admin.master-data.sub-kategori.store');
+                Route::get('/edit/{kriteria_penilaian:id}/{id}', [KategoriController::class, 'subEdit'])->name('admin.master-data.sub-kategori.edit');
+                Route::post('/update/{id}/{sub_kriteria_penilaian:id}', [KategoriController::class, 'subUpdate'])->name('admin.master-data.sub-kategori.update');
+                Route::delete('/delete/{id}/{sub_kriteria_penilaian:id}', [KategoriController::class, 'subDelete'])->name('admin.master-data.sub-kategori.delete');
                 Route::get('/sub_datatable/{kriteria_penilaian:id}', [KategoriController::class, 'sub_datatable'])->name('admin.master-data.kategori.sub-datatable');
             });
         });

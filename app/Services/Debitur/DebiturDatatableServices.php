@@ -21,7 +21,7 @@ class DebiturDatatableServices
             }
         }
 
-        return DataTables::of($query)
+        return DataTables::of($query->get())
             ->addIndexColumn()
             ->addColumn('action', function ($item) {
                 $element = '';

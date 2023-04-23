@@ -8,11 +8,14 @@
         var table = $('#basic-datatables');
         $(document).ready(function() {
             table.DataTable({
-                responsive: true,
+                // responsive: true,
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ route('admin.master-data.kategori.datatable') }}",
+                    url: "{{ route('admin.master-data.kategori.datatable.periode') }}",
+                    data: function(d) {
+                        d.status = "aktif";
+                    }
                 },
                 columns: [{
                         data: "DT_RowIndex",
@@ -27,34 +30,26 @@
                         searchable: false,
                     },
                     {
-                        data: "nama_kriteria",
-                        name: 'nama_kriteria',
+                        data: "nama_periode",
+                        name: 'nama_periode',
                         render: function(d) {
                             return d != null ? d : 'Tidak Ada'
                         }
                     },
                     {
-                        data: "keterangan",
-                        name: 'keterangan',
+                        data: "tgl_awal_penilaian",
+                        name: 'tgl_awal_penilaian',
                         render: function(d) {
                             return d != null ? d : 'Tidak Ada'
                         }
                     },
                     {
-                        data: "bobot_kriteria",
-                        name: 'bobot_kriteria',
+                        data: "tgl_akhir_penilaian",
+                        name: 'tgl_akhir_penilaian',
                         render: function(d) {
-                            return d != null ? d + '%' : 'Tidak Ada'
+                            return d != null ? d : 'Tidak Ada'
                         }
                     },
-                    {
-                        data: "status",
-                        orderable: false,
-                        searchable: false,
-                        name: 'status',
-                    },
-
-
                 ],
                 columnDefs: [
                     //Custom template data
@@ -63,23 +58,6 @@
             });
 
         });
-
-        const changeStatusKriteria = (button) => {
-            const url_update = $(button).data('url_update');
-            $.ajax({
-                url: url_update,
-                type: "GET",
-                success: function(response) {
-                    // console.log(response);
-                    if (response.success) {
-                        alertSuccess(response.message);
-                    } else {
-                        alertGagal(response.message);
-                    }
-                    table.DataTable().ajax.reload();
-                }
-            });
-        }
     </script>
 @endsection
 @section('content')
@@ -97,24 +75,7 @@
                 <div class="card">
                     <div class="card-header pb-0 pd-t-25">
                         <div class="d-flex justify-content-between">
-                            <h4 class="card-title mg-b-0">Data Kriteria</h4>
-                        </div>
-                        <div class="d-flex justify-content-end">
-                            @if ($total_bobot < 100)
-                                <div class="btn-icon-list">
-                                    <a href="{{ route('admin.master-data.kategori.create') }}">
-                                        <button type="button" class="btn btn-sm btn-primary btn-icon"><i
-                                                class="typcn typcn-plus"></i>
-                                            Tambah</button>
-                                    </a>
-                                </div>
-                            @else
-                                <div class="btn-icon-list">
-                                    <button type="button" class="btn btn-sm btn-primary btn-icon" disabled><i
-                                            class="typcn typcn-plus"></i>
-                                        Tambah</button>
-                                </div>
-                            @endif
+                            <h4 class="card-title mg-b-0">Pilih Kategori</h4>
                         </div>
                     </div>
                     <div class="card-body">
@@ -124,10 +85,9 @@
                                     <tr>
                                         <th class="wd-5p border-bottom-0">No</th>
                                         <th class="wd-15p border-bottom-0">#</th>
-                                        <th class="wd-10p border-bottom-0">Nama Kriteria</th>
-                                        <th class="wd-10p border-bottom-0">Keterangan</th>
-                                        <th class="wd-10p border-bottom-0">bobot_kriteria</th>
-                                        <th class="wd-10p border-bottom-0">Status</th>
+                                        <th class="wd-10p border-bottom-0">Nama Periode</th>
+                                        <th class="wd-10p border-bottom-0">Tgl Awal Penilaian</th>
+                                        <th class="wd-10p border-bottom-0">Tgl Akhir Penilaian</th>
                                     </tr>
                                 </thead>
 
@@ -137,9 +97,8 @@
                             </table>
                         </div>
                     </div><!-- bd -->
-                </div><!-- bd -->
+                </div>
+                <!--/div-->
             </div>
-            <!--/div-->
         </div>
-    </div>
-@endsection
+    @endsection
