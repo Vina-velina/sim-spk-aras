@@ -21,19 +21,22 @@ class MasterKriteriaCommandServices
         return $kriteria;
     }
 
-    public function update(MasterKriteriaUpdateRequest $request, MasterKriteriaPenilaian $kriteria)
+    public function update(MasterKriteriaUpdateRequest $request, string $id)
     {
+        $query = MasterKriteriaPenilaian::findOrFail($id);
+
         $request->validated();
 
-        $kriteria->nama_kriteria = $request->nama_kriteria;
-        $kriteria->keterangan = $request->keterangan;
-        $kriteria->save();
+        $query->nama_kriteria = $request->nama_kriteria;
+        $query->keterangan = $request->keterangan;
+        $query->save();
 
-        return $kriteria;
+        return $query;
     }
 
-    public function destroy(MasterKriteriaPenilaian $kriteria)
+    public function destroy(string $id)
     {
-        $kriteria->delete();
+        $query = MasterKriteriaPenilaian::findOrFail($id);
+        $query->delete();
     }
 }

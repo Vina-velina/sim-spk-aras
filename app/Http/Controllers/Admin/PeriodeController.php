@@ -112,7 +112,7 @@ class PeriodeController extends Controller
         return view('admin.pages.master-data.periode.edit', compact('periode'));
     }
 
-    public function update(PeriodeUpdateRequest $request, Periode $periode)
+    public function update(PeriodeUpdateRequest $request, string $id)
     {
         try {
 
@@ -120,7 +120,7 @@ class PeriodeController extends Controller
 
             for ($i = 0; $i < count($allPeriode); $i++) {
                 // check jika saat ini bukan periode yang sedang di edit
-                if ($allPeriode[$i]->id != $periode->id) {
+                if ($allPeriode[$i]->id != $id) {
                     // convert tgl awal dan tgl akhir periode yang sudah ada ke format timestamp
                     $tglawallain = strtotime($allPeriode[$i]->tgl_awal_penilaian);
                     $tglakhirlain = strtotime($allPeriode[$i]->tgl_akhir_penilaian);
@@ -129,21 +129,21 @@ class PeriodeController extends Controller
 
                     // tgl awal dan akhir periode yang di buat tidak boleh berada pada range tgl awal - akhir periode yang sudah ada
                     if ($tglawalrequest >= $tglawallain && $tglawalrequest <= $tglakhirlain) {
-                        return redirect()->route('admin.master-data.periode.edit', $periode->id)->with('error', 'Data gagal diubah, periode yang di edit memiliki range tanggal mulai - tanggal akhir yang beririsan dengan periode yang sudah ada');
+                        return redirect()->route('admin.master-data.periode.edit', $id)->with('error', 'Data gagal diubah, periode yang di edit memiliki range tanggal mulai - tanggal akhir yang beririsan dengan periode yang sudah ada');
                     } else if ($tglakhirrequest >= $tglawallain && $tglakhirrequest <= $tglakhirlain) {
-                        return redirect()->route('admin.master-data.periode.edit', $periode->id)->with('error', 'Data gagal diubah, periode yang di edit memiliki range tanggal mulai - tanggal akhir yang beririsan dengan periode yang sudah ada');
+                        return redirect()->route('admin.master-data.periode.edit', $id)->with('error', 'Data gagal diubah, periode yang di edit memiliki range tanggal mulai - tanggal akhir yang beririsan dengan periode yang sudah ada');
                     } else if ($tglawalrequest <= $tglawallain && $tglakhirrequest >= $tglakhirlain) {
-                        return redirect()->route('admin.master-data.periode.edit', $periode->id)->with('error', 'Data gagal diubah, periode yang di edit memiliki range tanggal mulai - tanggal akhir yang beririsan dengan periode yang sudah ada');
+                        return redirect()->route('admin.master-data.periode.edit', $id)->with('error', 'Data gagal diubah, periode yang di edit memiliki range tanggal mulai - tanggal akhir yang beririsan dengan periode yang sudah ada');
                     } else if ($tglawalrequest >= $tglawallain && $tglakhirrequest <= $tglakhirlain) {
-                        return redirect()->route('admin.master-data.periode.edit', $periode->id)->with('error', 'Data gagal diubah, periode yang di edit memiliki range tanggal mulai - tanggal akhir yang beririsan dengan periode yang sudah ada');
+                        return redirect()->route('admin.master-data.periode.edit', $id)->with('error', 'Data gagal diubah, periode yang di edit memiliki range tanggal mulai - tanggal akhir yang beririsan dengan periode yang sudah ada');
                     } else if ($tglawalrequest == $tglawallain && $tglakhirrequest == $tglakhirlain) {
-                        return redirect()->route('admin.master-data.periode.edit', $periode->id)->with('error', 'Data gagal diubah, periode yang di edit memiliki range tanggal mulai - tanggal akhir yang beririsan dengan periode yang sudah ada');
+                        return redirect()->route('admin.master-data.periode.edit', $id)->with('error', 'Data gagal diubah, periode yang di edit memiliki range tanggal mulai - tanggal akhir yang beririsan dengan periode yang sudah ada');
                     }
                 }
             }
 
             DB::beginTransaction();
-            $this->periodeCommandServices->update($request, $periode);
+            $this->periodeCommandServices->update($request, $id);
             DB::commit();
             return redirect()->route('admin.master-data.periode.index')->with('success', 'Data berhasil diubah');
         } catch (\Exception $e) {
@@ -151,7 +151,7 @@ class PeriodeController extends Controller
         }
     }
 
-    public function updateStatus($id)
+    public function updateStatus(string $id)
     {
         try {
             DB::beginTransaction();
@@ -172,9 +172,9 @@ class PeriodeController extends Controller
     }
 
     // Penghapusan data periode
-    public function delete(Periode $periode)
+    public function delete(string $id)
     {
-        $this->periodeCommandServices->delete($periode);
+        $this->periodeCommandServices->delete($id);
 
         return redirect()->route('admin.master-data.periode.index')->with('success', 'Data berhasil dihapus');
     }

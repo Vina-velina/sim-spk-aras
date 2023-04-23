@@ -22,20 +22,21 @@ class PeriodeCommandServices
         return $query;
     }
 
-    public function update(PeriodeUpdateRequest $request, Periode $periode)
+    public function update(PeriodeUpdateRequest $request, string $id)
     {
+        $query = Periode::find($id);
         $request->validated();
-        $periode->nama_periode = $request->nama_periode;
-        $periode->keterangan = $request->keterangan;
-        $periode->tgl_awal_penilaian = $request->tgl_awal_penilaian;
-        $periode->tgl_akhir_penilaian = $request->tgl_akhir_penilaian;
-        $periode->status = $periode->status;
-        $periode->save();
+        $query->nama_periode = $request->nama_periode;
+        $query->keterangan = $request->keterangan;
+        $query->tgl_awal_penilaian = $request->tgl_awal_penilaian;
+        $query->tgl_akhir_penilaian = $request->tgl_akhir_penilaian;
+        $query->status = $query->status;
+        $query->save();
 
-        return $periode;
+        return $query;
     }
 
-    public function updateStatus($id)
+    public function updateStatus(string $id)
     {
         $query = Periode::find($id);
         $query->status = $query->status == 'aktif' ? 'nonaktif' : 'aktif';
@@ -44,8 +45,9 @@ class PeriodeCommandServices
         return $query;
     }
 
-    public function delete(Periode $periode)
+    public function delete(string $id)
     {
-        $periode->delete();
+        $query = Periode::find($id);
+        $query->delete();
     }
 }
