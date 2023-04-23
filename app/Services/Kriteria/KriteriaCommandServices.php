@@ -26,39 +26,44 @@ class KriteriaCommandServices
         return $kriteria;
     }
 
-    public function update(KriteriaUpdateRequest $request, KriteriaPenilaian $kriteria)
+    public function update(KriteriaUpdateRequest $request, string $id)
     {
+        $query = KriteriaPenilaian::find($id);
+
         $request->validated();
 
-        $kriteria->id_periode = $request->id_periode;
-        $kriteria->id_master_kriteria = $request->id_master_kriteria;
-        $kriteria->bobot_kriteria = $request->bobot_kriteria;
-        $kriteria->keterangan = $request->keterangan;
-        $kriteria->save();
+        $query->id_periode = $request->id_periode;
+        $query->id_master_kriteria = $request->id_master_kriteria;
+        $query->bobot_kriteria = $request->bobot_kriteria;
+        $query->keterangan = $request->keterangan;
+        $query->save();
 
-        return $kriteria;
+        return $query;
     }
 
-    public function updateStatus(KriteriaPenilaian $kriteria)
+    public function updateStatus(string $id)
     {
-        $kriteria->status = $kriteria->status == 'aktif' ? 'nonaktif' : 'aktif';
-        $kriteria->save();
+        $query = KriteriaPenilaian::find($id);
+        $query->status = $query->status == 'aktif' ? 'nonaktif' : 'aktif';
+        $query->save();
 
-        return $kriteria;
+        return $query;
     }
 
-    public function destroy(KriteriaPenilaian $kriteria)
+    public function destroy(string $id)
     {
-        $kriteria->delete();
+        $query = KriteriaPenilaian::find($id);
+
+        $query->delete();
     }
 
-    public function subStore(KriteriaPenilaian $kriteria, SubKriteriaStoreRequest $request)
+    public function subStore(SubKriteriaStoreRequest $request, string $id)
     {
         $request->validated();
 
         $subKriteria = SubKriteriaPenilaian::create([
             'id' => Uuid::uuid4(),
-            'id_kriteria' => $kriteria->id,
+            'id_kriteria' => $id,
             'nama_sub_kriteria' => $request->nama_sub_kriteria,
             'nilai_sub_kriteria' => $request->nilai_sub_kriteria,
         ]);

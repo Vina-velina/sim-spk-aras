@@ -38,6 +38,9 @@ class KriteriaDatatableServices
 
                 return $element;
             })
+            ->addColumn('nama_kriteria', function ($item) {
+                return $item->masterKriteriaPenilaian->nama_kriteria;
+            })
             ->addColumn('status', function ($item) {
                 if ($item->status == 'aktif') {
                     $query = 'on';
