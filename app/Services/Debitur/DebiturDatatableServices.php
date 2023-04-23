@@ -49,15 +49,16 @@ class DebiturDatatableServices
                 $status = "create";
                 if (isset($request->id_periode)) {
                     $find = Penilaian::where('id_periode', $request->id_periode)->where('id_debitur', $item->id)->get();
-                    if ($find->count() > 0) {
+                    $kriteria_periode = KriteriaPenilaian::where('id_periode', $request->id_periode)->get();
+                    if ($find->count() > 0 && $find->count() == $kriteria_periode->count()) {
                         $status = "edit";
                     }
                 }
 
                 if ($status == "edit") {
-                    $element .= '<a href="javascript:void(0);" onclick="editNilaiAlternatif(this)" data-id_debitur="' . $item->id . '"  class="btn btn-sm btn-warning btn-icon mr-2" id="edit-nilai-alternatif-' . $item->id . '"><i class="typcn text-white typcn-edit"></i></a>';
+                    $element .= '<a href="' . route('admin.penilaian.detail-penilaian.add-penilaian', [$request->id_periode, $item->id]) . '" class="btn btn-sm btn-warning btn-icon mr-2" ><i class="typcn text-white typcn-edit"></i></a>';
                 } else {
-                    $element .= '<a href="javascript:void(0);" onclick="addNilaiAlternatif(this)" data-id_debitur="' . $item->id . '"  class="btn btn-sm btn-primary btn-icon mr-2" id="add-nilai-alternatif-' . $item->id . '"><i class="typcn typcn-plus"></i></a>';
+                    $element .= '<a href="' . route('admin.penilaian.detail-penilaian.add-penilaian', [$request->id_periode, $item->id]) . '" class="btn btn-sm btn-primary btn-icon mr-2" id="add-nilai-alternatif-' . $item->id . '"><i class="typcn typcn-plus"></i></a>';
                 }
                 $element .= '</div>';
 

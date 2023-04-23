@@ -10,4 +10,9 @@ class DebiturQueryServices
     {
         return Debitur::find($id);
     }
+
+    public function getOneWhereAktif(string $id)
+    {
+        return Debitur::where('id', $id)->where('status', 'aktif')->firstOrFail();
+    }
 }
