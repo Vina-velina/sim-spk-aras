@@ -24,6 +24,6 @@ class KriteriaQueryServices
 
     public function getSubKriteriaById(string $id)
     {
-        return SubKriteriaPenilaian::where('id', $id)->get()->first();
+        return SubKriteriaPenilaian::where('id', $id)->first();
     }
 }

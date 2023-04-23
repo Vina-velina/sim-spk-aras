@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
 
 @php
-    $jatah = 100 - $total_bobot + $bobot_kriteria;
+    $jatah = 100 - $total_bobot + $kriteria->bobot_kriteria;
 @endphp
 
 @section('tittle', 'Data Kriteria')
@@ -74,21 +74,54 @@
         <!-- breadcrumb -->
         @include('admin.layouts.menu._breadcrumb', ['page' => 'Data Kriteria', 'active' => 'Edit Data'])
         <!-- breadcrumb -->
+        @include('admin.pages.master-data.kriteria._alert')
 
         <!-- row opened -->
         <div class="row row-sm">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-header pb-0 pd-t-25">
+                        <div class="d-flex justify-content-between">
+                            <h4 class="card-title mg-b-0">Kriteria Sistem Pendukung Keputusan</h4>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>Nama Periode</td>
+                                    <td>:</td>
+                                    <td><b>{{ $periode->nama_periode }}</b></td>
+                                </tr>
+                                <tr>
+                                    <td>Rentang Penilaian</td>
+                                    <td>:</td>
+                                    <td><b>{{ $periode->tgl_penilaian }}</b></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div><!-- bd -->
+                </div><!-- bd -->
+            </div>
             <div class="col-xl-12">
                 @include('generals._validation')
                 <div class="card">
                     <div class="card-header pb-0 pd-t-25">
                         <div class="d-flex justify-content-between">
-                            <h4 class="card-title mg-b-0">Edit Data Kriteria</h4>
+                            <h4 class="card-title mg-b-0">Edit Data Kriteria
+                                @if (strpos($periode->nama_periode, 'Periode') !== false)
+                                    {{ $periode->nama_periode }}
+                                @else
+                                    {{ 'Periode ' . $periode->nama_periode }}
+                                @endif
+                            </h4>
                         </div>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('admin.master-data.kriteria.update', [$id, $kriteria->id]) }}" method="POST">
+                        <form action="{{ route('admin.master-data.kriteria.update', [$periode->id, $kriteria->id]) }}"
+                            method="POST">
                             @csrf
-                            <input type="hidden" name="id_periode" value="{{ $id }}">
+                            <input type="hidden" name="id_periode" value="{{ $periode->id }}">
                             <p class="text-danger">* wajib di isi</p>
                             <div class="row row-xs align-items-center mg-b-20">
                                 <div class="col-md-12">
@@ -117,7 +150,7 @@
                             </div>
                             <div class="row row-xs align-items-center mg-b-20">
                                 <div class="col-md-12">
-                                    <label class="form-label mg-b-0">Bobot Kriteria <span
+                                    <label class="form-label mg-b-0">Bobot Kriteria (%) <span
                                             class="text-danger">*</span></label>
                                 </div>
                                 <div class="col-md-12 mg-t-5">
@@ -147,7 +180,7 @@
                                 </div>
                             </div>
                             <button class="btn btn-sm btn-main-primary pd-x-30 mg-r-5 mg-t-5">Simpan</button>
-                            <a href="{{ route('admin.master-data.kriteria.kriteria', $id) }}"
+                            <a href="{{ route('admin.master-data.kriteria.kriteria', $periode->id) }}"
                                 class="btn btn-sm btn-dark pd-x-30 mg-t-5">Batalkan
                             </a>
                         </form>
@@ -160,11 +193,18 @@
                 <div class="card">
                     <div class="card-header pb-0 pd-t-25">
                         <div class="d-flex justify-content-between">
-                            <h4 class="card-title mg-b-0">Data Sub Kriteria</h4>
+                            <h4 class="card-title mg-b-0">Data Sub Kriteria
+                                @if (strpos($periode->nama_periode, 'Periode') !== false)
+                                    {{ $periode->nama_periode }}
+                                @else
+                                    {{ 'Periode ' . $periode->nama_periode }}
+                                @endif
+                            </h4>
                         </div>
                         <div class="d-flex justify-content-end">
                             <div class="btn-icon-list">
-                                <a href="{{ route('admin.master-data.sub-kriteria.create', [$id, $kriteria->id]) }}">
+                                <a
+                                    href="{{ route('admin.master-data.sub-kriteria.create', [$periode->id, $kriteria->id]) }}">
                                     <button type="button" class="btn btn-sm btn-primary btn-icon"><i
                                             class="typcn typcn-plus"></i>
                                         Tambah</button>

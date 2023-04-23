@@ -14,7 +14,7 @@
                 ajax: {
                     url: "{{ route('admin.master-data.kriteria.datatable') }}",
                     data: function(d) {
-                        d.id_periode = "{{ $id }}";
+                        d.id_periode = "{{ $periode->id }}";
                     }
                 },
                 columns: [{
@@ -29,13 +29,13 @@
                         orderable: false,
                         searchable: false,
                     },
-                    // {
-                    //     data: "periodes.nama_kriteria",
-                    //     name: 'periodes.nama_kriteria',
-                    //     render: function(d) {
-                    //         return d != null ? d : 'Tidak Ada'
-                    //     }
-                    // },
+                    {
+                        data: "nama_kriteria",
+                        name: 'nama_kriteria',
+                        render: function(d) {
+                            return d != null ? d : 'Tidak Ada'
+                        }
+                    },
                     {
                         data: "keterangan",
                         name: 'keterangan',
@@ -92,31 +92,6 @@
         <!-- breadcrumb -->
         @include('admin.layouts.menu._breadcrumb', ['page' => 'Data Kriteria', 'active' => 'Index'])
         <!-- breadcrumb -->
-        <div class="col-xl-12">
-            <div class="card">
-                <div class="card-header pb-0 pd-t-25">
-                    <div class="d-flex justify-content-between">
-                        <h4 class="card-title mg-b-0">Penilaian Sistem Pendukung Keputusan</h4>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td>Nama Periode</td>
-                                <td>:</td>
-                                <td><b>{{ $periode->nama_periode }}</b></td>
-                            </tr>
-                            <tr>
-                                <td>Rentang Penilaian</td>
-                                <td>:</td>
-                                <td><b>{{ $periode->tgl_penilaian }}</b></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div><!-- bd -->
-            </div><!-- bd -->
-        </div>
         @include('admin.pages.master-data.kriteria._alert')
 
         <!-- row opened -->
@@ -126,23 +101,51 @@
                 <div class="card">
                     <div class="card-header pb-0 pd-t-25">
                         <div class="d-flex justify-content-between">
-                            <h4 class="card-title mg-b-0">Data Kriteria</h4>
+                            <h4 class="card-title mg-b-0">Kriteria Sistem Pendukung Keputusan</h4>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>Nama Periode</td>
+                                    <td>:</td>
+                                    <td><b>{{ $periode->nama_periode }}</b></td>
+                                </tr>
+                                <tr>
+                                    <td>Rentang Penilaian</td>
+                                    <td>:</td>
+                                    <td><b>{{ $periode->tgl_penilaian }}</b></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div><!-- bd -->
+                </div><!-- bd -->
+            </div>
+
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-header pb-0 pd-t-25">
+                        <div class="d-flex justify-content-between">
+                            <h4 class="card-title mg-b-0">Data Kriteria
+                                @if (strpos($periode->nama_periode, 'Periode') !== false)
+                                    {{ $periode->nama_periode }}
+                                @else
+                                    {{ 'Periode ' . $periode->nama_periode }}
+                                @endif
+                            </h4>
+
+
                         </div>
                         <div class="d-flex justify-content-end">
                             @if ($total_bobot < 100)
                                 <div class="btn-icon-list">
-                                    <a href="{{ route('admin.master-data.kriteria.create', $id) }}">
+                                    <a href="{{ route('admin.master-data.kriteria.create', $periode->id) }}">
                                         <button type="button" class="btn btn-sm btn-primary btn-icon"><i
                                                 class="typcn typcn-plus"></i>
                                             Tambah</button>
                                     </a>
                                 </div>
-                                {{-- @else --}}
-                                {{-- <div class="btn-icon-list">
-                                    <button type="button" class="btn btn-sm btn-primary btn-icon" disabled><i
-                                            class="typcn typcn-plus"></i>
-                                        Tambah</button>
-                                </div> --}}
                             @endif
                         </div>
                     </div>
@@ -152,8 +155,8 @@
                                 <thead>
                                     <tr>
                                         <th class="wd-5p border-bottom-0">No</th>
-                                        <th class="wd-15p border-bottom-0">#</th>
-                                        {{-- <th class="wd-10p border-bottom-0">Nama Kriteria</th> --}}
+                                        <th class="wd-5p border-bottom-0">#</th>
+                                        <th class="wd-10p border-bottom-0">Nama Kriteria</th>
                                         <th class="wd-10p border-bottom-0">Keterangan</th>
                                         <th class="wd-10p border-bottom-0">Bobot Kriteria</th>
                                         <th class="wd-10p border-bottom-0">Status</th>
