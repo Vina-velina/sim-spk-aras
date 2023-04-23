@@ -30,7 +30,7 @@
             <span class="side-menu__label">Penilaian SPK</span>
         </a>
     </li>
-    <li class="slide">
+    <li class="slide {{ Route::is('admin.master-data.*') ? 'is-expanded' : '' }}">
         <a class="side-menu__item {{ Route::is('admin.master-data.*') ? 'active' : '' }}" data-toggle="slide"
             href="#">
             <div class="side-angle1"></div>

@@ -71,7 +71,7 @@ class KategoriDatatableServices
                 $element .= csrf_field();
                 $element .= method_field('DELETE');
                 $element .= '<div class="btn-icon-list">';
-                $element .= '<a href="' . route('admin.master-data.sub-kategori.edit', [$subKriteria->kriteriaPenilaian->id_periode, $subKriteria->id]) . '" class="btn btn-sm btn-warning btn-icon mr-2" id=""><i class="typcn text-white typcn-edit"></i></a>';
+                $element .= '<a href="' . route('admin.master-data.sub-kategori.edit', [$subKriteria->kriteriaPenilaian->id, $subKriteria->id]) . '" class="btn btn-sm btn-warning btn-icon mr-2" id=""><i class="typcn text-white typcn-edit"></i></a>';
                 $element .= '<button type="button" onclick ="alertConfirm(this)" data-id ="' . $subKriteria->id . '" class="btn btn-sm btn-danger btn-icon">
                             <i class="typcn typcn-trash text-white"></i>
                         </button>';

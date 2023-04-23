@@ -13,7 +13,7 @@
         var table = $('#basic-datatables');
         $(document).ready(function() {
             table.DataTable({
-                responsive: true,
+                // responsive: true,
                 processing: true,
                 serverSide: true,
                 ajax: {

@@ -216,10 +216,13 @@ class KategoriController extends Controller
         }
     }
 
-    public function subEdit($id, SubKriteriaPenilaian $subKriteriaPenilaian)
+    public function subEdit(KriteriaPenilaian $kriteriaPenilaian, $id)
     {
-        // dd($subKriteriaPenilaian);
-        return view('admin.pages.master-data.kriteria.sub-kriteria.edit', compact('subKriteriaPenilaian', 'id'));
+        $subKriteriaPenilaian = $this->kategoriQueryServices->getSubKriteriaById($id);
+        // dd($subKriteriaPenilaian, $id);
+        $id = $kriteriaPenilaian->id_periode;
+        // dd($id);
+        return view('admin.pages.master-data.kriteria.sub-kriteria.edit', compact('subKriteriaPenilaian', 'id', 'kriteriaPenilaian'));
     }
 
     public function subUpdate($id, SubKriteriaPenilaian $subKriteriaPenilaian, SubKategoriUpdateRequest $request)

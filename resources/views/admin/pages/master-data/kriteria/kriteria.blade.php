@@ -93,6 +93,8 @@
         @include('admin.layouts.menu._breadcrumb', ['page' => 'Data Kriteria', 'active' => 'Index'])
         <!-- breadcrumb -->
 
+        @include('admin.pages.master-data.kriteria._alert')
+
         <!-- row opened -->
         <div class="row row-sm">
             <!--div-->
@@ -111,12 +113,12 @@
                                             Tambah</button>
                                     </a>
                                 </div>
-                            @else
-                                <div class="btn-icon-list">
+                                {{-- @else --}}
+                                {{-- <div class="btn-icon-list">
                                     <button type="button" class="btn btn-sm btn-primary btn-icon" disabled><i
                                             class="typcn typcn-plus"></i>
                                         Tambah</button>
-                                </div>
+                                </div> --}}
                             @endif
                         </div>
                     </div>
@@ -129,7 +131,7 @@
                                         <th class="wd-15p border-bottom-0">#</th>
                                         {{-- <th class="wd-10p border-bottom-0">Nama Kriteria</th> --}}
                                         <th class="wd-10p border-bottom-0">Keterangan</th>
-                                        <th class="wd-10p border-bottom-0">bobot_kriteria</th>
+                                        <th class="wd-10p border-bottom-0">Bobot Kriteria</th>
                                         <th class="wd-10p border-bottom-0">Status</th>
                                     </tr>
                                 </thead>

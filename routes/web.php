@@ -137,7 +137,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
             Route::prefix('/sub-kriteria')->group(function () {
                 Route::get('/create/{id}/{kriteria_penilaian:id}', [KategoriController::class, 'subCreate'])->name('admin.master-data.sub-kategori.create');
                 Route::post('/store/{id}/{kriteria_penilaian:id}', [KategoriController::class, 'subStore'])->name('admin.master-data.sub-kategori.store');
-                Route::get('/edit/{id}/{sub_kriteria_penilaian:id}', [KategoriController::class, 'subEdit'])->name('admin.master-data.sub-kategori.edit');
+                Route::get('/edit/{kriteria_penilaian:id}/{id}', [KategoriController::class, 'subEdit'])->name('admin.master-data.sub-kategori.edit');
                 Route::post('/update/{id}/{sub_kriteria_penilaian:id}', [KategoriController::class, 'subUpdate'])->name('admin.master-data.sub-kategori.update');
                 Route::delete('/delete/{id}/{sub_kriteria_penilaian:id}', [KategoriController::class, 'subDelete'])->name('admin.master-data.sub-kategori.delete');
                 Route::get('/sub_datatable/{kriteria_penilaian:id}', [KategoriController::class, 'sub_datatable'])->name('admin.master-data.kategori.sub-datatable');
