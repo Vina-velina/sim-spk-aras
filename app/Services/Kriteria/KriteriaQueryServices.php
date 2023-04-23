@@ -17,6 +17,11 @@ class KriteriaQueryServices
         return KriteriaPenilaian::where('id_periode', $id)->get();
     }
 
+    public function getByIdPeriodeWhereAktif(string $id)
+    {
+        return KriteriaPenilaian::where('id_periode', $id)->where('status', 'aktif')->get();
+    }
+
     public function getAll()
     {
         return KriteriaPenilaian::all();
