@@ -76,8 +76,16 @@
                     // console.log(response);
                     if (response.success) {
                         alertSuccess(response.message);
+                        // refresh page
+                        setTimeout(function() {
+                            location.reload();
+                        }, 1500);
                     } else {
                         alertGagal(response.message);
+                        // refresh page
+                        setTimeout(function() {
+                            location.reload();
+                        }, 1500);
                     }
                     table.DataTable().ajax.reload();
                 }
