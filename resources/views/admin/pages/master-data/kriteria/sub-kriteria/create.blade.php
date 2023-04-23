@@ -23,11 +23,10 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <form
-                            action="{{ route('admin.master-data.sub-kriteria.store', [$periode->id, $kriteriaPenilaian->id]) }}"
+                        <form action="{{ route('admin.master-data.sub-kriteria.store', [$periode->id, $id_kriteria]) }}"
                             method="POST">
                             @csrf
-                            {{-- <input type="hidden" name="id_kriteria" value="{{ $kriteriaPenilaian->id }}"> --}}
+                            {{-- <input type="hidden" name="id_kriteria" value="{{ $id_kriteria }}"> --}}
                             <p class="text-danger">* wajib di isi</p>
                             <div class="row row-xs align-items-center mg-b-20">
                                 <div class="col-md-12">
@@ -54,7 +53,7 @@
                                 </div>
                             </div>
                             <button class="btn btn-sm btn-main-primary pd-x-30 mg-r-5 mg-t-5">Simpan</button>
-                            <a href="{{ route('admin.master-data.kriteria.edit', [$periode->id, $kriteriaPenilaian->id]) }}"
+                            <a href="{{ route('admin.master-data.kriteria.edit', [$periode->id, $id_kriteria]) }}"
                                 class="btn btn-sm btn-dark pd-x-30 mg-t-5">Batalkan
                             </a>
                         </form>

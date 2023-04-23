@@ -54,18 +54,18 @@ class MasterKriteriaController extends Controller
         }
     }
 
-    public function edit(MasterKriteriaPenilaian $masterKriteriaPenilaian)
+    public function edit(string $id)
     {
-        // $data = $this->masterKriteriaQueryServices->getOne($id);
-        $kriteria = $masterKriteriaPenilaian;
+        $kriteria = $this->masterKriteriaQueryServices->getOne($id);
+
         return view('admin.pages.master-data.master-kriteria.edit', compact('kriteria'));
     }
 
-    public function update(MasterKriteriaUpdateRequest $request, MasterKriteriaPenilaian $masterKriteriaPenilaian)
+    public function update(MasterKriteriaUpdateRequest $request, string $id)
     {
         try {
             DB::beginTransaction();
-            $this->masterKriteriaCommandServices->update($request, $masterKriteriaPenilaian);
+            $this->masterKriteriaCommandServices->update($request, $id);
             DB::commit();
             return redirect()->route('admin.master-data.master-kriteria.index')->with('success', 'Data berhasil diubah');
         } catch (\Throwable $th) {
@@ -75,11 +75,11 @@ class MasterKriteriaController extends Controller
         }
     }
 
-    public function delete(MasterKriteriaPenilaian $masterKriteriaPenilaian)
+    public function delete(string $id)
     {
         try {
             DB::beginTransaction();
-            $this->masterKriteriaCommandServices->destroy($masterKriteriaPenilaian);
+            $this->masterKriteriaCommandServices->destroy($id);
             DB::commit();
             return redirect()->route('admin.master-data.master-kriteria.index')->with('success', 'Data berhasil dihapus');
         } catch (\Throwable $th) {
@@ -88,11 +88,10 @@ class MasterKriteriaController extends Controller
         }
     }
 
-    public function detail(MasterKriteriaPenilaian $masterKriteriaPenilaian)
+    public function detail(string $id)
     {
         try {
-            // $data = $this->masterKriteriaQueryServices->getOne($masterKriteriaPenilaian->id);
-            $data = $masterKriteriaPenilaian;
+            $data = $this->masterKriteriaQueryServices->getOne($id);
 
             $created_at = FormatDateToIndonesia::getIndonesiaDateTime($data->created_at);
             $updated_at = FormatDateToIndonesia::getIndonesiaDateTime($data->updated_at);

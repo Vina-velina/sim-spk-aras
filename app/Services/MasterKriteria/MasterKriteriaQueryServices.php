@@ -8,7 +8,7 @@ class MasterKriteriaQueryServices
 {
     public function getOne(string $id)
     {
-        return MasterKriteriaPenilaian::find($id);
+        return MasterKriteriaPenilaian::findOrFail($id);
     }
 
     public function getAll()
