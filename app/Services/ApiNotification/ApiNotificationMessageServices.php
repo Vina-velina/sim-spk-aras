@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Ramsey\Uuid\Uuid;
 use Throwable;
+use DeyanArdi\GanadevNotif\GanadevApi;
 
 /**
  * Created by Deyan Ardi 2022.
@@ -15,15 +16,6 @@ use Throwable;
  */
 class ApiNotificationMessageServices
 {
-    // Init services variable
-    protected $apiNotificationCommandServices;
-
-    // Call services
-    public function __construct(ApiNotificationCommandServices $apiNotificationCommandServices)
-    {
-        // Set services to variable
-        $this->apiNotificationCommandServices = $apiNotificationCommandServices;
-    }
 
     // Write message and send message here
     public function generateLinkResetPassword(string $email)
@@ -52,7 +44,7 @@ class ApiNotificationMessageServices
     {
         $judul = 'Reset Password Notification';
         $message = view('emails.securityResetPassword', compact('link', 'name'))->render();
-        $send_email = $this->apiNotificationCommandServices->sendMailMessage($email, $judul, $message);
+        $send_email = GanadevApi::sendMailMessage($email, $judul, $message);
         if ($send_email['status'] != 200) {
             return false;
         }
@@ -65,7 +57,7 @@ class ApiNotificationMessageServices
         DB::beginTransaction();
         try {
             $reset = DB::table('password_resets')->where('token', $token)->where('email', $email)->first();
-            if (! empty($reset)) {
+            if (!empty($reset)) {
                 $expired = Carbon::parse($reset->created_at)->addMinutes(30)->format('Y-m-d H:i:s');
                 $now = Carbon::now()->format('Y-m-d H:i:s');
                 if ($now <= $expired) {
