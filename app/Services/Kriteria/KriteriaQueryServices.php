@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Services\Kategori;
+namespace App\Services\Kriteria;
 
 use App\Models\KriteriaPenilaian;
 use App\Models\SubKriteriaPenilaian;
 
-class KategoriQueryServices
+class KriteriaQueryServices
 {
     public function getOne(string $id)
     {

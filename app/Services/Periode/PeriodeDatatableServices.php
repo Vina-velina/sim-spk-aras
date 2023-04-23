@@ -17,6 +17,8 @@ class PeriodeDatatableServices
             $query->where('status', $request->status);
         }
 
+        $query->orderBy('updated_at', 'DESC');
+
         return DataTables::of($query->get())
             ->addColumn('action', function ($item) {
                 $element = '';

@@ -12,7 +12,7 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ route('admin.master-data.kategori.datatable.periode') }}",
+                    url: "{{ route('admin.master-data.kriteria.datatable.periode') }}",
                     data: function(d) {
                         d.status = "aktif";
                     }
@@ -75,7 +75,7 @@
                 <div class="card">
                     <div class="card-header pb-0 pd-t-25">
                         <div class="d-flex justify-content-between">
-                            <h4 class="card-title mg-b-0">Pilih Kategori</h4>
+                            <h4 class="card-title mg-b-0">Pilih Periode Penilaian</h4>
                         </div>
                     </div>
                     <div class="card-body">

@@ -3,7 +3,7 @@
 use App\Http\Controllers\Admin\AccountController;
 use App\Http\Controllers\Admin\DebiturController;
 use App\Http\Controllers\Admin\HomeController;
-use App\Http\Controllers\Admin\KategoriController;
+use App\Http\Controllers\Admin\KriteriaController;
 use App\Http\Controllers\Admin\MasterKriteriaController;
 use App\Http\Controllers\Admin\PenilaianController;
 use App\Http\Controllers\Admin\PeriodeController;
@@ -105,42 +105,42 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
 
         // Data Master Kriteria
         Route::prefix('master-kriteria')->group(function () {
-            Route::get('/', [MasterKriteriaController::class, 'index'])->name('admin.master-data.master-kategori.index');
-            Route::get('/detail/{master_kriteria_penilaian:id}', [MasterKriteriaController::class, 'detail'])->name('admin.master-data.master-kategori.detail');
-            Route::get('/create', [MasterKriteriaController::class, 'create'])->name('admin.master-data.master-kategori.create');
-            Route::post('/store', [MasterKriteriaController::class, 'store'])->name('admin.master-data.master-kategori.store');
-            Route::get('/edit/{master_kriteria_penilaian:id}', [MasterKriteriaController::class, 'edit'])->name('admin.master-data.master-kategori.edit');
-            Route::post('/update/{master_kriteria_penilaian:id}', [MasterKriteriaController::class, 'update'])->name('admin.master-data.master-kategori.update');
-            Route::delete('/delete/{master_kriteria_penilaian:id}', [MasterKriteriaController::class, 'delete'])->name('admin.master-data.master-kategori.delete');
-            Route::get('/datatable', [MasterKriteriaController::class, 'datatable'])->name('admin.master-data.master-kategori.datatable');
+            Route::get('/', [MasterKriteriaController::class, 'index'])->name('admin.master-data.master-kriteria.index');
+            Route::get('/detail/{master_kriteria_penilaian:id}', [MasterKriteriaController::class, 'detail'])->name('admin.master-data.master-kriteria.detail');
+            Route::get('/create', [MasterKriteriaController::class, 'create'])->name('admin.master-data.master-kriteria.create');
+            Route::post('/store', [MasterKriteriaController::class, 'store'])->name('admin.master-data.master-kriteria.store');
+            Route::get('/edit/{master_kriteria_penilaian:id}', [MasterKriteriaController::class, 'edit'])->name('admin.master-data.master-kriteria.edit');
+            Route::post('/update/{master_kriteria_penilaian:id}', [MasterKriteriaController::class, 'update'])->name('admin.master-data.master-kriteria.update');
+            Route::delete('/delete/{master_kriteria_penilaian:id}', [MasterKriteriaController::class, 'delete'])->name('admin.master-data.master-kriteria.delete');
+            Route::get('/datatable', [MasterKriteriaController::class, 'datatable'])->name('admin.master-data.master-kriteria.datatable');
         });
 
         // Data Kriteria
-        Route::prefix('kategori')->group(function () {
-            Route::get('/', [KategoriController::class, 'index'])->name('admin.master-data.kategori.index');
-            Route::get('/datatable-periode', [KategoriController::class, 'periodeDataTable'])->name('admin.master-data.kategori.datatable.periode');
-            Route::get('/datatable', [KategoriController::class, 'datatable'])->name('admin.master-data.kategori.datatable');
+        Route::prefix('kriteria-periode')->group(function () {
+            Route::get('/', [KriteriaController::class, 'index'])->name('admin.master-data.kriteria.index');
+            Route::get('/datatable-periode', [KriteriaController::class, 'periodeDataTable'])->name('admin.master-data.kriteria.datatable.periode');
+            Route::get('/datatable', [KriteriaController::class, 'datatable'])->name('admin.master-data.kriteria.datatable');
 
             // Kriteria
             Route::prefix('kriteria')->group(function () {
-                Route::get('/{id}', [KategoriController::class, 'kriteria'])->name('admin.master-data.kategori.kriteria');
-                Route::get('/create/{id}', [KategoriController::class, 'create'])->name('admin.master-data.kategori.create');
-                Route::get('/update-status/{kriteria_penilaian:id}', [KategoriController::class, 'updateStatus'])->name('admin.master-data.kategori.update.status');
-                Route::get('/edit/{id}/{kriteria_penilaian:id}', [KategoriController::class, 'edit'])->name('admin.master-data.kategori.edit');
-                Route::post('/store/{id}', [KategoriController::class, 'store'])->name('admin.master-data.kategori.store');
-                Route::post('/update/{id}/{kriteria_penilaian:id}', [KategoriController::class, 'update'])->name('admin.master-data.kategori.update');
-                Route::delete('/delete/{id}/{kriteria_penilaian:id}', [KategoriController::class, 'delete'])->name('admin.master-data.kategori.delete');
+                Route::get('/{id}', [KriteriaController::class, 'kriteria'])->name('admin.master-data.kriteria.kriteria');
+                Route::get('/create/{id}', [KriteriaController::class, 'create'])->name('admin.master-data.kriteria.create');
+                Route::get('/update-status/{kriteria_penilaian:id}', [KriteriaController::class, 'updateStatus'])->name('admin.master-data.kriteria.update.status');
+                Route::get('/edit/{id}/{kriteria_penilaian:id}', [KriteriaController::class, 'edit'])->name('admin.master-data.kriteria.edit');
+                Route::post('/store/{id}', [KriteriaController::class, 'store'])->name('admin.master-data.kriteria.store');
+                Route::post('/update/{id}/{kriteria_penilaian:id}', [KriteriaController::class, 'update'])->name('admin.master-data.kriteria.update');
+                Route::delete('/delete/{id}/{kriteria_penilaian:id}', [KriteriaController::class, 'delete'])->name('admin.master-data.kriteria.delete');
             });
 
 
             // sub Kriteria
             Route::prefix('/sub-kriteria')->group(function () {
-                Route::get('/create/{id}/{kriteria_penilaian:id}', [KategoriController::class, 'subCreate'])->name('admin.master-data.sub-kategori.create');
-                Route::post('/store/{id}/{kriteria_penilaian:id}', [KategoriController::class, 'subStore'])->name('admin.master-data.sub-kategori.store');
-                Route::get('/edit/{kriteria_penilaian:id}/{id}', [KategoriController::class, 'subEdit'])->name('admin.master-data.sub-kategori.edit');
-                Route::post('/update/{id}/{sub_kriteria_penilaian:id}', [KategoriController::class, 'subUpdate'])->name('admin.master-data.sub-kategori.update');
-                Route::delete('/delete/{id}/{sub_kriteria_penilaian:id}', [KategoriController::class, 'subDelete'])->name('admin.master-data.sub-kategori.delete');
-                Route::get('/sub_datatable/{kriteria_penilaian:id}', [KategoriController::class, 'sub_datatable'])->name('admin.master-data.kategori.sub-datatable');
+                Route::get('/create/{id}/{kriteria_penilaian:id}', [KriteriaController::class, 'subCreate'])->name('admin.master-data.sub-kriteria.create');
+                Route::post('/store/{id}/{kriteria_penilaian:id}', [KriteriaController::class, 'subStore'])->name('admin.master-data.sub-kriteria.store');
+                Route::get('/edit/{kriteria_penilaian:id}/{id}', [KriteriaController::class, 'subEdit'])->name('admin.master-data.sub-kriteria.edit');
+                Route::post('/update/{id}/{sub_kriteria_penilaian:id}', [KriteriaController::class, 'subUpdate'])->name('admin.master-data.sub-kriteria.update');
+                Route::delete('/delete/{id}/{sub_kriteria_penilaian:id}', [KriteriaController::class, 'subDelete'])->name('admin.master-data.sub-kriteria.delete');
+                Route::get('/sub_datatable/{kriteria_penilaian:id}', [KriteriaController::class, 'sub_datatable'])->name('admin.master-data.kriteria.sub-datatable');
             });
         });
     });

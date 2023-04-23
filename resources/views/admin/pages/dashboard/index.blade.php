@@ -15,7 +15,7 @@
     <script src="{{ asset('assets/plugins/jquery.flot/jquery.flot.js') }}"></script>
     <script src="{{ asset('assets/plugins/jquery.flot/jquery.flot.pie.js') }}"></script>
     <script src="{{ asset('assets/plugins/jquery.flot/jquery.flot.resize.js') }}"></script>
-    <script src="{{ asset('assets/plugins/jquery.flot/jquery.flot.categories.js') }}"></script>
+    <script src="{{ asset('assets/plugins/jquery.flot/jquery.flot.criteriaes.js') }}"></script>
     <script src="{{ asset('assets/js/dashboard.sampledata.js') }}"></script>
     <script src="{{ asset('assets/js/chart.flot.sampledata.js') }}"></script>
 

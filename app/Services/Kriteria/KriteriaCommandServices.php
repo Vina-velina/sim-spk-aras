@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Services\Kategori;
+namespace App\Services\Kriteria;
 
-use App\Http\Requests\Kategori\KategoriStoreRequest;
-use App\Http\Requests\Kategori\KategoriUpdateRequest;
-use App\Http\Requests\Kategori\SubKategoriStoreRequest;
-use App\Http\Requests\Kategori\SubKategoriUpdateRequest;
+use App\Http\Requests\Kriteria\KriteriaStoreRequest;
+use App\Http\Requests\Kriteria\KriteriaUpdateRequest;
+use App\Http\Requests\Kriteria\SubKriteriaStoreRequest;
+use App\Http\Requests\Kriteria\SubKriteriaUpdateRequest;
 use App\Models\KriteriaPenilaian;
 use App\Models\SubKriteriaPenilaian;
 use Ramsey\Uuid\Uuid;
 
-class KategoriCommandServices
+class KriteriaCommandServices
 {
-    public function store(KategoriStoreRequest $request)
+    public function store(KriteriaStoreRequest $request)
     {
         $request->validated();
 
@@ -26,7 +26,7 @@ class KategoriCommandServices
         return $kriteria;
     }
 
-    public function update(KategoriUpdateRequest $request, KriteriaPenilaian $kriteria)
+    public function update(KriteriaUpdateRequest $request, KriteriaPenilaian $kriteria)
     {
         $request->validated();
 
@@ -52,7 +52,7 @@ class KategoriCommandServices
         $kriteria->delete();
     }
 
-    public function subStore(KriteriaPenilaian $kriteria, SubKategoriStoreRequest $request)
+    public function subStore(KriteriaPenilaian $kriteria, SubKriteriaStoreRequest $request)
     {
         $request->validated();
 
@@ -66,7 +66,7 @@ class KategoriCommandServices
         return $subKriteria;
     }
 
-    public function subUpdate(SubKriteriaPenilaian $subKriteria, SubKategoriUpdateRequest $request)
+    public function subUpdate(SubKriteriaPenilaian $subKriteria, SubKriteriaUpdateRequest $request)
     {
         $request->validated();
 

@@ -13,7 +13,7 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ route('admin.master-data.master-kategori.datatable') }}",
+                    url: "{{ route('admin.master-data.master-kriteria.datatable') }}",
                 },
                 columns: [{
                         data: "DT_RowIndex",
@@ -102,7 +102,7 @@
                         </div>
                         <div class="d-flex justify-content-end">
                             <div class="btn-icon-list">
-                                <a href="{{ route('admin.master-data.master-kategori.create') }}">
+                                <a href="{{ route('admin.master-data.master-kriteria.create') }}">
                                     <button type="button" class="btn btn-sm btn-primary btn-icon"><i
                                             class="typcn typcn-plus"></i>
                                         Tambah</button>

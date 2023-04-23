@@ -12,6 +12,8 @@ class UserDatatableServices
     {
         $query = User::query();
 
+        $query->orderBy('updated_at', 'DESC');
+
         return DataTables::of($query->get())
             ->addIndexColumn()
             ->addColumn('action', function ($item) {

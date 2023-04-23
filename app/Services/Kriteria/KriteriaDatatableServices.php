@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Kategori;
+namespace App\Services\Kriteria;
 
 use App\Helpers\FormatDateToIndonesia;
 use App\Models\KriteriaPenilaian;
@@ -9,7 +9,7 @@ use App\Models\SubKriteriaPenilaian;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
-class KategoriDatatableServices
+class KriteriaDatatableServices
 {
     public function datatable(Request $request)
     {
@@ -19,15 +19,17 @@ class KategoriDatatableServices
             $query->where('id_periode', $request->id_periode);
         }
 
+        $query->orderBy('updated_at', 'DESC');
+
         return DataTables::of($query->get())
             ->addIndexColumn()
             ->addColumn('action', function ($item) {
                 $element = '';
-                $element .= '<form id="delete-' . $item->id . '" action="' . route('admin.master-data.kategori.delete', [$item->id_periode, $item->id]) . '" method="POST"> ';
+                $element .= '<form id="delete-' . $item->id . '" action="' . route('admin.master-data.kriteria.delete', [$item->id_periode, $item->id]) . '" method="POST"> ';
                 $element .= csrf_field();
                 $element .= method_field('DELETE');
                 $element .= '<div class="btn-icon-list">';
-                $element .= '<a href="' . route('admin.master-data.kategori.edit', [$item->id_periode, $item->id]) . '" class="btn btn-sm btn-warning btn-icon mr-2" id=""><i class="typcn text-white typcn-edit"></i></a>';
+                $element .= '<a href="' . route('admin.master-data.kriteria.edit', [$item->id_periode, $item->id]) . '" class="btn btn-sm btn-warning btn-icon mr-2" id=""><i class="typcn text-white typcn-edit"></i></a>';
                 $element .= '<button type="button" onclick ="alertConfirm(this)" data-id ="' . $item->id . '" class="btn btn-sm btn-danger btn-icon">
                                 <i class="typcn typcn-trash text-white"></i>
                             </button>';
@@ -44,7 +46,7 @@ class KategoriDatatableServices
                 }
                 $toggle = '';
                 $toggle .= '<div class="main-toggle-group-demo">';
-                $toggle .= '<div class="main-toggle ' . $query . '" onclick="changeStatusKriteria(this)" data-url_update="' . route('admin.master-data.kategori.update.status', $item->id) . '">';
+                $toggle .= '<div class="main-toggle ' . $query . '" onclick="changeStatusKriteria(this)" data-url_update="' . route('admin.master-data.kriteria.update.status', $item->id) . '">';
                 $toggle .= '<span></span>';
                 $toggle .= '</div>';
                 $toggle .= '</div>';
@@ -63,15 +65,17 @@ class KategoriDatatableServices
             $query->where('id_kriteria', $request->id_kriteria);
         }
 
+        $query->orderBy('updated_at', 'DESC');
+
         return DataTables::of($query->get())
             ->addIndexColumn()
             ->addColumn('action', function ($subKriteria) {
                 $element = '';
-                $element .= '<form id="delete-' . $subKriteria->id . '" action="' . route('admin.master-data.sub-kategori.delete', [$subKriteria->kriteriaPenilaian->id_periode, $subKriteria->id]) . '" method="POST"> ';
+                $element .= '<form id="delete-' . $subKriteria->id . '" action="' . route('admin.master-data.sub-kriteria.delete', [$subKriteria->kriteriaPenilaian->id_periode, $subKriteria->id]) . '" method="POST"> ';
                 $element .= csrf_field();
                 $element .= method_field('DELETE');
                 $element .= '<div class="btn-icon-list">';
-                $element .= '<a href="' . route('admin.master-data.sub-kategori.edit', [$subKriteria->kriteriaPenilaian->id, $subKriteria->id]) . '" class="btn btn-sm btn-warning btn-icon mr-2" id=""><i class="typcn text-white typcn-edit"></i></a>';
+                $element .= '<a href="' . route('admin.master-data.sub-kriteria.edit', [$subKriteria->kriteriaPenilaian->id, $subKriteria->id]) . '" class="btn btn-sm btn-warning btn-icon mr-2" id=""><i class="typcn text-white typcn-edit"></i></a>';
                 $element .= '<button type="button" onclick ="alertConfirm(this)" data-id ="' . $subKriteria->id . '" class="btn btn-sm btn-danger btn-icon">
                             <i class="typcn typcn-trash text-white"></i>
                         </button>';
@@ -95,11 +99,13 @@ class KategoriDatatableServices
             $query->where('status', $request->status);
         }
 
+        $query->orderBy('updated_at', 'DESC');
+
         return DataTables::of($query->get())
             ->addColumn('action', function ($item) {
                 $element = '';
                 $element .= '<div class="btn-icon-list">';
-                $element .= '<a href="' . route('admin.master-data.kategori.kriteria', $item->id) . '" class="btn btn-sm btn-warning btn-icon mr-2" id=""><i class="typcn text-white typcn-edit"></i></a>';
+                $element .= '<a href="' . route('admin.master-data.kriteria.kriteria', $item->id) . '" class="btn btn-sm btn-warning btn-icon mr-2" id=""><i class="typcn text-white typcn-edit"></i></a>';
                 $element .= '</div>';
 
                 return $element;

@@ -17,7 +17,7 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ route('admin.master-data.kategori.sub-datatable', $kriteria->id) }}",
+                    url: "{{ route('admin.master-data.kriteria.sub-datatable', $kriteria->id) }}",
                     data: function(d) {
                         d.id_kriteria = "{{ $kriteria->id }}";
                         // d.id_periode = "{{ $kriteria->id_periode }}";
@@ -86,7 +86,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('admin.master-data.kategori.update', [$id, $kriteria->id]) }}" method="POST">
+                        <form action="{{ route('admin.master-data.kriteria.update', [$id, $kriteria->id]) }}" method="POST">
                             @csrf
                             <input type="hidden" name="id_periode" value="{{ $id }}">
                             <p class="text-danger">* wajib di isi</p>
@@ -147,7 +147,7 @@
                                 </div>
                             </div>
                             <button class="btn btn-sm btn-main-primary pd-x-30 mg-r-5 mg-t-5">Simpan</button>
-                            <a href="{{ route('admin.master-data.kategori.kriteria', $id) }}"
+                            <a href="{{ route('admin.master-data.kriteria.kriteria', $id) }}"
                                 class="btn btn-sm btn-dark pd-x-30 mg-t-5">Batalkan
                             </a>
                         </form>
@@ -164,7 +164,7 @@
                         </div>
                         <div class="d-flex justify-content-end">
                             <div class="btn-icon-list">
-                                <a href="{{ route('admin.master-data.sub-kategori.create', [$id, $kriteria->id]) }}">
+                                <a href="{{ route('admin.master-data.sub-kriteria.create', [$id, $kriteria->id]) }}">
                                     <button type="button" class="btn btn-sm btn-primary btn-icon"><i
                                             class="typcn typcn-plus"></i>
                                         Tambah</button>

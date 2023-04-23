@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Kategori;
+namespace App\Http\Requests\Kriteria;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SubKategoriStoreRequest extends FormRequest
+class SubKriteriaUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

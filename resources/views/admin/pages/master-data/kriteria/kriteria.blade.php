@@ -1,5 +1,5 @@
 @extends('admin.layouts.app')
-{{-- @dd(route('admin.master-data.kategori.datatable')) --}}
+{{-- @dd(route('admin.master-data.kriteria.datatable')) --}}
 @section('tittle', 'Kriteria')
 @section('otherJsPlugin')
     <!--Internal  Datatable js -->
@@ -12,7 +12,7 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ route('admin.master-data.kategori.datatable') }}",
+                    url: "{{ route('admin.master-data.kriteria.datatable') }}",
                     data: function(d) {
                         d.id_periode = "{{ $id }}";
                     }
@@ -92,7 +92,31 @@
         <!-- breadcrumb -->
         @include('admin.layouts.menu._breadcrumb', ['page' => 'Data Kriteria', 'active' => 'Index'])
         <!-- breadcrumb -->
-
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="card-header pb-0 pd-t-25">
+                    <div class="d-flex justify-content-between">
+                        <h4 class="card-title mg-b-0">Penilaian Sistem Pendukung Keputusan</h4>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>Nama Periode</td>
+                                <td>:</td>
+                                <td><b>{{ $periode->nama_periode }}</b></td>
+                            </tr>
+                            <tr>
+                                <td>Rentang Penilaian</td>
+                                <td>:</td>
+                                <td><b>{{ $periode->tgl_penilaian }}</b></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div><!-- bd -->
+            </div><!-- bd -->
+        </div>
         @include('admin.pages.master-data.kriteria._alert')
 
         <!-- row opened -->
@@ -107,7 +131,7 @@
                         <div class="d-flex justify-content-end">
                             @if ($total_bobot < 100)
                                 <div class="btn-icon-list">
-                                    <a href="{{ route('admin.master-data.kategori.create', $id) }}">
+                                    <a href="{{ route('admin.master-data.kriteria.create', $id) }}">
                                         <button type="button" class="btn btn-sm btn-primary btn-icon"><i
                                                 class="typcn typcn-plus"></i>
                                             Tambah</button>
@@ -146,7 +170,7 @@
                     <div class="card-footer">
                         <div class="d-flex justify-content-end">
                             <div class="btn-icon-list">
-                                <a href="{{ route('admin.master-data.kategori.index') }}">
+                                <a href="{{ route('admin.master-data.kriteria.index') }}">
                                     <button type="button" class="btn btn-sm btn-primary btn-icon"><i
                                             class="typcn typcn-arrow-back-outline"></i>
                                         Kembali</button>

@@ -63,14 +63,14 @@
                         Periode</span></a>
             </li>
             <li>
-                <a class="sub-side-menu__item" href="{{ route('admin.master-data.kategori.index') }}"><span
-                        class="sub-side-menu__label {{ Route::is('admin.master-data.kategori.*') ? 'text-white text-bold' : '' }}">Data
-                        Kriteria</span></a>
+                <a class="sub-side-menu__item" href="{{ route('admin.master-data.master-kriteria.index') }}"><span
+                        class="sub-side-menu__label {{ Route::is('admin.master-data.master-kriteria.*') ? 'text-white text-bold' : '' }}">Data
+                        Master Kriteria</span></a>
             </li>
             <li>
-                <a class="sub-side-menu__item" href="{{ route('admin.master-data.master-kategori.index') }}"><span
-                        class="sub-side-menu__label {{ Route::is('admin.master-data.master-kategori.*') ? 'text-white text-bold' : '' }}">Data
-                        Master Kriteria</span></a>
+                <a class="sub-side-menu__item" href="{{ route('admin.master-data.kriteria.index') }}"><span
+                        class="sub-side-menu__label {{ Route::is('admin.master-data.kriteria.*') ? 'text-white text-bold' : '' }}">Data
+                        Kriteria</span></a>
             </li>
         </ul>
     </li>

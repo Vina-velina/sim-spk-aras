@@ -23,7 +23,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('admin.master-data.master-kategori.update', $kriteria->id) }}" method="POST">
+                        <form action="{{ route('admin.master-data.master-kriteria.update', $kriteria->id) }}" method="POST">
                             @csrf
                             <p class="text-danger">* wajib di isi</p>
                             <div class="row row-xs align-items-center mg-b-20">
@@ -47,7 +47,7 @@
                                 </div>
                             </div>
                             <button class="btn btn-sm btn-main-primary pd-x-30 mg-r-5 mg-t-5">Simpan</button>
-                            <a href="{{ route('admin.master-data.master-kategori.index') }}"
+                            <a href="{{ route('admin.master-data.master-kriteria.index') }}"
                                 class="btn btn-sm btn-dark pd-x-30 mg-t-5">Batalkan
                             </a>
                         </form>

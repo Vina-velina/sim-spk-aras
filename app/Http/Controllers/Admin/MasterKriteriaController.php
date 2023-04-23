@@ -46,7 +46,7 @@ class MasterKriteriaController extends Controller
             DB::beginTransaction();
             $this->masterKriteriaCommandServices->store($request);
             DB::commit();
-            return redirect()->route('admin.master-data.master-kategori.index')->with('success', 'Data berhasil ditambahkan');
+            return redirect()->route('admin.master-data.master-kriteria.index')->with('success', 'Data berhasil ditambahkan');
         } catch (\Throwable $th) {
             DB::rollBack();
             dd($th);
@@ -67,7 +67,7 @@ class MasterKriteriaController extends Controller
             DB::beginTransaction();
             $this->masterKriteriaCommandServices->update($request, $masterKriteriaPenilaian);
             DB::commit();
-            return redirect()->route('admin.master-data.master-kategori.index')->with('success', 'Data berhasil diubah');
+            return redirect()->route('admin.master-data.master-kriteria.index')->with('success', 'Data berhasil diubah');
         } catch (\Throwable $th) {
             dd($th);
             DB::rollBack();
@@ -81,7 +81,7 @@ class MasterKriteriaController extends Controller
             DB::beginTransaction();
             $this->masterKriteriaCommandServices->destroy($masterKriteriaPenilaian);
             DB::commit();
-            return redirect()->route('admin.master-data.master-kategori.index')->with('success', 'Data berhasil dihapus');
+            return redirect()->route('admin.master-data.master-kriteria.index')->with('success', 'Data berhasil dihapus');
         } catch (\Throwable $th) {
             DB::rollBack();
             return redirect()->back()->with('error', 'Data gagal dihapus');
