@@ -19,4 +19,11 @@ class PeriodeQueryServices
     {
         return Periode::all();
     }
+
+    public function getOneWhereAktif(string $id)
+    {
+        $periode = Periode::where('id', $id)->where('status', 'aktif')->firstOrFail();
+
+        return $periode;
+    }
 }

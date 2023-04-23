@@ -50,7 +50,7 @@ class KriteriaController extends Controller
     public function kriteria(string $id)
     {
 
-        $periode = $this->periodeQueryServices->getOne($id);
+        $periode = $this->periodeQueryServices->getOneWhereAktif($id);
         if (isset($periode)) {
             $periode->tgl_penilaian =  FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_awal_penilaian) . ' s/d ' .  FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_akhir_penilaian);
         }
