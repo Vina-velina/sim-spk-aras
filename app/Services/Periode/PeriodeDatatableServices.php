@@ -45,13 +45,11 @@ class PeriodeDatatableServices
 
                 return $element;
             })
-            ->addColumn('status_penilaian', function ($item) {
+            ->addColumn('action_kriteria', function ($item) {
                 $element = '';
-                if (Carbon::now()->format('Y-m-d H:i:s') < $item->tgl_awal_penilaian || Carbon::now()->format('Y-m-d H:i:s') > $item->tgl_akhir_penilaian) {
-                    $element .= '<div class="badge badge-danger"> Berakhir </div>';
-                } else {
-                    $element .= '<div class="badge badge-success"> Berlangsung </div>';
-                }
+                $element .= '<div class="btn-icon-list">';
+                $element .= '<a href="' . route('admin.master-data.kriteria.kriteria', $item->id) . '" class="btn btn-sm btn-warning btn-icon mr-2" id=""><i class="typcn text-white typcn-edit"></i></a>';
+                $element .= '</div>';
 
                 return $element;
             })
@@ -82,7 +80,7 @@ class PeriodeDatatableServices
                 return FormatDateToIndonesia::getIndonesiaDate($item->tgl_akhir_penilaian);
             })
             ->addIndexColumn()
-            ->rawColumns(['action', 'status', 'action_penilaian', 'status_penilaian'])
+            ->rawColumns(['action', 'status', 'action_penilaian', 'action_kriteria'])
             ->make(true);
     }
 }

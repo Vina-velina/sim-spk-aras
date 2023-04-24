@@ -12,7 +12,7 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ route('admin.master-data.kriteria.datatable') }}",
+                    url: "{{ route('admin.master-data.kriteria.datatable', $periode->id) }}",
                     data: function(d) {
                         d.id_periode = "{{ $periode->id }}";
                     }
@@ -98,7 +98,10 @@
     <div class="container-fluid mg-t-20">
 
         <!-- breadcrumb -->
-        @include('admin.layouts.menu._breadcrumb', ['page' => 'Data Kriteria', 'active' => 'Index'])
+        @include('admin.layouts.menu._breadcrumb', [
+            'page' => 'Data Kriteria',
+            'active' => 'Kriteria ' . $periode->nama_periode,
+        ])
         <!-- breadcrumb -->
         @include('admin.pages.master-data.kriteria._alert')
 
