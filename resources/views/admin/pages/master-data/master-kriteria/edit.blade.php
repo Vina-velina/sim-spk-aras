@@ -25,7 +25,7 @@
                     <div class="card-body">
                         <form action="{{ route('admin.master-data.master-kriteria.update', $kriteria->id) }}" method="POST">
                             @csrf
-                            <p class="text-danger">* wajib di isi</p>
+                            <p class="text-danger">* Wajib diisi</p>
                             <div class="row row-xs align-items-center mg-b-20">
                                 <div class="col-md-12">
                                     <label class="form-label mg-b-0">Nama Kriteria <span

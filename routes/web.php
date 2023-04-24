@@ -120,9 +120,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
             Route::get('/', [KriteriaController::class, 'index'])->name('admin.master-data.kriteria.index');
             Route::get('/datatable-periode', [KriteriaController::class, 'periodeDataTable'])->name('admin.master-data.kriteria.datatable.periode');
 
-            // Kriteria
-            Route::group(['prefix' => 'kriteria', 'middleware' => 'allowActivePeriode'], function () {
-                Route::prefix('{id_periode}')->group(function () {
+            Route::prefix('{id_periode}')->group(function () {
+                // Kriteria
+                Route::group(['prefix' => 'kriteria', 'middleware' => 'allowActivePeriode'], function () {
                     Route::get('/', [KriteriaController::class, 'kriteria'])->name('admin.master-data.kriteria.kriteria');
                     Route::get('/create', [KriteriaController::class, 'create'])->name('admin.master-data.kriteria.create');
                     Route::get('/edit/{id_kriteria}', [KriteriaController::class, 'edit'])->name('admin.master-data.kriteria.edit');
@@ -132,11 +132,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
                     Route::delete('/delete/{id_kriteria}', [KriteriaController::class, 'delete'])->name('admin.master-data.kriteria.delete');
                     Route::get('/datatable/kriteria-penilaian', [KriteriaController::class, 'datatable'])->name('admin.master-data.kriteria.datatable');
                 });
-            });
 
-            // sub Kriteria
-            Route::group(['prefix' => 'sub-kriteria', 'middleware' => 'allowActivePeriode'], function () {
-                Route::prefix('{id_periode}')->group(function () {
+                // sub Kriteria
+                Route::group(['prefix' => 'sub-kriteria', 'middleware' => 'allowActivePeriode'], function () {
                     Route::get('/create/{id_kriteria}', [KriteriaController::class, 'subCreate'])->name('admin.master-data.sub-kriteria.create');
                     Route::post('/store/{id_kriteria}', [KriteriaController::class, 'subStore'])->name('admin.master-data.sub-kriteria.store');
                     Route::get('/edit/{id_kriteria}/{id_sub_kriteria}', [KriteriaController::class, 'subEdit'])->name('admin.master-data.sub-kriteria.edit');
@@ -151,25 +149,16 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
     // Data Penilaian
     Route::prefix('data-penilaian')->group(function () {
         Route::get('/', [PenilaianController::class, 'index'])->name('admin.penilaian.index');
-
         // Detail Periode
         Route::group(['prefix' => 'periode', 'middleware' => ['allowActivePeriode', 'allowByBobot']], function () {
-            // Middleware Allow Active Periode hanya bisa aktif ketika ada param id_periode, sehingga wajib diisi
             Route::prefix('{id_periode}')->group(function () {
                 Route::get('/', [PenilaianController::class, 'detail'])->name('admin.penilaian.detail-penilaian');
+                Route::get('download-template-import', [PenilaianController::class, 'downloadTemplate'])->name('admin.penilaian.detail-penilaian.download-template');
                 Route::prefix('penilaian')->group(function () {
                     Route::get('/{id_debitur}', [PenilaianController::class, 'createOrEditPenilaian'])->name('admin.penilaian.detail-penilaian.add-penilaian');
                     Route::post('/{id_debitur}', [PenilaianController::class, 'storeOrUpdatePenilaian'])->name('admin.penilaian.detail-penilaian.store-penilaian');
                 });
             });
-
-            // Route::get('/detail/{id}', [PeriodeController::class, 'detail'])->name('admin.penilaian.detail');
-            // Route::get('/create', [PeriodeController::class, 'create'])->name('admin.penilaian.create');
-            // Route::get('/edit/{id}', [PeriodeController::class, 'edit'])->name('admin.penilaian.edit');
-            // Route::get('update-status/{id}', [PeriodeController::class, 'updateStatus'])->name('admin.penilaian.update.status');
-            // Route::post('/store', [PeriodeController::class, 'store'])->name('admin.penilaian.store');
-            // Route::post('/update/{periode:id}', [PeriodeController::class, 'update'])->name('admin.penilaian.update');
-            // Route::delete('/delete/{periode:id}', [PeriodeController::class, 'delete'])->name('admin.penilaian.delete');
         });
     });
 

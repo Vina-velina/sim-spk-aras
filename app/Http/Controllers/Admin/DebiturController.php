@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Exports\DebiturExport;
-use App\Exports\FormatImportDataExport;
+use App\Exports\FormatImportDebiturExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Debitur\DebiturImportRequest;
 use App\Http\Requests\Debitur\DebiturStoreRequest;
@@ -42,7 +42,7 @@ class DebiturController extends Controller
 
     public function downloadTemplate()
     {
-        return Excel::download(new FormatImportDataExport, 'template-import-debitur.xlsx');
+        return Excel::download(new FormatImportDebiturExport, 'template-import-debitur.xlsx');
     }
 
     public function import(DebiturImportRequest $request)

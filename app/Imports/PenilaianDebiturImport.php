@@ -2,14 +2,12 @@
 
 namespace App\Imports;
 
-use App\Models\Debitur;
-use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithStartRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
 
-class DebiturImport implements ToModel, WithStartRow, WithValidation
+class PenilaianDebiturImport implements ToModel, WithStartRow, WithValidation
 {
     use Importable;
 
@@ -27,30 +25,6 @@ class DebiturImport implements ToModel, WithStartRow, WithValidation
 
     public function model(array $row)
     {
-        if (isset($row[4])) {
-            $find_ktp = Debitur::where('no_ktp', $row[4])->first();
-            if ($find_ktp) {
-                throw new \Exception('Nomor KTP Sudah Digunakan Untuk Data Pada Kolom Ke-' . $this->rowError);
-            }
-        }
-
-        if (isset($row[3])) {
-            $find_ktp = Debitur::where('no_telp', $row[3])->first();
-            if ($find_ktp) {
-                throw new \Exception('Nomor Telepon Sudah Digunakan Untuk Data Pada Kolom Ke-' . $this->rowError);
-            }
-        }
-
-        $data_debitur = Debitur::create([
-            'nama' => $row[0],
-            'alamat' => $row[1],
-            'pekerjaan' => $row[2],
-            'no_telp' => $row[3],
-            'no_ktp' => $row[4],
-            'status' => $row[5],
-        ]);
-
-        return $data_debitur;
     }
 
     public function rules(): array

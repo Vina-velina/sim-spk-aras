@@ -3,9 +3,9 @@
     // convert date to datetime-local
     $tgl_awal_penilaian = date('Y-m-d\TH:i:s', strtotime($periode->tgl_awal_penilaian));
     $tgl_akhir_penilaian = date('Y-m-d\TH:i:s', strtotime($periode->tgl_akhir_penilaian));
-    
+
     // dd($tgl_awal_penilaian);
-    
+
 @endphp
 @section('tittle', 'Data Periode')
 @section('content')
@@ -29,7 +29,7 @@
                     <div class="card-body">
                         <form action="{{ route('admin.master-data.periode.update', $periode->id) }}" method="POST">
                             @csrf
-                            <p class="text-danger">* wajib di isi</p>
+                            <p class="text-danger">* Wajib diisi</p>
                             <div class="row row-xs align-items-center mg-b-20">
                                 <div class="col-md-12">
                                     <label class="form-label mg-b-0">Nama Periode <span class="text-danger">*</span></label>

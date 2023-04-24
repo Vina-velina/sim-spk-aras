@@ -30,7 +30,7 @@
                             method="POST">
                             @csrf
                             {{-- <input type="hidden" name="id_kriteria" value="{{ $id_kriteria }}"> --}}
-                            <p class="text-danger">* wajib di isi</p>
+                            <p class="text-danger">* Wajib diisi</p>
                             <div class="row row-xs align-items-center mg-b-20">
                                 <div class="col-md-12">
                                     <label class="form-label mg-b-0">Nama Sub Kriteria <span

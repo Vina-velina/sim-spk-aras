@@ -68,7 +68,7 @@
                             method="POST">
                             @csrf
                             {{-- <input type="hidden" name="id_kriteria" value="{{ $kriteriaPenilaian->id }}"> --}}
-                            <p class="text-danger">* wajib di isi</p>
+                            <p class="text-danger">* Wajib diisi</p>
                             @foreach ($kriteria as $item)
                                 <div class="row row-xs align-items-center mg-b-20">
                                     <div class="col-md-12">

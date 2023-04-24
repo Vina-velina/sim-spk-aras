@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\FormatImportPenilaianExport;
 use App\Helpers\FormatDateToIndonesia;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Penilaian\PenilaianStoreUpdateRequest;
@@ -12,6 +13,7 @@ use App\Services\Penilaian\PenilaianCommandService;
 use App\Services\Periode\PeriodeQueryServices;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 use Throwable;
 
 class PenilaianController extends Controller
@@ -89,6 +91,11 @@ class PenilaianController extends Controller
 
             return to_route('admin.penilaian.detail-penilaian', [$id_periode, $id_debitur])->with('error', $th->getMessage());
         }
+    }
+
+    public function downloadTemplate(string $id_periode)
+    {
+        return Excel::download(new FormatImportPenilaianExport($id_periode), 'template-import-penilaian.xlsx');
     }
 
     public static function _getStatusPenilaian($tgl_awal, $tgl_akhir)

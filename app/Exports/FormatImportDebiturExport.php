@@ -10,7 +10,7 @@ use Maatwebsite\Excel\Concerns\WithTitle;
 use Maatwebsite\Excel\Events\AfterSheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class FormatImportDataExport implements FromCollection, WithTitle, WithHeadings, WithStyles, ShouldAutoSize
+class FormatImportDebiturExport implements FromCollection, WithTitle, WithHeadings, ShouldAutoSize
 {
     public function collection()
     {
@@ -32,27 +32,6 @@ class FormatImportDataExport implements FromCollection, WithTitle, WithHeadings,
     public function title(): string
     {
         return 'Data Debitur Baru';
-    }
-
-    public function styles(Worksheet $sheet)
-    {
-        return [
-            1 => ['font' => ['bold' => true], 'alignment' => ['horizontal' => 'center', 'vertical' => 'center']],
-        ];
-    }
-
-    public function registerEvents(): array
-    {
-        return [
-            // Handle by a closure.
-            AfterSheet::class => function (AfterSheet $event) {
-                $highestRow = $event->sheet->getHighestRow();
-                $highestColumn = $event->sheet->getHighestColumn();
-                $lastCell = $highestColumn.$highestRow;
-                $rangeCell = 'A1:'.$lastCell;
-                $event->sheet->getDelegate()->getStyle($rangeCell)->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
-            },
-        ];
     }
 
     public function headings(): array

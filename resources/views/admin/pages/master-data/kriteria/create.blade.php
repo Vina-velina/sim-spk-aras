@@ -19,31 +19,7 @@
 
         <!-- row opened -->
         <div class="row row-sm">
-            <div class="col-xl-12">
-                <div class="card">
-                    <div class="card-header pb-0 pd-t-25">
-                        <div class="d-flex justify-content-between">
-                            <h4 class="card-title mg-b-0">Kriteria Sistem Pendukung Keputusan</h4>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <table>
-                            <tbody>
-                                <tr>
-                                    <td>Nama Periode</td>
-                                    <td>:</td>
-                                    <td><b>{{ $periode->nama_periode }}</b></td>
-                                </tr>
-                                <tr>
-                                    <td>Rentang Penilaian</td>
-                                    <td>:</td>
-                                    <td><b>{{ $periode->tgl_penilaian }}</b></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div><!-- bd -->
-                </div><!-- bd -->
-            </div>
+            @include('admin.pages.master-data.kriteria._desc')
             <div class="col-xl-12">
                 @include('generals._validation')
                 <div class="card">
@@ -62,7 +38,7 @@
                         <form action="{{ route('admin.master-data.kriteria.store', $periode->id) }}" method="POST">
                             @csrf
                             <input type="hidden" name="id_periode" value="{{ $periode->id }}">
-                            <p class="text-danger">* wajib di isi</p>
+                            <p class="text-danger">* Wajib diisi</p>
                             <div class="row row-xs align-items-center mg-b-20">
                                 <div class="col-md-12">
                                     <label class="form-label mg-b-0">Nama Kriteria <span
@@ -102,7 +78,7 @@
                             </div>
                             <div class="row row-xs align-items-center mg-b-20">
                                 <div class="col-md-12">
-                                    <label class="form-label mg-b-0">Status</label>
+                                    <label class="form-label mg-b-0">Status <span class="text-danger">*</span></label>
                                 </div>
                                 <div class="col-md-12 mg-t-5">
                                     <select name="status"

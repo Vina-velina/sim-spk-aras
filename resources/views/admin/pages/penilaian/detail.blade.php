@@ -103,6 +103,14 @@
                         <div class="d-flex justify-content-between">
                             <h4 class="card-title mg-b-0">Data Alternatif Tersedia</h4>
                         </div>
+                        <div class="d-flex justify-content-end">
+                            <div class="btn-icon-list">
+                                <a href="javascript:void(0);" data-target="#modalImportPenilaian" data-toggle="modal"
+                                    class="btn btn-sm btn-info btn-icon"><i class="typcn typcn-plus"></i>
+                                    Import
+                                </a>
+                            </div>
+                        </div>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -127,6 +135,5 @@
             <!--/div-->
         </div>
     </div>
-    @include('admin.pages.master-data.periode._modal_detail')
-    {{-- @include('admin.pages.master-data.periode._modal_import') --}}
+    @include('admin.pages.penilaian._modal_import')
 @endsection
