@@ -87,6 +87,11 @@
                                     <td>:</td>
                                     <td><b>{{ $periode->tgl_penilaian }}</b></td>
                                 </tr>
+                                <tr>
+                                    <td>Status Penilaian</td>
+                                    <td>:</td>
+                                    <td>{!! $periode->status_penilaian !!}</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div><!-- bd -->

@@ -12,7 +12,6 @@ class Periode extends Model
 
     protected $guarded = [];
 
-
     public function penilaian()
     {
         return $this->hasMany(Penilaian::class, 'id_periode', 'id');

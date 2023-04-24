@@ -3,7 +3,6 @@
 namespace App\Helpers;
 
 use File;
-use Illuminate\Support\Facades\File as FacadesFile;
 use Illuminate\Support\Str;
 
 class FileHelpers
@@ -44,7 +43,7 @@ class FileHelpers
 
                         return response()->download(
                             $path,
-                            Str::slug($filename) . '.' . last($extesion)
+                            Str::slug($filename).'.'.last($extesion)
                         );
                     }
 

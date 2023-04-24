@@ -77,8 +77,8 @@
                                     </div>
                                     <div class="col-md-12 mg-t-5">
                                         @if ($item->subKriteriaPenilaian->count() > 0)
-                                            <select name="penilaian[{{ $item->id }}][]"
-                                                class="form-control form-control-sm @error('penilaian') is-invalid @enderror"
+                                            <select name="penilaian[{{ $item->id }}]"
+                                                class="form-control form-control-sm @error('penilaian.{$item->id}') is-invalid @enderror"
                                                 id="">
                                                 <option selected>-- Pilih Sub Kriteria --</option>
                                                 @foreach ($item->subKriteriaPenilaian as $sub_kriteria)
@@ -91,11 +91,11 @@
                                             </select>
                                         @else
                                             <input
-                                                class="form-control form-control-sm @error('penilaian') is-invalid @enderror"
-                                                name="penilaian[{{ $item->id }}][]"
-                                                placeholder="Masukkan Nilai Dari {{ $item->masterKriteriaPenilaian->nama_kriteria }}"
-                                                type="text"
-                                                value="{{ $item->relasi_penilaian != null ? $item->relasi_penilaian->nilai : old('penilaian') }}">
+                                                class="form-control form-control-sm @error('penilaian.{$item->id}') is-invalid @enderror"
+                                                name="penilaian[{{ $item->id }}]"
+                                                placeholder="Masukkan Nilai Dari Kriteria {{ $item->masterKriteriaPenilaian->nama_kriteria }}"
+                                                type="number"
+                                                value="{{ $item->relasi_penilaian != null ? $item->relasi_penilaian->nilai : old('penilaian.{$item->id}') }}">
                                         @endif
                                     </div>
                                 </div>

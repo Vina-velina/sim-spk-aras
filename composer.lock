@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "782b28838032ac4c63d82bfaab3b5e92",
+    "content-hash": "dbfcf0ac2b8010a69ebc797ca6b4c4f7",
     "packages": [
         {
             "name": "brick/math",
@@ -61,6 +61,65 @@
                 }
             ],
             "time": "2022-08-10T22:54:19+00:00"
+        },
+        {
+            "name": "deyan-ardi/ganadev-notif",
+            "version": "v1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/deyan-ardi/ganadev-notif.git",
+                "reference": "618b8951faee902afa07af55bf66d1ba04d953bb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/deyan-ardi/ganadev-notif/zipball/618b8951faee902afa07af55bf66d1ba04d953bb",
+                "reference": "618b8951faee902afa07af55bf66d1ba04d953bb",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.3|7.4|^8.0|^8.1|^8.2"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "DeyanArdi\\GanadevNotif\\GanadevServiceProvider"
+                    ],
+                    "config": {
+                        "path": "config/ganadevnotif.php"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "DeyanArdi\\GanadevNotif\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "deyan-ardi",
+                    "email": "riyan.clsg11@gmail.com",
+                    "homepage": "https://ganadev.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Laravel Ganadev Notification Service is a Laravel package that is used to help speed up the integration process between the applications you are developing with the Ganadev Notification Sender API. This package includes ready-to-use functions that really help your work process",
+            "keywords": [
+                "deyan",
+                "deyan-ardi",
+                "ganadev",
+                "ganadev-notif",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/deyan-ardi/ganadev-notif/issues",
+                "source": "https://github.com/deyan-ardi/ganadev-notif/tree/v1.0.2"
+            },
+            "time": "2023-04-04T05:09:50+00:00"
         },
         {
             "name": "dflydev/dot-access-data",
@@ -8698,5 +8757,5 @@
         "php": "^8.0.2"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.2.0"
 }

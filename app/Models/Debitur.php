@@ -12,7 +12,6 @@ class Debitur extends Model
 
     protected $guarded = [];
 
-
     public function penilaian()
     {
         return $this->hasMany(Penilaian::class, 'id_debitur', 'id');

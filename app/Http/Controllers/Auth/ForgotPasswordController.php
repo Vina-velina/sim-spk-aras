@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\AuthForgotPasswordEmailRequest;
 use App\Http\Requests\Auth\AuthResetPasswordRequest;
-use App\Services\ApiNotification\ApiNotificationCommandServices;
 use App\Services\ApiNotification\ApiNotificationMessageServices;
 use App\Services\User\UserQueryServices;
 use Carbon\Carbon;
@@ -33,16 +32,12 @@ class ForgotPasswordController extends Controller
 
     protected $userQueryServices;
 
-    protected $apiNotificationCommandServices;
-
     public function __construct(
         ApiNotificationMessageServices $apiNotificationMessageServices,
-        ApiNotificationCommandServices $apiNotificationCommandServices,
         UserQueryServices $userQueryServices,
     ) {
         $this->apiNotificationMessageServices = $apiNotificationMessageServices;
         $this->userQueryServices = $userQueryServices;
-        $this->apiNotificationCommandServices = $apiNotificationCommandServices;
     }
 
     public function forgetPasswordStore(AuthForgotPasswordEmailRequest $request)

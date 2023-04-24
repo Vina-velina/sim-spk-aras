@@ -4,6 +4,7 @@ namespace App\Services\ApiNotification;
 
 use App\Models\User;
 use Carbon\Carbon;
+use DeyanArdi\GanadevNotif\GanadevApi;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Ramsey\Uuid\Uuid;
@@ -15,16 +16,6 @@ use Throwable;
  */
 class ApiNotificationMessageServices
 {
-    // Init services variable
-    protected $apiNotificationCommandServices;
-
-    // Call services
-    public function __construct(ApiNotificationCommandServices $apiNotificationCommandServices)
-    {
-        // Set services to variable
-        $this->apiNotificationCommandServices = $apiNotificationCommandServices;
-    }
-
     // Write message and send message here
     public function generateLinkResetPassword(string $email)
     {
@@ -52,7 +43,7 @@ class ApiNotificationMessageServices
     {
         $judul = 'Reset Password Notification';
         $message = view('emails.securityResetPassword', compact('link', 'name'))->render();
-        $send_email = $this->apiNotificationCommandServices->sendMailMessage($email, $judul, $message);
+        $send_email = GanadevApi::sendMailMessage($email, $judul, $message);
         if ($send_email['status'] != 200) {
             return false;
         }
