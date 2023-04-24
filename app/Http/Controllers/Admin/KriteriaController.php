@@ -53,7 +53,7 @@ class KriteriaController extends Controller
     public function kriteria(string $id_periode)
     {
         $periode = $this->periodeQueryServices->getOneWhereAktif($id_periode);
-        $periode->tgl_penilaian = FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_awal_penilaian) . ' s/d ' . FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_akhir_penilaian);
+        $periode->tgl_penilaian = FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_awal_penilaian).' s/d '.FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_akhir_penilaian);
         $periode->status_penilaian = self::_getStatusPenilaian($periode->tgl_awal_penilaian, $periode->tgl_akhir_penilaian);
 
         $kriteria = $this->kriteriaQueryServices->getByIdPeriodeWhereAktif($id_periode);
@@ -70,7 +70,7 @@ class KriteriaController extends Controller
         $kriteria = $this->kriteriaQueryServices->getByIdPeriodeWhereAktif($id_periode);
         $periode = $this->periodeQueryServices->getOneWhereAktif($id_periode);
         $periode->status_penilaian = self::_getStatusPenilaian($periode->tgl_awal_penilaian, $periode->tgl_akhir_penilaian);
-        $periode->tgl_penilaian = FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_awal_penilaian) . ' s/d ' . FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_akhir_penilaian);
+        $periode->tgl_penilaian = FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_awal_penilaian).' s/d '.FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_akhir_penilaian);
 
         // find total bobot
         $total_bobot = 0;
@@ -104,6 +104,7 @@ class KriteriaController extends Controller
             DB::beginTransaction();
             $kriteria = $this->kriteriaCommandServices->store($request);
             DB::commit();
+
             return to_route('admin.master-data.kriteria.edit', [$id, $kriteria->id])->with('success', 'Data Berhasil Ditambahkan');
         } catch (Throwable $th) {
             DB::rollBack();
@@ -117,7 +118,7 @@ class KriteriaController extends Controller
         $allKriteria = $this->kriteriaQueryServices->getByIdPeriodeWhereAktif($id_periode);
 
         $periode = $this->periodeQueryServices->getOneWhereAktif($id_periode);
-        $periode->tgl_penilaian = FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_awal_penilaian) . ' s/d ' . FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_akhir_penilaian);
+        $periode->tgl_penilaian = FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_awal_penilaian).' s/d '.FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_akhir_penilaian);
         $periode->status_penilaian = self::_getStatusPenilaian($periode->tgl_awal_penilaian, $periode->tgl_akhir_penilaian);
 
         // find total bobot
@@ -150,7 +151,7 @@ class KriteriaController extends Controller
                 }
             }
 
-            if ($request->status == "aktif") {
+            if ($request->status == 'aktif') {
                 if ($total_bobot + $request->bobot_kriteria > 100) {
                     throw new \Exception('Total Bobot Kriteria Melebihi 100%');
                 }
@@ -163,6 +164,7 @@ class KriteriaController extends Controller
             return to_route('admin.master-data.kriteria.kriteria', $id_periode)->with('success', 'Data Berhasil Diperbaharui');
         } catch (Throwable $th) {
             DB::rollBack();
+
             return to_route('admin.master-data.kriteria.kriteria', $id_periode)->with('error', $th->getMessage());
         }
     }
@@ -179,7 +181,7 @@ class KriteriaController extends Controller
                 $total_bobot += $value->bobot_kriteria;
             }
 
-            if ($kriteriaPenilaian->status == "nonaktif") {
+            if ($kriteriaPenilaian->status == 'nonaktif') {
                 if ($total_bobot + $kriteriaPenilaian->bobot_kriteria > 100) {
                     throw new \Exception('Total bobot lebih dari 100%, harap ubah bobot terlebih dahulu sebelum mengaktifkan kriteria ini');
                 }
@@ -227,9 +229,8 @@ class KriteriaController extends Controller
     public function subCreate(string $id_periode, string $id_kriteria)
     {
         $periode = $this->periodeQueryServices->getOneWhereAktif($id_periode);
-        $periode->tgl_penilaian = FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_awal_penilaian) . ' s/d ' . FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_akhir_penilaian);
+        $periode->tgl_penilaian = FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_awal_penilaian).' s/d '.FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_akhir_penilaian);
         $periode->status_penilaian = self::_getStatusPenilaian($periode->tgl_awal_penilaian, $periode->tgl_akhir_penilaian);
-
 
         return view('admin.pages.master-data.kriteria.sub-kriteria.create', compact('id_kriteria', 'periode'));
     }
@@ -244,6 +245,7 @@ class KriteriaController extends Controller
             return to_route('admin.master-data.kriteria.edit', [$id_periode, $id_kriteria])->with('success', 'Data Berhasil Ditambahkan');
         } catch (Throwable $th) {
             DB::rollBack();
+
             return to_route('admin.master-data.kriteria.edit', [$id_periode, $id_kriteria])->with('error', $th->getMessage());
         }
     }
@@ -265,6 +267,7 @@ class KriteriaController extends Controller
             return to_route('admin.master-data.kriteria.edit', [$id_periode, $id_kriteria])->with('success', 'Data Berhasil Diperbaharui');
         } catch (Throwable $th) {
             DB::rollBack();
+
             return to_route('admin.master-data.kriteria.edit', [$id_periode, $id_kriteria])->with('error', $th->getMessage());
         }
     }
@@ -300,11 +303,12 @@ class KriteriaController extends Controller
         $element = '';
         if (Carbon::now()->format('Y-m-d H:i:s') < $tgl_awal) {
             $element .= '<div class="badge badge-pill badge-info"> Belum Dimulai </div>';
-        } else if (Carbon::now()->format('Y-m-d H:i:s') > $tgl_akhir) {
+        } elseif (Carbon::now()->format('Y-m-d H:i:s') > $tgl_akhir) {
             $element .= '<div class="badge badge-pill badge-danger"> Sudah Berakhir </div>';
         } else {
             $element .= '<div class="badge badge-pill badge-success"> Sedang Berlangsung </div>';
         }
+
         return $element;
     }
 }

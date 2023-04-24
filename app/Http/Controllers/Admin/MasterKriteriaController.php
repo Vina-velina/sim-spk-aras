@@ -50,6 +50,7 @@ class MasterKriteriaController extends Controller
             return to_route('admin.master-data.master-kriteria.index')->with('success', 'Data berhasil ditambahkan');
         } catch (\Throwable $th) {
             DB::rollBack();
+
             return redirect()->back()->with('error', $th->getMessage());
         }
     }

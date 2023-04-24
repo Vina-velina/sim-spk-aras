@@ -20,7 +20,7 @@ class AccountCommandServices
         if ($request->hasFile('foto_profil')) {
             $path = 'app/public/foto-user';
             if (isset($user->foto_profil)) {
-                $file = storage_path($path . '/' . $user->foto_profil);
+                $file = storage_path($path.'/'.$user->foto_profil);
                 FileHelpers::deleteFile($file);
             }
 
@@ -37,6 +37,7 @@ class AccountCommandServices
         $query->email = $request->email;
         $query->foto_profil = $create_file;
         $query->save();
+
         return $user;
     }
 
@@ -56,7 +57,7 @@ class AccountCommandServices
 
     protected static function generateNameImage($extension, $unique)
     {
-        $name = 'foto-user' . $unique . '-' . time() . '.' . $extension;
+        $name = 'foto-user'.$unique.'-'.time().'.'.$extension;
 
         return $name;
     }

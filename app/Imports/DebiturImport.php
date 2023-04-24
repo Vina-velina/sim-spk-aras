@@ -30,14 +30,14 @@ class DebiturImport implements ToModel, WithStartRow, WithValidation
         if (isset($row[4])) {
             $find_ktp = Debitur::where('no_ktp', $row[4])->first();
             if ($find_ktp) {
-                throw new \Exception('Nomor KTP Sudah Digunakan Untuk Data Pada Kolom Ke-' . $this->rowError);
+                throw new \Exception('Nomor KTP Sudah Digunakan Untuk Data Pada Kolom Ke-'.$this->rowError);
             }
         }
 
         if (isset($row[3])) {
             $find_ktp = Debitur::where('no_telp', $row[3])->first();
             if ($find_ktp) {
-                throw new \Exception('Nomor Telepon Sudah Digunakan Untuk Data Pada Kolom Ke-' . $this->rowError);
+                throw new \Exception('Nomor Telepon Sudah Digunakan Untuk Data Pada Kolom Ke-'.$this->rowError);
             }
         }
 

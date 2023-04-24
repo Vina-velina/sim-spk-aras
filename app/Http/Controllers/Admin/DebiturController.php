@@ -51,9 +51,11 @@ class DebiturController extends Controller
             DB::beginTransaction();
             Excel::import(new DebiturImport(), $request->file('file_excel'));
             DB::commit();
+
             return to_route('admin.master-data.debitur.index')->with('success', 'Data Berhasil Di Import');
         } catch (Throwable $th) {
             DB::rollBack();
+
             return to_route('admin.master-data.debitur.index')->with('error', $th->getMessage());
         }
     }
@@ -94,6 +96,7 @@ class DebiturController extends Controller
             return to_route('admin.master-data.debitur.index')->with('success', 'Data Berhasil Diperbaharui');
         } catch (Throwable $th) {
             DB::rollBack();
+
             return to_route('admin.master-data.debitur.index')->with('error', $th->getMessage());
         }
     }
@@ -115,7 +118,7 @@ class DebiturController extends Controller
         try {
             $detail = $this->debiturQueryServices->getOne($id);
             $path = 'storage/foto-debitur/';
-            $detail->link_foto = asset($path . $detail->foto);
+            $detail->link_foto = asset($path.$detail->foto);
 
             return response()->json([
                 'success' => true,
@@ -124,6 +127,7 @@ class DebiturController extends Controller
             ]);
         } catch (Throwable $th) {
             DB::rollBack();
+
             return response()->json([
                 'success' => false,
                 'message' => $th->getMessage(),
@@ -145,6 +149,7 @@ class DebiturController extends Controller
             ]);
         } catch (Throwable $th) {
             DB::rollBack();
+
             return response()->json([
                 'success' => false,
                 'message' => $th->getMessage(),
@@ -158,9 +163,11 @@ class DebiturController extends Controller
             DB::beginTransaction();
             $this->debiturCommandServices->delete($id);
             DB::commit();
+
             return to_route('admin.master-data.debitur.index')->with('success', 'Data Berhasil Dihapus');
         } catch (Throwable $th) {
             DB::rollBack();
+
             return to_route('admin.master-data.debitur.index')->with('error', $th->getMessage());
         }
     }

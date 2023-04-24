@@ -7,9 +7,7 @@ use App\Models\KriteriaPenilaian;
 use App\Models\Penilaian;
 use App\Models\Periode;
 use Carbon\Carbon;
-use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\Importable;
-use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithStartRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
@@ -19,6 +17,7 @@ class SheetDebiturImport implements ToModel, WithStartRow, WithValidation
     use Importable;
 
     protected $rowError;
+
     protected $id_periode;
 
     public function __construct($id_periode)
@@ -41,7 +40,7 @@ class SheetDebiturImport implements ToModel, WithStartRow, WithValidation
 
         // Cek apakah id periode ada di database
         $check_if_exist_in_periode = Periode::where('id', $row[0])->where('status', 'aktif')->first();
-        if (!isset($check_if_exist_in_periode)) {
+        if (! isset($check_if_exist_in_periode)) {
             throw new \Exception('Periode Tidak Ditemukan');
         }
 
@@ -52,8 +51,8 @@ class SheetDebiturImport implements ToModel, WithStartRow, WithValidation
 
         // Cek apakah debitur ada
         $check_if_exist_debitur = Debitur::where('id', $row[1])->where('status', 'aktif')->first();
-        if (!isset($check_if_exist_debitur)) {
-            throw new \Exception('Debitur Tidak Ditemukan Pada Data Baris Ke-' . $this->rowError);
+        if (! isset($check_if_exist_debitur)) {
+            throw new \Exception('Debitur Tidak Ditemukan Pada Data Baris Ke-'.$this->rowError);
         }
 
         // Query untuk get kriteria
@@ -61,7 +60,7 @@ class SheetDebiturImport implements ToModel, WithStartRow, WithValidation
             ->join('master_kriteria_penilaians', 'master_kriteria_penilaians.id', 'kriteria_penilaians.id_master_kriteria')
             ->select('master_kriteria_penilaians.nama_kriteria')
             ->where('kriteria_penilaians.id_periode', $this->id_periode)
-            ->where('kriteria_penilaians.status', "aktif")
+            ->where('kriteria_penilaians.status', 'aktif')
             ->get();
 
         $delete_all_penilaian = Penilaian::where('id_periode', $this->id_periode)->where('id_debitur', $row[1])->delete();
@@ -69,11 +68,10 @@ class SheetDebiturImport implements ToModel, WithStartRow, WithValidation
         // Start index dari 4
         $start_index = 4;
         foreach ($kriteriaData as $kriteria) {
-
             $check_if_exist_in_kriteria = KriteriaPenilaian::where('id', $row[$start_index])->where('status', 'aktif')->first();
 
-            if (!isset($check_if_exist_in_kriteria)) {
-                throw new \Exception('Kriteria Tidak Ditemukan Pada Data Baris Ke-' . $this->rowError);
+            if (! isset($check_if_exist_in_kriteria)) {
+                throw new \Exception('Kriteria Tidak Ditemukan Pada Data Baris Ke-'.$this->rowError);
             }
 
             $query = new Penilaian();
@@ -87,17 +85,17 @@ class SheetDebiturImport implements ToModel, WithStartRow, WithValidation
         }
 
         $this->rowError += 1;
+
         return $query;
     }
 
     public function rules(): array
     {
-
         $kriteriaData = KriteriaPenilaian::query()
             ->join('master_kriteria_penilaians', 'master_kriteria_penilaians.id', 'kriteria_penilaians.id_master_kriteria')
             ->select('master_kriteria_penilaians.nama_kriteria')
             ->where('kriteria_penilaians.id_periode', $this->id_periode)
-            ->where('kriteria_penilaians.status', "aktif")
+            ->where('kriteria_penilaians.status', 'aktif')
             ->get();
 
         $validation = [
@@ -114,6 +112,7 @@ class SheetDebiturImport implements ToModel, WithStartRow, WithValidation
             $validation[$start_index + 1] = 'required|numeric';
             $start_index += 2;
         }
+
         return $validation;
     }
 
@@ -123,7 +122,7 @@ class SheetDebiturImport implements ToModel, WithStartRow, WithValidation
             ->join('master_kriteria_penilaians', 'master_kriteria_penilaians.id', 'kriteria_penilaians.id_master_kriteria')
             ->select('master_kriteria_penilaians.nama_kriteria')
             ->where('kriteria_penilaians.id_periode', $this->id_periode)
-            ->where('kriteria_penilaians.status', "aktif")
+            ->where('kriteria_penilaians.status', 'aktif')
             ->get();
 
         $validation = [
@@ -136,10 +135,11 @@ class SheetDebiturImport implements ToModel, WithStartRow, WithValidation
         $start_index = 4;
         foreach ($kriteriaData as $kriteria) {
             // Menambahkan aturan validasi baru pada indeks yang ditentukan
-            $validation[$start_index] = 'Id Kriteria ' . $kriteria->nama_kriteria;
-            $validation[$start_index + 1] = 'Nilai Kriteria ' . $kriteria->nama_kriteria;
+            $validation[$start_index] = 'Id Kriteria '.$kriteria->nama_kriteria;
+            $validation[$start_index + 1] = 'Nilai Kriteria '.$kriteria->nama_kriteria;
             $start_index += 2;
         }
+
         return $validation;
     }
 }

@@ -98,6 +98,7 @@ class PeriodeController extends Controller
             return to_route('admin.master-data.periode.index')->with('success', 'Data berhasil ditambahkan');
         } catch (\Throwable $th) {
             DB::rollBack();
+
             return to_route('admin.master-data.periode.index')->with('error', $th->getMessage());
         }
     }
@@ -146,6 +147,7 @@ class PeriodeController extends Controller
             return to_route('admin.master-data.periode.index')->with('success', 'Data berhasil diperbaharui');
         } catch (\Throwable $th) {
             DB::rollBack();
+
             return to_route('admin.master-data.periode.index')->with('error', $th->getMessage());
         }
     }
@@ -164,6 +166,7 @@ class PeriodeController extends Controller
             ]);
         } catch (\Throwable $th) {
             DB::rollBack();
+
             return response()->json([
                 'success' => false,
                 'message' => $th->getMessage(),

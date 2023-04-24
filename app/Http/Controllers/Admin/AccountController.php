@@ -30,9 +30,11 @@ class AccountController extends Controller
             DB::beginTransaction();
             $this->accountCommandServices->update($request);
             DB::commit();
+
             return to_route('admin.account.index')->with('success', 'Data Berhasil Diperbaharui');
         } catch (\Throwable $th) {
             DB::rollBack();
+
             return to_route('admin.account.index')->with('error', $th->getMessage());
         }
     }
@@ -47,10 +49,11 @@ class AccountController extends Controller
         try {
             if (isset($request->password_baru)) {
                 if (Hash::check($request->password, Auth::user()->password)) {
-                    if (!Hash::check($request->password_baru, Auth::user()->password)) {
+                    if (! Hash::check($request->password_baru, Auth::user()->password)) {
                         DB::beginTransaction();
                         $this->accountCommandServices->updatePassword($request);
                         DB::commit();
+
                         return to_route('admin.home')->with('success', 'Data Berhasil Diperbaharui');
                     } else {
                         return to_route('admin.account.change-password')->with('error', 'Password Baru Tidak Boleh Sama Dengan Password Lama');
@@ -63,6 +66,7 @@ class AccountController extends Controller
             }
         } catch (\Throwable $th) {
             DB::rollBack();
+
             return to_route('admin.account.change-password')->with('error', $th->getMessage());
         }
     }

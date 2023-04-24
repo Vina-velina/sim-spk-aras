@@ -49,6 +49,7 @@ class UserController extends Controller
             return to_route('admin.master-data.user.index')->with('success', 'Data Berhasil Ditambahkan');
         } catch (\Throwable $th) {
             DB::rollBack();
+
             return to_route('admin.master-data.user.index')->with('error', $th->getMessage());
         }
     }
@@ -56,6 +57,7 @@ class UserController extends Controller
     public function edit(string $id)
     {
         $user = $this->userQueryServices->findById($id);
+
         return view('admin.pages.master-data.user.edit', compact('user'));
     }
 
@@ -70,6 +72,7 @@ class UserController extends Controller
             return to_route('admin.master-data.user.index')->with('success', 'Data Berhasil Diperbaharui');
         } catch (\Throwable $th) {
             DB::rollback();
+
             return to_route('admin.master-data.user.index')->with('error', $th->getMessage());
         }
     }
@@ -84,6 +87,7 @@ class UserController extends Controller
             return to_route('admin.master-data.user.index')->with('success', 'Data Berhasil Dihapus');
         } catch (\Throwable $th) {
             DB::rollback();
+
             return to_route('admin.master-data.user.index')->with('error', $th->getMessage());
         }
     }

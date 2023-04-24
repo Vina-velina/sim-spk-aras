@@ -47,7 +47,7 @@ class UserCommandServices
         if ($request->hasFile('foto_profil')) {
             $path = 'app/public/foto-user';
             if (isset($user->foto_profil)) {
-                $file = storage_path($path . '/' . $user->foto_profil);
+                $file = storage_path($path.'/'.$user->foto_profil);
                 FileHelpers::deleteFile($file);
             }
 
@@ -73,7 +73,7 @@ class UserCommandServices
     public function destroy($id)
     {
         $user = User::find($id);
-        $path = storage_path('app/public/foto-user/' . $user->foto_profil);
+        $path = storage_path('app/public/foto-user/'.$user->foto_profil);
         FileHelpers::deleteFile($path);
         $user->delete();
 
@@ -82,7 +82,7 @@ class UserCommandServices
 
     protected static function generateNameImage($extension, $unique)
     {
-        $name = 'foto-user-' . $unique . '-' . time() . '.' . $extension;
+        $name = 'foto-user-'.$unique.'-'.time().'.'.$extension;
 
         return $name;
     }

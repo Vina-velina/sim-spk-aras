@@ -53,7 +53,7 @@ class PenilaianController extends Controller
     {
         $periode = $this->periodeQueryService->getOneWhereAktif($id);
         $periode->status_penilaian = self::_getStatusPenilaian($periode->tgl_awal_penilaian, $periode->tgl_akhir_penilaian);
-        $periode->tgl_penilaian = FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_awal_penilaian) . ' s/d ' . FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_akhir_penilaian);
+        $periode->tgl_penilaian = FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_awal_penilaian).' s/d '.FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_akhir_penilaian);
 
         return view('admin.pages.penilaian.detail', compact('periode'));
     }
@@ -65,7 +65,7 @@ class PenilaianController extends Controller
             return redirect()->back()->with('error', 'Periode Penilaian Debitur Telah Usai/Belum Dimulai');
         }
 
-        $periode->tgl_penilaian = FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_awal_penilaian) . ' s/d ' . FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_akhir_penilaian);
+        $periode->tgl_penilaian = FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_awal_penilaian).' s/d '.FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_akhir_penilaian);
         $debitur = $this->debiturQueryService->getOneWhereAktif($id_debitur);
         $kriteria = $this->kriteriaQueryService->getByIdPeriodeWhereAktif($id_periode);
         $kriteria->map(function ($item) use ($periode, $debitur) {
@@ -105,11 +105,12 @@ class PenilaianController extends Controller
         $element = '';
         if (Carbon::now()->format('Y-m-d H:i:s') < $tgl_awal) {
             $element .= '<div class="badge badge-pill badge-info"> Belum Dimulai </div>';
-        } else if (Carbon::now()->format('Y-m-d H:i:s') > $tgl_akhir) {
+        } elseif (Carbon::now()->format('Y-m-d H:i:s') > $tgl_akhir) {
             $element .= '<div class="badge badge-pill badge-danger"> Sudah Berakhir </div>';
         } else {
             $element .= '<div class="badge badge-pill badge-success"> Sedang Berlangsung </div>';
         }
+
         return $element;
     }
 
@@ -119,9 +120,11 @@ class PenilaianController extends Controller
             DB::beginTransaction();
             Excel::import(new PenilaianDebiturImport($id), $request->file('file_excel'));
             DB::commit();
+
             return to_route('admin.penilaian.detail-penilaian', $id)->with('success', 'Data Berhasil Di Import');
         } catch (Throwable $th) {
             DB::rollBack();
+
             return to_route('admin.penilaian.detail-penilaian', $id)->with('error', $th->getMessage());
         }
     }
