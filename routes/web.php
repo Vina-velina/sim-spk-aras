@@ -154,6 +154,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
             Route::prefix('{id_periode}')->group(function () {
                 Route::get('/', [PenilaianController::class, 'detail'])->name('admin.penilaian.detail-penilaian');
                 Route::get('download-template-import', [PenilaianController::class, 'downloadTemplate'])->name('admin.penilaian.detail-penilaian.download-template');
+                Route::post('import-data', [PenilaianController::class, 'importData'])->name('admin.penilaian.detail-penilaian.import-data');
                 Route::prefix('penilaian')->group(function () {
                     Route::get('/{id_debitur}', [PenilaianController::class, 'createOrEditPenilaian'])->name('admin.penilaian.detail-penilaian.add-penilaian');
                     Route::post('/{id_debitur}', [PenilaianController::class, 'storeOrUpdatePenilaian'])->name('admin.penilaian.detail-penilaian.store-penilaian');

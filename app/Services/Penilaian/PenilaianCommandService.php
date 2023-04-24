@@ -30,7 +30,7 @@ class PenilaianCommandService
         $debitur = $this->debiturQueryService->getOneWhereAktif($id_debitur);
 
         if (Carbon::now()->format('Y-m-d H:i:s') < $periode->tgl_awal_penilaian || Carbon::now()->format('Y-m-d H:i:s') > $periode->tgl_akhir_penilaian) {
-            throw new \Exception('Periode Penilaian Debitur Telah Usai');
+            throw new \Exception('Periode Penilaian Debitur Telah Usai/Belum Dimulai');
         }
 
         Penilaian::where('id_periode', $id_periode)->where('id_debitur', $id_debitur)->delete();

@@ -5,7 +5,8 @@
                 <h6 class="modal-title">Import Penilaian</h6><button aria-label="Close" class="close" data-dismiss="modal"
                     type="button"><span aria-hidden="true">&times;</span></button>
             </div>
-            <form action="{{ route('admin.master-data.debitur.import') }}" enctype="multipart/form-data" method="post">
+            <form action="{{ route('admin.penilaian.detail-penilaian.import-data', $periode->id) }}"
+                enctype="multipart/form-data" method="post">
                 @csrf
                 <div class="modal-body">
                     <div class="row row-xs align-items-center mg-b-20">

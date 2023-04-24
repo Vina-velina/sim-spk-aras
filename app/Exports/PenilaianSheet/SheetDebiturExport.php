@@ -45,14 +45,7 @@ class SheetDebiturExport implements FromCollection, WithTitle, WithHeadings, Sho
             // Ubah data kriteria menjadi array asosiatif
             $kriteriaArray = [];
             foreach ($kriteriaData as $index => $kriteria) {
-                // $find_sub = SubKriteriaPenilaian::where('id_kriteria', $kriteria->id_kriteria)->get();
-
-                // if ($find_sub->count() > 0) {
-                //     $sub_kriteria = $find_sub->toArray();
-                // } else {
                 $sub_kriteria = null;
-                // }
-
                 $kriteriaArray['kode-' . $kriteria->id_kriteria] = $kriteria->id_kriteria;
                 $kriteriaArray['nama-' . $kriteria->id_kriteria] = $sub_kriteria;
             }
@@ -71,6 +64,7 @@ class SheetDebiturExport implements FromCollection, WithTitle, WithHeadings, Sho
     {
         // Mapping data dinamis berdasarkan jumlah kriteria yang ada
         $data = [
+            $this->id_periode,
             $item['id_debitur'],
             $item['nama'],
             $item['alamat'],
@@ -106,7 +100,7 @@ class SheetDebiturExport implements FromCollection, WithTitle, WithHeadings, Sho
             ->where('kriteria_penilaians.status', "aktif")
             ->get();
 
-        $headings = ['Id Debitur', 'Nama Debitur', 'Alamat Debitur'];
+        $headings = ['Id Periode', 'Id Debitur', 'Nama Debitur', 'Alamat Debitur'];
         foreach ($kriteriaData as $kriteria) {
             array_push($headings, "Kode " . $kriteria->nama_kriteria);
             array_push($headings, "Nilai " . $kriteria->nama_kriteria . "*");
@@ -132,7 +126,7 @@ class SheetDebiturExport implements FromCollection, WithTitle, WithHeadings, Sho
                     ->where('kriteria_penilaians.status', "aktif")
                     ->get();
 
-                $headingColumns = 5; // Kolom dimulai dari indeks 3 (kolom ke-4) setelah kolom Id Debitur, Nama Debitur, dan Alamat Debitur
+                $headingColumns = 6;
 
                 foreach ($kriteriaData as $kriteria) {
                     $find_sub = SubKriteriaPenilaian::where('id_kriteria', $kriteria->id_kriteria)->get();

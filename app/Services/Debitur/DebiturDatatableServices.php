@@ -48,7 +48,7 @@ class DebiturDatatableServices
                 if (isset($request->id_periode)) {
                     $status = 'create';
                     $find = Penilaian::where('id_periode', $request->id_periode)->where('id_debitur', $item->id)->get();
-                    $kriteria_periode = KriteriaPenilaian::where('id_periode', $request->id_periode)->get();
+                    $kriteria_periode = KriteriaPenilaian::where('id_periode', $request->id_periode)->where('status', 'aktif')->get();
                     if ($find->count() > 0 && $find->count() == $kriteria_periode->count()) {
                         $status = 'edit';
                     }

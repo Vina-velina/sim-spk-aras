@@ -44,7 +44,7 @@ class SheetPeriodeExport implements FromQuery, WithTitle, WithHeadings, WithStyl
 
     public function title(): string
     {
-        return 'Key Periode Import';
+        return 'Informasi Periode';
     }
 
     public function headings(): array

@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Exports\FormatImportPenilaianExport;
 use App\Helpers\FormatDateToIndonesia;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Penilaian\PenilaianImportRequest;
 use App\Http\Requests\Penilaian\PenilaianStoreUpdateRequest;
+use App\Imports\PenilaianDebiturImport;
 use App\Services\Debitur\DebiturDatatableServices;
 use App\Services\Debitur\DebiturQueryServices;
 use App\Services\Kriteria\KriteriaQueryServices;
@@ -60,7 +62,7 @@ class PenilaianController extends Controller
     {
         $periode = $this->periodeQueryService->getOneWhereAktif($id_periode);
         if (Carbon::now()->format('Y-m-d H:i:s') < $periode->tgl_awal_penilaian || Carbon::now()->format('Y-m-d H:i:s') > $periode->tgl_akhir_penilaian) {
-            return redirect()->back()->with('error', 'Periode Penilaian Debitur Telah Usai');
+            return redirect()->back()->with('error', 'Periode Penilaian Debitur Telah Usai/Belum Dimulai');
         }
 
         $periode->tgl_penilaian = FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_awal_penilaian) . ' s/d ' . FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_akhir_penilaian);
@@ -109,5 +111,18 @@ class PenilaianController extends Controller
             $element .= '<div class="badge badge-pill badge-success"> Sedang Berlangsung </div>';
         }
         return $element;
+    }
+
+    public function importData(PenilaianImportRequest $request, string $id)
+    {
+        try {
+            DB::beginTransaction();
+            Excel::import(new PenilaianDebiturImport($id), $request->file('file_excel'));
+            DB::commit();
+            return to_route('admin.penilaian.detail-penilaian', $id)->with('success', 'Data Berhasil Di Import');
+        } catch (Throwable $th) {
+            DB::rollBack();
+            return to_route('admin.penilaian.detail-penilaian', $id)->with('error', $th->getMessage());
+        }
     }
 }
