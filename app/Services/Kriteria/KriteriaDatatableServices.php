@@ -4,7 +4,6 @@ namespace App\Services\Kriteria;
 
 use App\Helpers\FormatDateToIndonesia;
 use App\Models\KriteriaPenilaian;
-use App\Models\Periode;
 use App\Models\SubKriteriaPenilaian;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
@@ -49,7 +48,7 @@ class KriteriaDatatableServices
                 }
                 $toggle = '';
                 $toggle .= '<div class="main-toggle-group-demo">';
-                $toggle .= '<div class="main-toggle ' . $query . '" onclick="changeStatusKriteria(this)" data-url_update="' . route('admin.master-data.kriteria.update.status', [$item->id_periode, $item->id]) . '">';
+                $toggle .= '<div class="main-toggle '.$query.'" onclick="changeStatusKriteria(this)" data-url_update="'.route('admin.master-data.kriteria.update.status', [$item->id_periode, $item->id]).'">';
                 $toggle .= '<span></span>';
                 $toggle .= '</div>';
                 $toggle .= '</div>';
@@ -74,12 +73,12 @@ class KriteriaDatatableServices
             ->addIndexColumn()
             ->addColumn('action', function ($subKriteria) use ($request) {
                 $element = '';
-                $element .= '<form id="delete-' . $subKriteria->id . '" action="' . route('admin.master-data.sub-kriteria.delete', [$request->id_periode, $request->id_kriteria, $subKriteria->id]) . '" method="POST"> ';
+                $element .= '<form id="delete-'.$subKriteria->id.'" action="'.route('admin.master-data.sub-kriteria.delete', [$request->id_periode, $request->id_kriteria, $subKriteria->id]).'" method="POST"> ';
                 $element .= csrf_field();
                 $element .= method_field('DELETE');
                 $element .= '<div class="btn-icon-list">';
-                $element .= '<a href="' . route('admin.master-data.sub-kriteria.edit', [$request->id_periode, $request->id_kriteria, $subKriteria->id]) . '" class="btn btn-sm btn-warning btn-icon mr-2" id=""><i class="typcn text-white typcn-edit"></i></a>';
-                $element .= '<button type="button" onclick ="alertConfirm(this)" data-id ="' . $subKriteria->id . '" class="btn btn-sm btn-danger btn-icon">
+                $element .= '<a href="'.route('admin.master-data.sub-kriteria.edit', [$request->id_periode, $request->id_kriteria, $subKriteria->id]).'" class="btn btn-sm btn-warning btn-icon mr-2" id=""><i class="typcn text-white typcn-edit"></i></a>';
+                $element .= '<button type="button" onclick ="alertConfirm(this)" data-id ="'.$subKriteria->id.'" class="btn btn-sm btn-danger btn-icon">
                             <i class="typcn typcn-trash text-white"></i>
                         </button>';
                 $element .= '</div>';

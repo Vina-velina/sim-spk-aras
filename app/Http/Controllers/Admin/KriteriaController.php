@@ -116,7 +116,6 @@ class KriteriaController extends Controller
 
     public function edit(string $id_periode, string $id_kriteria)
     {
-
         $allKriteria = $this->kriteriaQueryServices->getByIdPeriodeWhereAktif($id_periode);
 
         $periode = $this->periodeQueryServices->getOne($id_periode);
@@ -252,9 +251,11 @@ class KriteriaController extends Controller
             DB::beginTransaction();
             $this->kriteriaCommandServices->subUpdate($request, $id_sub_kriteria);
             DB::commit();
+
             return to_route('admin.master-data.kriteria.edit', [$id_periode, $id_kriteria])->with('success', 'Data Berhasil Di Update');
         } catch (Throwable $th) {
             DB::rollBack();
+
             return to_route('admin.master-data.kriteria.edit', [$id_periode, $id_kriteria])->with('error', 'Data Gagal Di Update');
         }
     }
@@ -266,9 +267,11 @@ class KriteriaController extends Controller
             DB::beginTransaction();
             $this->kriteriaCommandServices->subDestroy($id_sub_kriteria);
             DB::commit();
+
             return to_route('admin.master-data.kriteria.edit', [$id_periode, $id_kriteria])->with('success', 'Data Berhasil Di Hapus');
         } catch (Throwable $th) {
             DB::rollBack();
+
             return to_route('admin.master-data.kriteria.edit', [$id_periode, $id_kriteria])->with('error', 'Data Gagal Di Hapus');
         }
     }

@@ -4,7 +4,6 @@ namespace App\Services\Periode;
 
 use App\Helpers\FormatDateToIndonesia;
 use App\Models\Periode;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
@@ -48,7 +47,7 @@ class PeriodeDatatableServices
             ->addColumn('action_kriteria', function ($item) {
                 $element = '';
                 $element .= '<div class="btn-icon-list">';
-                $element .= '<a href="' . route('admin.master-data.kriteria.kriteria', $item->id) . '" class="btn btn-sm btn-warning btn-icon mr-2" id=""><i class="typcn text-white typcn-edit"></i></a>';
+                $element .= '<a href="'.route('admin.master-data.kriteria.kriteria', $item->id).'" class="btn btn-sm btn-warning btn-icon mr-2" id=""><i class="typcn text-white typcn-edit"></i></a>';
                 $element .= '</div>';
 
                 return $element;
