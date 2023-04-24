@@ -47,12 +47,10 @@ class MasterKriteriaController extends Controller
             $this->masterKriteriaCommandServices->store($request);
             DB::commit();
 
-            return redirect()->route('admin.master-data.master-kriteria.index')->with('success', 'Data berhasil ditambahkan');
+            return to_route('admin.master-data.master-kriteria.index')->with('success', 'Data berhasil ditambahkan');
         } catch (\Throwable $th) {
             DB::rollBack();
-            dd($th);
-
-            return redirect()->back()->with('error', 'Data gagal ditambahkan');
+            return redirect()->back()->with('error', $th->getMessage());
         }
     }
 
@@ -70,12 +68,11 @@ class MasterKriteriaController extends Controller
             $this->masterKriteriaCommandServices->update($request, $id);
             DB::commit();
 
-            return redirect()->route('admin.master-data.master-kriteria.index')->with('success', 'Data berhasil diubah');
+            return to_route('admin.master-data.master-kriteria.index')->with('success', 'Data berhasil diperbaharui');
         } catch (\Throwable $th) {
-            dd($th);
             DB::rollBack();
 
-            return redirect()->back()->with('error', 'Data gagal diubah');
+            return redirect()->back()->with('error', $th->getMessage());
         }
     }
 
@@ -86,11 +83,11 @@ class MasterKriteriaController extends Controller
             $this->masterKriteriaCommandServices->destroy($id);
             DB::commit();
 
-            return redirect()->route('admin.master-data.master-kriteria.index')->with('success', 'Data berhasil dihapus');
+            return to_route('admin.master-data.master-kriteria.index')->with('success', 'Data berhasil dihapus');
         } catch (\Throwable $th) {
             DB::rollBack();
 
-            return redirect()->back()->with('error', 'Data gagal dihapus');
+            return redirect()->back()->with('error', $th->getMessage());
         }
     }
 

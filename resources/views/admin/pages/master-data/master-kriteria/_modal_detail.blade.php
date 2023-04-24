@@ -37,11 +37,11 @@
                         </div>
                         <div class="row row-xs align-items-center mg-b-20">
                             <div class="col-md-12">
-                                <label class="form-label mg-b-0">Tanggal Diubah</label>
+                                <label class="form-label mg-b-0">Tanggal Diperbaharui</label>
                             </div>
                             <div class="col-md-12 mg-t-5">
                                 <input disabled class="form-control form-control-sm" name="updated_at"
-                                    placeholder="Masukkan Tanggal Diubah" value="" type="text">
+                                    placeholder="Masukkan Tanggal Diperbaharui" value="" type="text">
                             </div>
                         </div>
                     </div>

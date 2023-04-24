@@ -34,7 +34,7 @@
                                     </div>
                                 </div>
                                 <div class="col-xl-9 col-12">
-                                    <p class="text-danger">* wajib diisi</p>
+                                    <p class="text-danger">* Wajib diisi</p>
                                     <div class="row row-xs align-items-center mg-b-20">
                                         <div class="col-md-12">
                                             <label class="form-label mg-b-0">Foto User <span

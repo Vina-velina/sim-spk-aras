@@ -38,7 +38,7 @@
                                     @endif
                                 </div>
                                 <div class="col-xl-9 col-12">
-                                    <p class="text-danger">* wajib diisi</p>
+                                    <p class="text-danger">* Wajib diisi</p>
                                     <div class="row row-xs align-items-center mg-b-20">
                                         <div class="col-md-12">
                                             <label class="form-label mg-b-0">Foto User <span
@@ -91,24 +91,24 @@
                                     </div>
                                     <div class="row row-xs align-items-center mg-b-20">
                                         <div class="col-md-12">
-                                            <label class="form-label mg-b-0">Password <span
-                                                    class="text-danger">*</span></label>
+                                            <label class="form-label mg-b-0">Password Baru</label>
                                         </div>
                                         <div class="col-md-12 mg-t-5">
                                             <input
                                                 class="form-control form-control-sm @error('password') is-invalid @enderror"
                                                 name="password" placeholder="********" type="password">
+                                            <small>Isi password jika ingin mengganti dengan password baru</small>
                                         </div>
                                     </div>
                                     <div class="row row-xs align-items-center mg-b-20">
                                         <div class="col-md-12">
-                                            <label class="form-label mg-b-0">Konfirmasi Password <span
-                                                    class="text-danger">*</span></label>
+                                            <label class="form-label mg-b-0">Konfirmasi Password Baru</label>
                                         </div>
                                         <div class="col-md-12 mg-t-5">
                                             <input
                                                 class="form-control form-control-sm @error('password_confirmation') is-invalid @enderror"
                                                 name="password_confirmation" placeholder="********" type="password">
+                                            <small>Isi konfirmasi password jika anda memasukkan passwor baru</small>
                                         </div>
                                     </div>
                                     <button class="btn btn-sm btn-main-primary pd-x-30 mg-r-5 mg-t-5">Simpan</button>

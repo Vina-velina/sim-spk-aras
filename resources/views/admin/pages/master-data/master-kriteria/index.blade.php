@@ -119,7 +119,7 @@
                                         <th class="wd-15p border-bottom-0">#</th>
                                         <th class="wd-10p border-bottom-0">Nama Kriteria</th>
                                         <th class="wd-10p border-bottom-0">Dibuat Pada</th>
-                                        <th class="wd-10p border-bottom-0">Diubah Pada</th>
+                                        <th class="wd-10p border-bottom-0">Diperbaharui Pada</th>
                                     </tr>
                                 </thead>
 

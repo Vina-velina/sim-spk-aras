@@ -175,8 +175,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
 
     // Account
     Route::prefix('account')->group(function () {
-        Route::get('/', [AccountController::class, 'index'])->name('admin.account.index');
-        Route::post('/update', [AccountController::class, 'update'])->name('admin.account.update');
+        Route::get('/change-profil', [AccountController::class, 'editProfil'])->name('admin.account.index');
+        Route::post('/update-profil', [AccountController::class, 'updateProfil'])->name('admin.account.update');
         Route::get('/change-password', [AccountController::class, 'editPassword'])->name('admin.account.change-password');
         Route::post('/update-password', [AccountController::class, 'updatePassword'])->name('admin.account.update-password');
     });

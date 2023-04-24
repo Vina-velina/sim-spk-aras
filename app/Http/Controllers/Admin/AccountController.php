@@ -7,6 +7,8 @@ use App\Http\Requests\Account\AccountPasswordRequest;
 use App\Http\Requests\Account\AccountUpdateRequest;
 use App\Services\Account\AccountCommandServices;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class AccountController extends Controller
 {
@@ -17,19 +19,21 @@ class AccountController extends Controller
         $this->accountCommandServices = $accountCommandServices;
     }
 
-    public function index()
+    public function editProfil()
     {
         return view('admin.pages.account.index');
     }
 
-    public function update(AccountUpdateRequest $request)
+    public function updateProfil(AccountUpdateRequest $request)
     {
         try {
+            DB::beginTransaction();
             $this->accountCommandServices->update($request);
-
-            return redirect()->route('admin.account.index')->with('success', 'Data berhasil diperbarui');
-        } catch (\Exception $e) {
-            return redirect()->route('admin.account.index')->with('error', 'Data gagal diperbarui');
+            DB::commit();
+            return to_route('admin.account.index')->with('success', 'Data Berhasil Diperbaharui');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return to_route('admin.account.index')->with('error', $th->getMessage());
         }
     }
 
@@ -41,19 +45,25 @@ class AccountController extends Controller
     public function updatePassword(AccountPasswordRequest $request)
     {
         try {
-            if (password_verify($request->password, Auth::user()->password)) {
-                if (! password_verify($request->password_baru, Auth::user()->password)) {
-                    $this->accountCommandServices->updatePassword($request);
-
-                    return redirect()->route('admin.home')->with('success', 'Data berhasil diperbarui');
+            if (isset($request->password_baru)) {
+                if (Hash::check($request->password, Auth::user()->password)) {
+                    if (!Hash::check($request->password_baru, Auth::user()->password)) {
+                        DB::beginTransaction();
+                        $this->accountCommandServices->updatePassword($request);
+                        DB::commit();
+                        return to_route('admin.home')->with('success', 'Data Berhasil Diperbaharui');
+                    } else {
+                        return to_route('admin.account.change-password')->with('error', 'Password Baru Tidak Boleh Sama Dengan Password Lama');
+                    }
                 } else {
-                    return redirect()->route('admin.account.change-password')->with('error', 'Password baru tidak boleh sama dengan password lama');
+                    return to_route('admin.account.change-password')->with('error', 'Password Lama Tidak Sesuai');
                 }
             } else {
-                return redirect()->route('admin.account.change-password')->with('error', 'Password lama tidak sesuai');
+                return to_route('admin.account.change-password')->with('success', 'Tidak Ada Data Yang Diperbaharui');
             }
-        } catch (\Exception $e) {
-            return redirect()->route('admin.account.change-password')->with('error', 'Data gagal diperbarui');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return to_route('admin.account.change-password')->with('error', $th->getMessage());
         }
     }
 }

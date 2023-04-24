@@ -49,32 +49,32 @@ class DebiturController extends Controller
     {
         try {
             DB::beginTransaction();
-            $response = Excel::import(new DebiturImport(), $request->file('file_excel'));
+            Excel::import(new DebiturImport(), $request->file('file_excel'));
             DB::commit();
-
             return to_route('admin.master-data.debitur.index')->with('success', 'Data Berhasil Di Import');
         } catch (Throwable $th) {
-            return to_route('admin.master-data.debitur.index')->with('error', 'Data Gagal Di Import');
+            DB::rollBack();
+            return to_route('admin.master-data.debitur.index')->with('error', $th->getMessage());
         }
     }
 
     public function export(Request $request)
     {
-        return Excel::download(new DebiturExport($request->status_aktif), 'data-debitur.xlsx');
+        return Excel::download(new DebiturExport($request->status_aktif), 'export-data-debitur.xlsx');
     }
 
     public function store(DebiturStoreRequest $request)
     {
         try {
             DB::beginTransaction();
-            $store = $this->debiturCommandServices->store($request);
+            $this->debiturCommandServices->store($request);
             DB::commit();
 
             return to_route('admin.master-data.debitur.index')->with('success', 'Data Berhasil Ditambahkan');
         } catch (Throwable $th) {
             DB::rollBack();
 
-            return to_route('admin.master-data.debitur.index')->with('error', 'Data Gagal Ditambahkan');
+            return to_route('admin.master-data.debitur.index')->with('error', $th->getMessage());
         }
     }
 
@@ -88,15 +88,13 @@ class DebiturController extends Controller
         $request->request->add(['id' => $id]);
         try {
             DB::beginTransaction();
-            $store = $this->debiturCommandServices->update($request, $id);
+            $this->debiturCommandServices->update($request, $id);
             DB::commit();
 
-            return to_route('admin.master-data.debitur.index')->with('success', 'Data Berhasil Diubah');
+            return to_route('admin.master-data.debitur.index')->with('success', 'Data Berhasil Diperbaharui');
         } catch (Throwable $th) {
             DB::rollBack();
-            dd($th);
-
-            return to_route('admin.master-data.debitur.index')->with('error', 'Data Gagal Diubah');
+            return to_route('admin.master-data.debitur.index')->with('error', $th->getMessage());
         }
     }
 
@@ -117,18 +115,18 @@ class DebiturController extends Controller
         try {
             $detail = $this->debiturQueryServices->getOne($id);
             $path = 'storage/foto-debitur/';
-            $detail->link_foto = asset($path.$detail->foto);
+            $detail->link_foto = asset($path . $detail->foto);
 
             return response()->json([
                 'success' => true,
-                'message' => 'Berhasil mendapatkan data debitur',
+                'message' => 'Data Berhasil Didapatkan',
                 'data' => $detail,
             ]);
         } catch (Throwable $th) {
-            // dd($th);
+            DB::rollBack();
             return response()->json([
                 'success' => false,
-                'message' => 'Gagal mendapatkan data debitur',
+                'message' => $th->getMessage(),
             ]);
         }
     }
@@ -142,13 +140,14 @@ class DebiturController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Berhasil mengubah status debitur',
+                'message' => 'Data Berhasil Diperbaharui',
                 'data' => $status,
             ]);
         } catch (Throwable $th) {
+            DB::rollBack();
             return response()->json([
                 'success' => false,
-                'message' => 'Gagal mengubah status debitur',
+                'message' => $th->getMessage(),
             ]);
         }
     }
@@ -157,14 +156,12 @@ class DebiturController extends Controller
     {
         try {
             DB::beginTransaction();
-            $delete = $this->debiturCommandServices->delete($id);
+            $this->debiturCommandServices->delete($id);
             DB::commit();
-
             return to_route('admin.master-data.debitur.index')->with('success', 'Data Berhasil Dihapus');
         } catch (Throwable $th) {
             DB::rollBack();
-
-            return to_route('admin.master-data.debitur.index')->with('error', 'Data Gagal Dihapus');
+            return to_route('admin.master-data.debitur.index')->with('error', $th->getMessage());
         }
     }
 }

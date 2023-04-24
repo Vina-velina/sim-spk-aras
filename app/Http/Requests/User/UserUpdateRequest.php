@@ -26,7 +26,7 @@ class UserUpdateRequest extends FormRequest
         return [
             'foto_profil' => 'nullable|mimes:jpeg,png,jpg|max:2048|image',
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $this->id,
             'role_user' => 'required|in:super_admin,admin|string',
             'password' => 'nullable|string|min:8|confirmed',
         ];

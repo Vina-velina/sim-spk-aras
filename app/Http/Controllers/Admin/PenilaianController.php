@@ -48,8 +48,8 @@ class PenilaianController extends Controller
     public function detail(string $id)
     {
         $periode = $this->periodeQueryService->getOneWhereAktif($id);
-        $periode->status_penilaian = Carbon::now()->format('Y-m-d H:i:s') < $periode->tgl_awal_penilaian || Carbon::now()->format('Y-m-d H:i:s') > $periode->tgl_akhir_penilaian ? '<div class="badge badge-danger"> Berakhir </div>' : '<div class="badge badge-success"> Berlangsung </div>';
-        $periode->tgl_penilaian = FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_awal_penilaian).' s/d '.FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_akhir_penilaian);
+        $periode->status_penilaian = Carbon::now()->format('Y-m-d H:i:s') < $periode->tgl_awal_penilaian || Carbon::now()->format('Y-m-d H:i:s') > $periode->tgl_akhir_penilaian ? '<div class="badge badge-pill badge-danger"> Sudah Berakhir </div>' : '<div class="badge badge-pill badge-success"> Sedang Berlangsung </div>';
+        $periode->tgl_penilaian = FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_awal_penilaian) . ' s/d ' . FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_akhir_penilaian);
 
         return view('admin.pages.penilaian.detail', compact('periode'));
     }
@@ -61,7 +61,7 @@ class PenilaianController extends Controller
             return redirect()->back()->with('error', 'Periode Penilaian Debitur Telah Usai');
         }
 
-        $periode->tgl_penilaian = FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_awal_penilaian).' s/d '.FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_akhir_penilaian);
+        $periode->tgl_penilaian = FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_awal_penilaian) . ' s/d ' . FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_akhir_penilaian);
         $debitur = $this->debiturQueryService->getOneWhereAktif($id_debitur);
         $kriteria = $this->kriteriaQueryService->getByIdPeriode($id_periode);
         $kriteria->map(function ($item) use ($periode, $debitur) {
@@ -83,11 +83,11 @@ class PenilaianController extends Controller
             $this->penilaianCommandService->storeOrUpdate($request, $id_periode, $id_debitur);
             DB::commit();
 
-            return redirect()->route('admin.penilaian.detail-penilaian', [$id_periode, $id_debitur])->with('success', 'Data Berhasil Ditambahkan');
+            return to_route('admin.penilaian.detail-penilaian', [$id_periode, $id_debitur])->with('success', 'Data Berhasil Ditambahkan');
         } catch (Throwable $th) {
             DB::rollBack();
 
-            return redirect()->route('admin.penilaian.detail-penilaian', [$id_periode, $id_debitur])->with('error', $th->getMessage());
+            return to_route('admin.penilaian.detail-penilaian', [$id_periode, $id_debitur])->with('error', $th->getMessage());
         }
     }
 }

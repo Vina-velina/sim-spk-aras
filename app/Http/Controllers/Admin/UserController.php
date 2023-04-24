@@ -46,33 +46,31 @@ class UserController extends Controller
             $this->userCommandServices->store($request);
             DB::commit();
 
-            return redirect()->route('admin.master-data.user.index')->with('success', 'Berhasil menambahkan data user');
+            return to_route('admin.master-data.user.index')->with('success', 'Data Berhasil Ditambahkan');
         } catch (\Throwable $th) {
-            dd($th);
             DB::rollBack();
-
-            return redirect()->route('admin.master-data.user.index')->with('error', 'Gagal menambahkan data user');
+            return to_route('admin.master-data.user.index')->with('error', $th->getMessage());
         }
     }
 
     public function edit(string $id)
     {
         $user = $this->userQueryServices->findById($id);
-
         return view('admin.pages.master-data.user.edit', compact('user'));
     }
 
     public function update(UserUpdateRequest $request, string $id)
     {
+        $request->request->add(['id' => $id]);
         try {
             DB::beginTransaction();
             $this->userCommandServices->update($request, $id);
             DB::commit();
 
-            return redirect()->route('admin.master-data.user.index')->with('success', 'Berhasil mengubah data user');
+            return to_route('admin.master-data.user.index')->with('success', 'Data Berhasil Diperbaharui');
         } catch (\Throwable $th) {
-            // dd($th);
-            return redirect()->route('admin.master-data.user.index')->with('error', 'Gagal mengubah data user');
+            DB::rollback();
+            return to_route('admin.master-data.user.index')->with('error', $th->getMessage());
         }
     }
 
@@ -83,10 +81,10 @@ class UserController extends Controller
             $this->userCommandServices->destroy($id);
             DB::commit();
 
-            return redirect()->route('admin.master-data.user.index')->with('success', 'Berhasil menghapus data user');
+            return to_route('admin.master-data.user.index')->with('success', 'Data Berhasil Dihapus');
         } catch (\Throwable $th) {
-            // dd($th);
-            return redirect()->route('admin.master-data.user.index')->with('error', 'Gagal menghapus data user');
+            DB::rollback();
+            return to_route('admin.master-data.user.index')->with('error', $th->getMessage());
         }
     }
 

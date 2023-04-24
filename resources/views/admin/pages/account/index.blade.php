@@ -9,22 +9,19 @@
     <div class="container-fluid mg-t-20">
 
         <!-- breadcrumb -->
-        @include('admin.layouts.menu._breadcrumb', ['page' => 'Data Akun', 'active' => 'Index'])
+        @include('admin.layouts.menu._breadcrumb', ['page' => 'Informasi Profil', 'active' => 'Index'])
         <!-- breadcrumb -->
         @include('generals._validation')
 
+        @include('admin.pages.account._tab')
         <!-- row opened -->
         <div class="row row-sm">
+
             <div class="col-xl-12">
                 <div class="card">
                     <div class="card-header">
-                        <h6 class="card-title">Detail Akun</h6>
-                    </div>
-                    <div class="row mx-3 justify-content-center">
-                        <a href="{{ route('admin.account.index') }}" class="btn btn-primary col-md-5">Profil</a>
-                        <div class="col-md-1"></div>
-                        <a href="{{ route('admin.account.change-password') }}"
-                            class="btn btn-outline-primary col-md-5">Keamanan</a>
+                        <h6 class="card-title">Informasi Profil</h6>
+
                     </div>
                     <form action="{{ route('admin.account.update') }}" method="POST" enctype="multipart/form-data">
                         <div class="card-body row row-xs">
@@ -47,6 +44,7 @@
                                 </div>
                             </div>
                             <div class="col-md-8 col-12">
+                                <p class="text-danger">* Wajib diisi</p>
                                 <div class="row align-items-center mg-b-20">
                                     <div class="col-md-12">
                                         <label class="form-label mg-b-0">Foto Profil</label>
@@ -60,7 +58,7 @@
                                 </div>
                                 <div class="row align-items-center mg-b-20">
                                     <div class="col-md-12">
-                                        <label class="form-label mg-b-0">Nama</label>
+                                        <label class="form-label mg-b-0">Nama <span class="text-danger">*</span></label>
                                     </div>
                                     <div class="col-md-12 mg-t-5">
                                         <input class="form-control form-control-sm @error('name') is-invalid @enderror"
@@ -70,7 +68,7 @@
                                 </div>
                                 <div class="row align-items-center mg-b-20">
                                     <div class="col-md-12">
-                                        <label class="form-label mg-b-0">Email</label>
+                                        <label class="form-label mg-b-0">Email <span class="text-danger">*</span></label>
                                     </div>
                                     <div class="col-md-12 mg-t-5">
                                         <input class="form-control form-control-sm @error('email') is-invalid @enderror"
@@ -81,9 +79,9 @@
                             </div>
                         </div><!-- bd -->
                         <div class="card-footer">
-                            <div class="d-flex justify-content-between w-100">
+                            <div class="d-flex justify-content-end w-100">
+                                <button type="submit" class="btn ripple btn-sm btn-primary mr-2">Simpan Perubahan</button>
                                 <a class="btn ripple btn-sm btn-secondary" href="{{ route('admin.home') }}">Kembali</a>
-                                <button type="submit" class="btn ripple btn-sm btn-primary">Simpan</button>
                             </div>
                         </div>
                     </form>

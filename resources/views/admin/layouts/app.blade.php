@@ -15,8 +15,8 @@
 </head>
 
 <body class="main-body light-theme app sidebar-mini active leftmenu-color">
-    <div class="berhasil" data-berhasil="{{ Session::get('success') }}"></div>
-    <div class="gagal" data-gagal="{{ Session::get('error') }}"></div>
+    <div class="berhasil" data-berhasil="{{ ucWords(Session::get('success')) }}"></div>
+    <div class="gagal" data-gagal="{{ ucWords(Session::get('error')) }}"></div>
 
     <!-- Loader -->
     <div id="global-loader">

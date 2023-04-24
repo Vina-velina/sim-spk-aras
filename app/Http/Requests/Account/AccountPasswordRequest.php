@@ -24,8 +24,8 @@ class AccountPasswordRequest extends FormRequest
     public function rules()
     {
         return [
-            'password_baru' => 'required|string|min:8|confirmed',
-            'password' => 'required|string|min:8',
+            'password_baru' => 'nullable|string|min:8|confirmed',
+            'password' => 'required_with:password_baru|nullable|string|min:8',
         ];
     }
 }

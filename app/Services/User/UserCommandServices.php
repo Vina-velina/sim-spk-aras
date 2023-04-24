@@ -6,26 +6,10 @@ use App\Helpers\FileHelpers;
 use App\Http\Requests\User\UserStoreRequest;
 use App\Http\Requests\User\UserUpdateRequest;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class UserCommandServices
 {
-    protected $property1;
-
-    public function __construct($property1 = null)
-    {
-        $this->property1 = $property1;
-    }
-
-    public function getProperty1()
-    {
-        return $this->property1;
-    }
-
-    public function setProperty1($property1)
-    {
-        $this->property1 = $property1;
-    }
-
     public function store(UserStoreRequest $request)
     {
         $request->validated();
@@ -59,35 +43,27 @@ class UserCommandServices
     public function update(UserUpdateRequest $request, $id)
     {
         $user = User::find($id);
-        // check if user make a new password
-        if (isset($request->password)) {
-            $request->validated([
-                'password' => 'required|string|min:8|confirmed',
-            ]);
-        } else {
-            $request->validated();
-        }
 
-        // check if user upload new profile picture
         if ($request->hasFile('foto_profil')) {
-            // check if extension file is right
-            $filename = $user->foto_profil;
-            $path = storage_path('app/public/foto-user');
-            $file = FileHelpers::saveFile($request->file('foto_profil'), $path, $filename);
+            $path = 'app/public/foto-user';
+            if (isset($user->foto_profil)) {
+                $file = storage_path($path . '/' . $user->foto_profil);
+                FileHelpers::deleteFile($file);
+            }
 
-            $user = User::where('id', $id)->update([
-                'name' => $request->name,
-                'email' => $request->email,
-                'foto_profil' => $file,
-                'password' => bcrypt($request->password),
-                'role_user' => $request->role_user,
-            ]);
+            $filename = self::generateNameImage($request->file('foto_profil')->getClientOriginalExtension(), uniqid());
+
+            $create_in = storage_path($path);
+            $create_file = FileHelpers::saveFile($request->file('foto_profil'), $create_in, $filename);
+        } else {
+            $create_file = $user->foto_profil;
         }
 
         $user = User::where('id', $id)->update([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => bcrypt($request->password),
+            'foto_profil' => $create_file,
+            'password' => Hash::make($request->password),
             'role_user' => $request->role_user,
         ]);
 
@@ -97,10 +73,8 @@ class UserCommandServices
     public function destroy($id)
     {
         $user = User::find($id);
-        // delete file
-        $path = storage_path('app/public/foto-user/'.$user->foto_profil);
+        $path = storage_path('app/public/foto-user/' . $user->foto_profil);
         FileHelpers::deleteFile($path);
-        // delete user
         $user->delete();
 
         return $user;
@@ -108,7 +82,7 @@ class UserCommandServices
 
     protected static function generateNameImage($extension, $unique)
     {
-        $name = 'foto-user-'.$unique.'-'.time().'.'.$extension;
+        $name = 'foto-user-' . $unique . '-' . time() . '.' . $extension;
 
         return $name;
     }
