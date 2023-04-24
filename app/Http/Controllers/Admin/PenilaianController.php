@@ -48,7 +48,7 @@ class PenilaianController extends Controller
     public function detail(string $id)
     {
         $periode = $this->periodeQueryService->getOneWhereAktif($id);
-        $periode->status_penilaian = Carbon::now()->format('Y-m-d H:i:s') < $periode->tgl_awal_penilaian || Carbon::now()->format('Y-m-d H:i:s') > $periode->tgl_akhir_penilaian ? '<div class="badge badge-pill badge-danger"> Sudah Berakhir </div>' : '<div class="badge badge-pill badge-success"> Sedang Berlangsung </div>';
+        $periode->status_penilaian = self::_getStatusPenilaian($periode->tgl_awal_penilaian, $periode->tgl_akhir_penilaian);
         $periode->tgl_penilaian = FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_awal_penilaian) . ' s/d ' . FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_akhir_penilaian);
 
         return view('admin.pages.penilaian.detail', compact('periode'));
@@ -63,7 +63,7 @@ class PenilaianController extends Controller
 
         $periode->tgl_penilaian = FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_awal_penilaian) . ' s/d ' . FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_akhir_penilaian);
         $debitur = $this->debiturQueryService->getOneWhereAktif($id_debitur);
-        $kriteria = $this->kriteriaQueryService->getByIdPeriode($id_periode);
+        $kriteria = $this->kriteriaQueryService->getByIdPeriodeWhereAktif($id_periode);
         $kriteria->map(function ($item) use ($periode, $debitur) {
             $item->relasi_penilaian = $item->penilaian
                 ->where('id_periode', $periode->id)
@@ -89,5 +89,18 @@ class PenilaianController extends Controller
 
             return to_route('admin.penilaian.detail-penilaian', [$id_periode, $id_debitur])->with('error', $th->getMessage());
         }
+    }
+
+    public static function _getStatusPenilaian($tgl_awal, $tgl_akhir)
+    {
+        $element = '';
+        if (Carbon::now()->format('Y-m-d H:i:s') < $tgl_awal) {
+            $element .= '<div class="badge badge-pill badge-info"> Belum Dimulai </div>';
+        } else if (Carbon::now()->format('Y-m-d H:i:s') > $tgl_akhir) {
+            $element .= '<div class="badge badge-pill badge-danger"> Sudah Berakhir </div>';
+        } else {
+            $element .= '<div class="badge badge-pill badge-success"> Sedang Berlangsung </div>';
+        }
+        return $element;
     }
 }

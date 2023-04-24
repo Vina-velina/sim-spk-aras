@@ -14,6 +14,7 @@ use App\Services\Kriteria\KriteriaDatatableServices;
 use App\Services\Kriteria\KriteriaQueryServices;
 use App\Services\Periode\PeriodeDatatableServices;
 use App\Services\Periode\PeriodeQueryServices;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Throwable;
@@ -52,9 +53,9 @@ class KriteriaController extends Controller
     public function kriteria(string $id_periode)
     {
         $periode = $this->periodeQueryServices->getOneWhereAktif($id_periode);
-        if (isset($periode)) {
-            $periode->tgl_penilaian = FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_awal_penilaian) . ' s/d ' . FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_akhir_penilaian);
-        }
+        $periode->tgl_penilaian = FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_awal_penilaian) . ' s/d ' . FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_akhir_penilaian);
+        $periode->status_penilaian = self::_getStatusPenilaian($periode->tgl_awal_penilaian, $periode->tgl_akhir_penilaian);
+
         $kriteria = $this->kriteriaQueryServices->getByIdPeriodeWhereAktif($id_periode);
         $total_bobot = 0;
         foreach ($kriteria as $key => $value) {
@@ -67,10 +68,9 @@ class KriteriaController extends Controller
     public function create(string $id_periode)
     {
         $kriteria = $this->kriteriaQueryServices->getByIdPeriodeWhereAktif($id_periode);
-        $periode = $this->periodeQueryServices->getOne($id_periode);
-        if (isset($periode)) {
-            $periode->tgl_penilaian = FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_awal_penilaian) . ' s/d ' . FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_akhir_penilaian);
-        }
+        $periode = $this->periodeQueryServices->getOneWhereAktif($id_periode);
+        $periode->status_penilaian = self::_getStatusPenilaian($periode->tgl_awal_penilaian, $periode->tgl_akhir_penilaian);
+        $periode->tgl_penilaian = FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_awal_penilaian) . ' s/d ' . FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_akhir_penilaian);
 
         // find total bobot
         $total_bobot = 0;
@@ -116,10 +116,9 @@ class KriteriaController extends Controller
     {
         $allKriteria = $this->kriteriaQueryServices->getByIdPeriodeWhereAktif($id_periode);
 
-        $periode = $this->periodeQueryServices->getOne($id_periode);
-        if (isset($periode)) {
-            $periode->tgl_penilaian = FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_awal_penilaian) . ' s/d ' . FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_akhir_penilaian);
-        }
+        $periode = $this->periodeQueryServices->getOneWhereAktif($id_periode);
+        $periode->tgl_penilaian = FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_awal_penilaian) . ' s/d ' . FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_akhir_penilaian);
+        $periode->status_penilaian = self::_getStatusPenilaian($periode->tgl_awal_penilaian, $periode->tgl_akhir_penilaian);
 
         // find total bobot
         $total_bobot = 0;
@@ -146,11 +145,15 @@ class KriteriaController extends Controller
             // find total bobot
             $total_bobot = 0;
             foreach ($allKriteria as $key => $value) {
-                $total_bobot += $value->bobot_kriteria;
+                if ($value->id != $kriteriaPenilaian->id) {
+                    $total_bobot += $value->bobot_kriteria;
+                }
             }
 
-            if ($total_bobot + $request->bobot_kriteria - $kriteriaPenilaian->bobot_kriteria > 100) {
-                return to_route('admin.master-data.kriteria.kriteria', $id_periode)->with('error', 'Total Bobot Kriteria Melebihi 100%');
+            if ($request->status == "aktif") {
+                if ($total_bobot + $request->bobot_kriteria > 100) {
+                    throw new \Exception('Total Bobot Kriteria Melebihi 100%');
+                }
             }
 
             DB::beginTransaction();
@@ -167,6 +170,21 @@ class KriteriaController extends Controller
     public function updateStatus(string $id_periode, string $id)
     {
         try {
+            $allKriteria = $this->kriteriaQueryServices->getByIdPeriodeWhereAktif($id_periode);
+            $kriteriaPenilaian = $this->kriteriaQueryServices->getOne($id);
+
+            // find total bobot
+            $total_bobot = 0;
+            foreach ($allKriteria as $key => $value) {
+                $total_bobot += $value->bobot_kriteria;
+            }
+
+            if ($kriteriaPenilaian->status == "nonaktif") {
+                if ($total_bobot + $kriteriaPenilaian->bobot_kriteria > 100) {
+                    throw new \Exception('Total bobot lebih dari 100%, harap ubah bobot terlebih dahulu sebelum mengaktifkan kriteria ini');
+                }
+            }
+
             DB::beginTransaction();
             $status = $this->kriteriaCommandServices->updateStatus($id);
             DB::commit();
@@ -181,8 +199,7 @@ class KriteriaController extends Controller
 
             return response()->json([
                 'success' => false,
-                'message' => 'Gagal mengubah status Kriteria',
-                'data' => $th->getMessage(),
+                'message' => $th->getMessage(),
             ]);
         }
     }
@@ -209,11 +226,10 @@ class KriteriaController extends Controller
 
     public function subCreate(string $id_periode, string $id_kriteria)
     {
-        $periode = $this->periodeQueryServices->getOne($id_periode);
+        $periode = $this->periodeQueryServices->getOneWhereAktif($id_periode);
+        $periode->tgl_penilaian = FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_awal_penilaian) . ' s/d ' . FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_akhir_penilaian);
+        $periode->status_penilaian = self::_getStatusPenilaian($periode->tgl_awal_penilaian, $periode->tgl_akhir_penilaian);
 
-        if (isset($periode)) {
-            $periode->tgl_penilaian = FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_awal_penilaian) . ' s/d ' . FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_akhir_penilaian);
-        }
 
         return view('admin.pages.master-data.kriteria.sub-kriteria.create', compact('id_kriteria', 'periode'));
     }
@@ -277,5 +293,18 @@ class KriteriaController extends Controller
     public function periodeDataTable(Request $request)
     {
         return $this->periodeDatatableServices->datatable($request);
+    }
+
+    public static function _getStatusPenilaian($tgl_awal, $tgl_akhir)
+    {
+        $element = '';
+        if (Carbon::now()->format('Y-m-d H:i:s') < $tgl_awal) {
+            $element .= '<div class="badge badge-pill badge-info"> Belum Dimulai </div>';
+        } else if (Carbon::now()->format('Y-m-d H:i:s') > $tgl_akhir) {
+            $element .= '<div class="badge badge-pill badge-danger"> Sudah Berakhir </div>';
+        } else {
+            $element .= '<div class="badge badge-pill badge-success"> Sedang Berlangsung </div>';
+        }
+        return $element;
     }
 }

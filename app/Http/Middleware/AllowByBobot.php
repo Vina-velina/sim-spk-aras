@@ -26,7 +26,7 @@ class AllowByBobot
                 return $next($request);
             }
 
-            return redirect()->back()->with('error', 'Total Bobot Kriteria Pada Kriteria Periode Ini Belum Mencapai 100%, Harap Ubah Di Pengaturan Terlebih Dahulu');
+            return to_route('admin.penilaian.index')->with('error', 'Total Bobot Kriteria Pada Kriteria Periode Ini Belum Mencapai 100%, Harap Ubah Di Pengaturan Terlebih Dahulu');
         }
     }
 }

@@ -35,6 +35,7 @@ class KriteriaCommandServices
         $query->id_periode = $request->id_periode;
         $query->id_master_kriteria = $request->id_master_kriteria;
         $query->bobot_kriteria = $request->bobot_kriteria;
+        $query->status = $request->status;
         $query->keterangan = $request->keterangan;
         $query->save();
 

@@ -12,7 +12,7 @@
                 ajax: {
                     url: "{{ route('admin.master-data.debitur.datatable') }}",
                     data: function(d) {
-                        d.id_aktif = "aktif";
+                        d.is_aktif = "aktif";
                         d.id_periode = "{{ $periode->id }}";
                     }
                 },
