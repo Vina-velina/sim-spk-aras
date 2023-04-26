@@ -15,7 +15,7 @@ class ArasQueryHelpers
         // =================================================
         // Validasi Periode
         // =================================================
-        if (! isset($id_periode)) {
+        if (!isset($id_periode)) {
             throw new \Exception('Invalid Parameter');
         }
         $periode = Periode::where('id', $id_periode)->first();
@@ -203,6 +203,8 @@ class ArasQueryHelpers
         // 12. Prepare to return nilai, return as array
 
         $data_return = [
+            'kriteria' => $kriterias,
+            'alternatif' => $alternatifs,
             'pembentukan_matriks_x' => $matriks_x,
             'pembentukan_matriks_x0' => $matriks_x0,
             'merumuskan_matriks_x' => $matriks_x2,

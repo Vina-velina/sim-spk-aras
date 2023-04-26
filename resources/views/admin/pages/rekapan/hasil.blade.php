@@ -168,7 +168,7 @@
                         </div>
                         <div class="d-flex justify-content-end">
                             <div class="btn-icon-list">
-                                <a href="javascript:void(0);" data-target="#modalImportPenilaian" data-toggle="modal"
+                                <a href="javascript:void(0);" data-target="#modalPerhitunganAras" data-toggle="modal"
                                     class="btn btn-sm btn-info btn-icon"><i class="typcn typcn-eye"></i>
                                     Perhitungan
                                 </a>
@@ -249,4 +249,5 @@
         </div>
     </div>
     @include('admin.pages.rekapan._modal_tambah_debitur_terpilih')
+    @include('admin.pages.rekapan._modal_perhitungan')
 @endsection
