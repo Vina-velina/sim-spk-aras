@@ -45,7 +45,7 @@ class PeriodeCommandServices
 
         $find_debitur_terpilih = DebiturTerpilih::where('id_periode', $id)->get();
         foreach ($find_debitur_terpilih as $item) {
-            $item->status = "draft";
+            $item->status = 'draft';
             $item->save();
         }
 

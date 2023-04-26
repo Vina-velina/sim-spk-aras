@@ -24,7 +24,7 @@ class StoreDebiturTerpilihRequest extends FormRequest
     public function rules()
     {
         return [
-            'debitur' => 'required|uuid|exists:rekomendasi_debiturs,id'
+            'debitur' => 'required|uuid|exists:rekomendasi_debiturs,id',
         ];
     }
 }

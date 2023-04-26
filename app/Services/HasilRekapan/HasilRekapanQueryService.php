@@ -4,7 +4,6 @@ namespace App\Services\HasilRekapan;
 
 use App\Models\DebiturTerpilih;
 use App\Models\RekomendasiDebitur;
-use Exception;
 
 class HasilRekapanQueryService
 {
@@ -16,10 +15,11 @@ class HasilRekapanQueryService
 
         foreach ($rekomendasi as $item) {
             $find_in_terpilih = DebiturTerpilih::where('id_periode', $id_periode)->where('id_debitur', $item->id_debitur)->first();
-            if (!isset($find_in_terpilih)) {
-                array_push($data, ['id' => $item->id, 'text' => $item->debitur->nama . ' | Ranking ' . $item->ranking]);
+            if (! isset($find_in_terpilih)) {
+                array_push($data, ['id' => $item->id, 'text' => $item->debitur->nama.' | Ranking '.$item->ranking]);
             }
         }
+
         return $data;
     }
 }

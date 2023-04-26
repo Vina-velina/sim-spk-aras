@@ -46,7 +46,7 @@ class RekapanController extends Controller
     {
         try {
             $periode = $this->periodeQueryService->getOne($id);
-            $periode->tgl_penilaian = FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_awal_penilaian) . ' s/d ' . FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_akhir_penilaian);
+            $periode->tgl_penilaian = FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_awal_penilaian).' s/d '.FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_akhir_penilaian);
             $periode->status_penilaian = self::_getStatusPenilaian($periode->tgl_awal_penilaian, $periode->tgl_akhir_penilaian);
 
             DB::beginTransaction();
@@ -95,9 +95,11 @@ class RekapanController extends Controller
             DB::beginTransaction();
             $this->hasilRekapanCommandService->storeTerpilih($request, $id);
             DB::commit();
+
             return to_route('admin.rekapan-spk.detail', $id)->with('success', 'Data Berhasil Ditambahkan');
         } catch (Throwable $th) {
             DB::rollBack();
+
             return to_route('admin.rekapan-spk.detail', $id)->with('error', $th->getMessage());
         }
     }
@@ -108,9 +110,11 @@ class RekapanController extends Controller
             DB::beginTransaction();
             $this->hasilRekapanCommandService->deleteTerpilih($id_periode, $id_terpilih);
             DB::commit();
+
             return to_route('admin.rekapan-spk.detail', $id_periode)->with('success', 'Data Berhasil Dihapus');
         } catch (Throwable $th) {
             DB::rollBack();
+
             return to_route('admin.rekapan-spk.detail', $id_periode)->with('error', $th->getMessage());
         }
     }
@@ -121,9 +125,11 @@ class RekapanController extends Controller
             DB::beginTransaction();
             $this->hasilRekapanCommandService->publishTerpilih($id_periode);
             DB::commit();
+
             return to_route('admin.rekapan-spk.detail', $id_periode)->with('success', 'Data Berhasil Dipublish');
         } catch (Throwable $th) {
             DB::rollBack();
+
             return to_route('admin.rekapan-spk.detail', $id_periode)->with('error', $th->getMessage());
         }
     }
