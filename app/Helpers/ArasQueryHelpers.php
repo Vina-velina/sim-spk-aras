@@ -15,7 +15,7 @@ class ArasQueryHelpers
         // =================================================
         // Validasi Periode
         // =================================================
-        if (!isset($id_periode)) {
+        if (! isset($id_periode)) {
             throw new \Exception('Invalid Parameter');
         }
         $periode = Periode::where('id', $id_periode)->first();
@@ -27,10 +27,9 @@ class ArasQueryHelpers
         // 1. Mendefinisikan Matriks Keputusan X / Nilai Alternatif Kriteria
         $alternatifs = Debitur::where('status', 'aktif')->orderBy('updated_at', 'DESC')->get();
         $kriterias = KriteriaPenilaian::where('status', 'aktif')->where('id_periode', $periode->id)->orderBy('updated_at', 'DESC')->get();
-        $matriks_x = array();
+        $matriks_x = [];
         foreach ($alternatifs as $alternatif) {
             foreach ($kriterias as $kriteria) {
-
                 $id_alternatif = $alternatif->id;
                 $id_kriteria = $kriteria->id;
 
@@ -41,13 +40,13 @@ class ArasQueryHelpers
             }
         }
         // 2. Mendapatkan Nilai X0 Berdasarkan Matriks Keputusan X
-        $matriks_x0 = array();
+        $matriks_x0 = [];
         foreach ($kriterias as $kriteria) {
             $type_kriteria = $kriteria->jenis;
             if ($type_kriteria == 'benefit') {
                 $id_kriteria = $kriteria->id;
                 $x0 = max($matriks_x[$id_kriteria]);
-            } else if ($type_kriteria == 'cost') {
+            } elseif ($type_kriteria == 'cost') {
                 $id_kriteria = $kriteria->id;
                 $x0 = min($matriks_x[$id_kriteria]);
             }
@@ -59,10 +58,9 @@ class ArasQueryHelpers
         // =================================================
 
         // 3. Mendapatkan Nilai Selain Nilai X0
-        $matriks_x2 = array();
+        $matriks_x2 = [];
         foreach ($alternatifs as $alternatif) {
             foreach ($kriterias as $kriteria) {
-
                 $id_alternatif = $alternatif->id;
                 $id_kriteria = $kriteria->id;
 
@@ -70,10 +68,10 @@ class ArasQueryHelpers
                 $type_kriteria = $kriteria->jenis;
                 if ($type_kriteria == 'benefit') {
                     $x2 = $x;
-                } else if ($type_kriteria == 'cost') {
+                } elseif ($type_kriteria == 'cost') {
                     if ($x != 0) {
                         $x2 = 1 / $x;
-                    } else if ($x == 0) {
+                    } elseif ($x == 0) {
                         $x2 = 0;
                     }
                 }
@@ -83,17 +81,17 @@ class ArasQueryHelpers
         }
 
         // 4. Mendapatkan Nilai Normalisasi Untuk XO
-        $matriks_x02 = array();
+        $matriks_x02 = [];
         foreach ($kriterias as $kriteria) {
             $id_kriteria = $kriteria->id;
             $type_kriteria = $kriteria->jenis;
             $x0 = $matriks_x0[$id_kriteria];
             if ($type_kriteria == 'benefit') {
                 $x02 = $x0;
-            } else if ($type_kriteria == 'cost') {
+            } elseif ($type_kriteria == 'cost') {
                 if ($x0 != 0) {
                     $x02 = 1 / $x0;
-                } else if ($x0 == 0) {
+                } elseif ($x0 == 0) {
                     $x02 = 0;
                 }
             }
@@ -102,7 +100,7 @@ class ArasQueryHelpers
         }
 
         // 5. Mendapatkan Nilai Total Matriks X , Digunakan Untuk Proses Normalisasi
-        $total_matriks_x = array();
+        $total_matriks_x = [];
         foreach ($kriterias as $kriteria) {
             $tx = 0;
             $id_kriteria = $kriteria->id;
@@ -120,10 +118,9 @@ class ArasQueryHelpers
         // =================================================
 
         // 6. Normalisasi Matriks Keputusan Selain X0
-        $matriks_r = array();
+        $matriks_r = [];
         foreach ($alternatifs as $alternatif) {
             foreach ($kriterias as $kriteria) {
-
                 $id_alternatif = $alternatif->id;
                 $id_kriteria = $kriteria->id;
 
@@ -134,7 +131,7 @@ class ArasQueryHelpers
         }
 
         // 7. Normalisasi Matriks Keputusan Untuk X0
-        $matriks_r0 = array();
+        $matriks_r0 = [];
         foreach ($kriterias as $kriteria) {
             $id_kriteria = $kriteria->id;
             $x0 = $matriks_x02[$id_kriteria];
@@ -147,8 +144,8 @@ class ArasQueryHelpers
         // =================================================
 
         // 8. Membentuk Matriks Normalisasi Terbobot
-        $matriks_rb = array();
-        $total_rb = array();
+        $matriks_rb = [];
+        $total_rb = [];
         foreach ($alternatifs as $alternatif) {
             $t_rb = 0;
             $id_alternatif = $alternatif->id;
@@ -168,7 +165,7 @@ class ArasQueryHelpers
         // =================================================
 
         // 9. Melakukan Perhitungan Nilai Akhir
-        $matriks_rb0 = array();
+        $matriks_rb0 = [];
         $total_rb0 = 0;
         foreach ($kriterias as $kriteria) {
             $id_kriteria = $kriteria->id;
@@ -179,13 +176,12 @@ class ArasQueryHelpers
             $total_rb0 += $rb;
         }
 
-
         // =================================================
         //  Hasil Akhir dan Store Ke Database
         // =================================================
 
         // 10. Hasil Akhir Perhitungan Tidak Termasuk Nilai X0
-        $hasil_akhir = array();
+        $hasil_akhir = [];
         foreach ($alternatifs as $alternatif) {
             $id_alternatif = $alternatif->id;
             $total_rb[$id_alternatif];
@@ -196,7 +192,6 @@ class ArasQueryHelpers
             $obj = new HasilRekapanCommandService(); // Buat objek instan dari kelas
             $obj->storeRekomendasi($id_alternatif, $id_periode, $nilai);
         }
-
 
         // 11. Hasil Akhir Untuk X0
         $hasil_akhir_rb0 = $total_rb0 / $total_rb0;
@@ -215,12 +210,12 @@ class ArasQueryHelpers
             'total_nilai_matriks' => $total_matriks_x,
             'normalisasi_matriks_x' => $matriks_r,
             'normalisasi_matriks_x0' => $matriks_r0,
-            'normalisasi_terbobot' =>  $matriks_rb,
+            'normalisasi_terbobot' => $matriks_rb,
             'total_normalisasi_terbobot' => $total_rb,
             'perhitungan_nilai_akhir' => $matriks_rb0,
             'total_perhitungan_nilai_akhir' => $total_rb0,
             'hasil_akhir_x' => $hasil_akhir,
-            'hasil_akhir_x0' => $hasil_akhir_rb0
+            'hasil_akhir_x0' => $hasil_akhir_rb0,
         ];
 
         return $data_return;

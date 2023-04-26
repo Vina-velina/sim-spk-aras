@@ -4,7 +4,6 @@ namespace App\Services\HasilRekapan;
 
 use App\Models\Periode;
 use App\Models\RekomendasiDebitur;
-use Exception;
 use Illuminate\Support\Facades\Auth;
 
 class HasilRekapanCommandService
@@ -32,12 +31,14 @@ class HasilRekapanCommandService
             $data->ranking = $index + 1;
             $data->save();
         }
+
         return $rekomendasi;
     }
 
     public function deleteRekomendasi(string $id_periode)
     {
         $delete = RekomendasiDebitur::where('id_periode', $id_periode)->delete();
+
         return $delete;
     }
 }

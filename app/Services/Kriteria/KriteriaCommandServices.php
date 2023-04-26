@@ -8,7 +8,6 @@ use App\Http\Requests\Kriteria\SubKriteriaStoreRequest;
 use App\Http\Requests\Kriteria\SubKriteriaUpdateRequest;
 use App\Models\KriteriaPenilaian;
 use App\Models\SubKriteriaPenilaian;
-use Ramsey\Uuid\Uuid;
 
 class KriteriaCommandServices
 {

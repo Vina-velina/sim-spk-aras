@@ -164,7 +164,6 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
         });
     });
 
-
     // Data Penilaian
     Route::prefix('data-rekapan')->group(function () {
         Route::get('/', [RekapanController::class, 'index'])->name('admin.rekapan-spk.index');
