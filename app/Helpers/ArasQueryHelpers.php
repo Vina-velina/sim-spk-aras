@@ -15,7 +15,7 @@ class ArasQueryHelpers
         // =================================================
         // Validasi Periode
         // =================================================
-        if (!isset($id_periode)) {
+        if (! isset($id_periode)) {
             throw new \Exception('Invalid Parameter');
         }
         $periode = Periode::where('id', $id_periode)->first();
