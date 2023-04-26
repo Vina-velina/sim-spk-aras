@@ -53,7 +53,7 @@ class PenilaianController extends Controller
     {
         $periode = $this->periodeQueryService->getOneWhereAktif($id);
         $periode->status_penilaian = self::_getStatusPenilaian($periode->tgl_awal_penilaian, $periode->tgl_akhir_penilaian);
-        $periode->tgl_penilaian = FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_awal_penilaian).' s/d '.FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_akhir_penilaian);
+        $periode->tgl_penilaian = FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_awal_penilaian) . ' s/d ' . FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_akhir_penilaian);
 
         return view('admin.pages.penilaian.detail', compact('periode'));
     }
@@ -65,7 +65,9 @@ class PenilaianController extends Controller
             return redirect()->back()->with('error', 'Periode Penilaian Debitur Telah Usai/Belum Dimulai');
         }
 
-        $periode->tgl_penilaian = FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_awal_penilaian).' s/d '.FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_akhir_penilaian);
+        $periode->tgl_penilaian = FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_awal_penilaian) . ' s/d ' . FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_akhir_penilaian);
+        $periode->status_penilaian = self::_getStatusPenilaian($periode->tgl_awal_penilaian, $periode->tgl_akhir_penilaian);
+
         $debitur = $this->debiturQueryService->getOneWhereAktif($id_debitur);
         $kriteria = $this->kriteriaQueryService->getByIdPeriodeWhereAktif($id_periode);
         $kriteria->map(function ($item) use ($periode, $debitur) {

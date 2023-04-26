@@ -25,7 +25,7 @@
                     },
                     {
                         data: 'action_kriteria',
-                        name: 'action_kirteria',
+                        name: 'action_kriteria',
                         orderable: false,
                         searchable: false,
                     },

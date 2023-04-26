@@ -4,6 +4,7 @@ namespace App\Services\Periode;
 
 use App\Http\Requests\Periode\PeriodeStoreRequest;
 use App\Http\Requests\Periode\PeriodeUpdateRequest;
+use App\Models\DebiturTerpilih;
 use App\Models\Periode;
 
 class PeriodeCommandServices
@@ -41,6 +42,12 @@ class PeriodeCommandServices
         $query = Periode::find($id);
         $query->status = $query->status == 'aktif' ? 'nonaktif' : 'aktif';
         $query->save();
+
+        $find_debitur_terpilih = DebiturTerpilih::where('id_periode', $id)->get();
+        foreach ($find_debitur_terpilih as $item) {
+            $item->status = "draft";
+            $item->save();
+        }
 
         return $query;
     }

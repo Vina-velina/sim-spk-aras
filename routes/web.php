@@ -168,9 +168,15 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
     Route::prefix('data-rekapan')->group(function () {
         Route::get('/', [RekapanController::class, 'index'])->name('admin.rekapan-spk.index');
         // Detail Periode
-        Route::group(['prefix' => 'periode', 'middleware' => ['allowActivePeriode', 'allowByBobot']], function () {
+        Route::get('/datatable-rekomendasi', [RekapanController::class, 'datatableRekomendasi'])->name('admin.rekapan-spk.datatable.rekomendasi');
+        Route::get('/datatable-terpilih', [RekapanController::class, 'datatableTerpilih'])->name('admin.rekapan-spk.datatable.terpilih');
+        Route::group(['prefix' => 'periode', 'middleware' => ['allowByBobot']], function () {
             Route::prefix('{id_periode}')->group(function () {
                 Route::get('/', [RekapanController::class, 'detail'])->name('admin.rekapan-spk.detail');
+                Route::post('/publish', [RekapanController::class, 'publishTerpilih'])->name('admin.rekapan-spk.detail.publish-terpilih');
+                Route::post('/unpublish', [RekapanController::class, 'unpublishTerpilih'])->name('admin.rekapan-spk.detail.unpublish-terpilih');
+                Route::post('/store', [RekapanController::class, 'storeTerpilih'])->name('admin.rekapan-spk.detail.store-terpilih');
+                Route::delete('/delete/{id_terpilih}', [RekapanController::class, 'deleteTerpilih'])->name('admin.rekapan-spk.detail.delete-terpilih');
             });
         });
     });

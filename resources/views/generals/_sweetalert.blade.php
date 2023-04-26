@@ -94,4 +94,25 @@
                 }
             });
     }
+
+    const alertConfirmPublish = () => {
+        swal({
+                title: "Apakah Anda Yakin?",
+                text: "Data akan terpublish dan tidak dapat dibatalkan!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonClass: "btn-danger",
+                confirmButtonText: "Publish Data",
+                cancelButtonText: "Batal",
+                closeOnConfirm: false,
+                closeOnCancel: false
+            },
+            function(isConfirm) {
+                if (isConfirm) {
+                    $('#publish-button').submit();
+                } else {
+                    swal("Data Aman", "Data Yang Dipilih Batal Dipublish", "error");
+                }
+            });
+    }
 </script>

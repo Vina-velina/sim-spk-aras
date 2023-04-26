@@ -13,9 +13,6 @@
                 serverSide: true,
                 ajax: {
                     url: "{{ route('admin.master-data.periode.datatable') }}",
-                    data: function(d) {
-                        d.status = "aktif";
-                    }
                 },
                 columns: [{
                         data: "DT_RowIndex",
