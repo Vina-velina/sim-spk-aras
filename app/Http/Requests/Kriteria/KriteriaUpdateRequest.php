@@ -28,6 +28,7 @@ class KriteriaUpdateRequest extends FormRequest
             'id_master_kriteria' => 'required|exists:master_kriteria_penilaians,id|string',
             'keterangan' => 'nullable|string|max:255',
             'bobot_kriteria' => 'required|integer|between:1,100',
+            'jenis_kriteria' => 'required|in:benefit,cost|string',
             'status' => 'required|in:aktif,nonaktif|string',
         ];
     }

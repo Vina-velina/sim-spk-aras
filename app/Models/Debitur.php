@@ -16,4 +16,14 @@ class Debitur extends Model
     {
         return $this->hasMany(Penilaian::class, 'id_debitur', 'id');
     }
+
+    public function rekomendasiDebitur()
+    {
+        return $this->hasMany(RekomendasiDebitur::class, 'id_debitur', 'id');
+    }
+
+    public function debiturTerpilih()
+    {
+        return $this->hasMany(RekomendasiDebitur::class, 'id_debitur', 'id');
+    }
 }

@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('tittle', 'Data Penilaian SPK')
+@section('tittle', 'Data Rekapan SPK')
 @section('otherJsPlugin')
     <!--Internal  Datatable js -->
     {{-- <script src="{{ asset('assets/js/table-data.js') }}"></script> --}}
@@ -24,8 +24,8 @@
                         name: 'DT_RowIndex',
                     },
                     {
-                        data: 'action_penilaian',
-                        name: 'action_penilaian',
+                        data: 'action_rekapan',
+                        name: 'action_rekapan',
                         orderable: false,
                         searchable: false,
                     },
@@ -65,7 +65,7 @@
     <div class="container-fluid mg-t-20">
 
         <!-- breadcrumb -->
-        @include('admin.layouts.menu._breadcrumb', ['page' => 'Data Penilaian SPK', 'active' => 'Index'])
+        @include('admin.layouts.menu._breadcrumb', ['page' => 'Data Rekapan SPK', 'active' => 'Index'])
         <!-- breadcrumb -->
 
         <!-- row opened -->
@@ -75,7 +75,7 @@
                 <div class="card">
                     <div class="card-header pb-0 pd-t-25">
                         <div class="d-flex justify-content-between">
-                            <h4 class="card-title mg-b-0">Data penilaian SPK berdasarkan periode</h4>
+                            <h4 class="card-title mg-b-0">Data rekapan SPK berdasarkan periode</h4>
                         </div>
                     </div>
                     <div class="card-body">

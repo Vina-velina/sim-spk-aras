@@ -15,7 +15,7 @@ class PeriodeQueryServices
 
     public function getAll()
     {
-        return Periode::all();
+        return Periode::orderBy('updated_at', 'desc')->get();
     }
 
     public function getOneWhereAktif(string $id)

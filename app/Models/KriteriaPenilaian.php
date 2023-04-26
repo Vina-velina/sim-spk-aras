@@ -14,7 +14,7 @@ class KriteriaPenilaian extends Model
 
     public function subKriteriaPenilaian()
     {
-        return $this->hasMany(SubKriteriaPenilaian::class, 'id_kriteria', 'id');
+        return $this->hasMany(SubKriteriaPenilaian::class, 'id_kriteria', 'id')->orderBy('nilai_sub_kriteria', 'asc');
     }
 
     public function periode()

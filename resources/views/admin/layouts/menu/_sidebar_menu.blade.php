@@ -30,6 +30,32 @@
             <span class="side-menu__label">Penilaian SPK</span>
         </a>
     </li>
+    <li class="slide">
+        <a class="side-menu__item {{ Route::is('admin.rekapan-spk.*') ? 'active' : '' }}"
+            href="{{ route('admin.rekapan-spk.index') }}">
+            <div class="side-angle1"></div>
+            <div class="side-angle2"></div>
+            <div class="side-arrow"></div>
+            <svg class="side-menu__icon" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24"
+                height="24" viewBox="0 0 24 24" width="24">
+                <g>
+                    <rect fill="none" height="24" width="24"></rect>
+                </g>
+                <g>
+                    <g>
+                        <rect height="5" opacity=".3" width="5" x="11" y="11"></rect>
+                        <rect height="5" opacity=".3" width="5" x="4" y="11"></rect>
+                        <rect height="5" opacity=".3" width="12" x="4" y="4"></rect>
+                        <path d="M20,6v14H6v2h14c1.1,0,2-0.9,2-2V6H20z"></path>
+                        <path
+                            d="M18,16V4c0-1.1-0.9-2-2-2H4C2.9,2,2,2.9,2,4v12c0,1.1,0.9,2,2,2h12C17.1,18,18,17.1,18,16z M4,4h12v5H4V4z M9,16H4v-5h5 V16z M11,11h5v5h-5V11z">
+                        </path>
+                    </g>
+                </g>
+            </svg>
+            <span class="side-menu__label">Rekapan SPK</span>
+        </a>
+    </li>
     <li class="slide {{ Route::is('admin.master-data.*') ? 'is-expanded' : '' }}">
         <a class="side-menu__item {{ Route::is('admin.master-data.*') ? 'active' : '' }}" data-toggle="slide"
             href="#">

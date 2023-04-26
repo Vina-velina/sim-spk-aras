@@ -29,7 +29,7 @@ class SheetDebiturExport implements FromCollection, WithTitle, WithHeadings, Sho
     public function collection()
     {
         // Ambil data dari tabel debitur
-        $debiturData = Debitur::select('id as id_debitur', 'nama', 'alamat')->where('status', 'aktif')->get();
+        $debiturData = Debitur::select('id as id_debitur', 'nama', 'alamat')->where('status', 'aktif')->orderBy('updated_at', 'DESC')->get();
 
         // Inisialisasi data hasil penggabungan
         $mergedData = [];
@@ -41,14 +41,15 @@ class SheetDebiturExport implements FromCollection, WithTitle, WithHeadings, Sho
                 ->select('master_kriteria_penilaians.nama_kriteria', 'kriteria_penilaians.id as id_kriteria')
                 ->where('kriteria_penilaians.id_periode', $this->id_periode)
                 ->where('kriteria_penilaians.status', 'aktif')
+                ->orderBy('kriteria_penilaians.updated_at', 'DESC')
                 ->get();
 
             // Ubah data kriteria menjadi array asosiatif
             $kriteriaArray = [];
             foreach ($kriteriaData as $index => $kriteria) {
                 $sub_kriteria = null;
-                $kriteriaArray['kode-'.$kriteria->id_kriteria] = $kriteria->id_kriteria;
-                $kriteriaArray['nama-'.$kriteria->id_kriteria] = $sub_kriteria;
+                $kriteriaArray['kode-' . $kriteria->id_kriteria] = $kriteria->id_kriteria;
+                $kriteriaArray['nama-' . $kriteria->id_kriteria] = $sub_kriteria;
             }
 
             // Gabungkan data kriteria dengan data debitur
@@ -74,11 +75,12 @@ class SheetDebiturExport implements FromCollection, WithTitle, WithHeadings, Sho
             ->select('master_kriteria_penilaians.nama_kriteria', 'kriteria_penilaians.id as id_kriteria')
             ->where('kriteria_penilaians.id_periode', $this->id_periode)
             ->where('kriteria_penilaians.status', 'aktif')
+            ->orderBy('kriteria_penilaians.updated_at', 'DESC')
             ->get();
 
         foreach ($kriteriaData as $kriteria) {
-            array_push($data, $item['kode-'.$kriteria->id_kriteria]);
-            array_push($data, $item['nama-'.$kriteria->id_kriteria]);
+            array_push($data, $item['kode-' . $kriteria->id_kriteria]);
+            array_push($data, $item['nama-' . $kriteria->id_kriteria]);
         }
 
         return $data;
@@ -97,12 +99,13 @@ class SheetDebiturExport implements FromCollection, WithTitle, WithHeadings, Sho
             ->select('master_kriteria_penilaians.nama_kriteria')
             ->where('kriteria_penilaians.id_periode', $this->id_periode)
             ->where('kriteria_penilaians.status', 'aktif')
+            ->orderBy('kriteria_penilaians.updated_at', 'DESC')
             ->get();
 
         $headings = ['Id Periode', 'Id Debitur', 'Nama Debitur', 'Alamat Debitur'];
         foreach ($kriteriaData as $kriteria) {
-            array_push($headings, 'Kode '.$kriteria->nama_kriteria);
-            array_push($headings, 'Nilai '.$kriteria->nama_kriteria.'*');
+            array_push($headings, 'Kode ' . $kriteria->nama_kriteria);
+            array_push($headings, 'Nilai ' . $kriteria->nama_kriteria . '*');
         }
 
         return $headings;
@@ -123,12 +126,13 @@ class SheetDebiturExport implements FromCollection, WithTitle, WithHeadings, Sho
                     ->select('master_kriteria_penilaians.nama_kriteria', 'kriteria_penilaians.id as id_kriteria')
                     ->where('kriteria_penilaians.id_periode', $this->id_periode)
                     ->where('kriteria_penilaians.status', 'aktif')
+                    ->orderBy('kriteria_penilaians.updated_at', 'DESC')
                     ->get();
 
                 $headingColumns = 6;
 
                 foreach ($kriteriaData as $kriteria) {
-                    $find_sub = SubKriteriaPenilaian::where('id_kriteria', $kriteria->id_kriteria)->get();
+                    $find_sub = SubKriteriaPenilaian::where('id_kriteria', $kriteria->id_kriteria)->orderBy('nilai_sub_kriteria', 'ASC')->get();
 
                     if ($find_sub->count() > 0) {
                         $sub_kriteria = $find_sub->pluck('nilai_sub_kriteria')->toArray();
@@ -136,7 +140,7 @@ class SheetDebiturExport implements FromCollection, WithTitle, WithHeadings, Sho
                         // Menyusun data sub-kriteria penilaian menjadi format string yang sesuai dengan data validasi dropdown
                         $dropdownData = implode(',', $sub_kriteria);
 
-                        $dropdownRange = 'Penilaian Debitur!'.Coordinate::stringFromColumnIndex($headingColumns).'2:'.Coordinate::stringFromColumnIndex($headingColumns).$highestRow;
+                        $dropdownRange = 'Penilaian Debitur!' . Coordinate::stringFromColumnIndex($headingColumns) . '2:' . Coordinate::stringFromColumnIndex($headingColumns) . $highestRow;
 
                         // Set data validasi dengan dropdownData sebagai source
                         $validation = $worksheet->getCellByColumnAndRow($headingColumns, 2)->getDataValidation();
@@ -150,8 +154,8 @@ class SheetDebiturExport implements FromCollection, WithTitle, WithHeadings, Sho
                             ->setError('Value is not in list.')
                             ->setPromptTitle('Pick from list')
                             ->setPrompt('Please pick a value from the drop-down list.')
-                            ->setFormula1('"'.$dropdownData.'"')
-                            ->setFormula2('"'.$dropdownData.'"');
+                            ->setFormula1('"' . $dropdownData . '"')
+                            ->setFormula2('"' . $dropdownData . '"');
 
                         // Set data validasi dropdown pada seluruh baris di kolom yang sama
                         for ($i = 3; $i <= $highestRow; $i++) {

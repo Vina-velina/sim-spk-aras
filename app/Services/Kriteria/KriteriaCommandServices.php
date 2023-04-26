@@ -16,14 +16,15 @@ class KriteriaCommandServices
     {
         $request->validated();
 
-        $kriteria = KriteriaPenilaian::create([
-            'id_periode' => $request->id_periode,
-            'id_master_kriteria' => $request->id_master_kriteria,
-            'bobot_kriteria' => $request->bobot_kriteria,
-            'keterangan' => $request->keterangan,
-        ]);
+        $query = new KriteriaPenilaian();
+        $query->id_periode = $request->id_periode;
+        $query->id_master_kriteria = $request->id_master_kriteria;
+        $query->bobot_kriteria = $request->bobot_kriteria;
+        $query->jenis = $request->jenis_kriteria;
+        $query->keterangan = $request->keterangan;
+        $query->save();
 
-        return $kriteria;
+        return $query;
     }
 
     public function update(KriteriaUpdateRequest $request, string $id_kriteria)
@@ -35,6 +36,7 @@ class KriteriaCommandServices
         $query->id_periode = $request->id_periode;
         $query->id_master_kriteria = $request->id_master_kriteria;
         $query->bobot_kriteria = $request->bobot_kriteria;
+        $query->jenis = $request->jenis_kriteria;
         $query->status = $request->status;
         $query->keterangan = $request->keterangan;
         $query->save();
@@ -54,22 +56,23 @@ class KriteriaCommandServices
     public function destroy(string $id_kriteria)
     {
         $query = KriteriaPenilaian::find($id_kriteria);
-
+        $subKriteria = SubKriteriaPenilaian::where('id_kriteria', $query->id)->delete();
         $query->delete();
+
+        return $query;
     }
 
     public function subStore(SubKriteriaStoreRequest $request, string $id_kriteria)
     {
         $request->validated();
 
-        $subKriteria = SubKriteriaPenilaian::create([
-            'id' => Uuid::uuid4(),
-            'id_kriteria' => $id_kriteria,
-            'nama_sub_kriteria' => $request->nama_sub_kriteria,
-            'nilai_sub_kriteria' => $request->nilai_sub_kriteria,
-        ]);
+        $query = new SubKriteriaPenilaian();
+        $query->id_kriteria = $id_kriteria;
+        $query->nama_sub_kriteria = $request->nama_sub_kriteria;
+        $query->nilai_sub_kriteria = $request->nilai_sub_kriteria;
+        $query->save();
 
-        return $subKriteria;
+        return $query;
     }
 
     public function subUpdate(SubKriteriaUpdateRequest $request, string $id_sub_kirteria)

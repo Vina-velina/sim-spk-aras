@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('tittle', 'Data Penilaian')
+@section('tittle', 'Data Penilaian Periode')
 @section('otherJsPlugin')
     <script>
         var table = $('#basic-datatables');
@@ -61,7 +61,10 @@
     <div class="container-fluid mg-t-20">
 
         <!-- breadcrumb -->
-        @include('admin.layouts.menu._breadcrumb', ['page' => 'Data penilaian', 'active' => 'Index'])
+        @include('admin.layouts.menu._breadcrumb', [
+            'page' => 'Data Penilaian Periode',
+            'active' => 'Index',
+        ])
         <!-- breadcrumb -->
 
         <!-- row opened -->

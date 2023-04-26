@@ -13,6 +13,6 @@ class MasterKriteriaQueryServices
 
     public function getAll()
     {
-        return MasterKriteriaPenilaian::all();
+        return MasterKriteriaPenilaian::orderBy('updated_at', 'desc')->get();
     }
 }

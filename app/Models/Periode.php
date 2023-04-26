@@ -16,4 +16,14 @@ class Periode extends Model
     {
         return $this->hasMany(Penilaian::class, 'id_periode', 'id');
     }
+
+    public function rekomendasiDebitur()
+    {
+        return $this->hasMany(RekomendasiDebitur::class, 'id_periode', 'id');
+    }
+
+    public function debiturTerpilih()
+    {
+        return $this->hasMany(RekomendasiDebitur::class, 'id_periode', 'id');
+    }
 }

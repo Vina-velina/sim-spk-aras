@@ -151,6 +151,23 @@
                             </div>
                             <div class="row row-xs align-items-center mg-b-20">
                                 <div class="col-md-12">
+                                    <label class="form-label mg-b-0">Jenis Kriteria <span
+                                            class="text-danger">*</span></label>
+                                </div>
+                                <div class="col-md-12 mg-t-5">
+                                    <select name="jenis_kriteria"
+                                        class="form-control form-control-sm @error('jenis_kriteria') is-invalid @enderror"
+                                        id="">
+                                        <option value="">-- Pilih Jenis Kriteria --</option>
+                                        <option value="benefit" {{ $kriteria->jenis == 'benefit' ? 'selected' : '' }}>
+                                            Benefit</option>
+                                        <option value="cost" {{ $kriteria->jenis == 'cost' ? 'selected' : '' }}>Cost
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row row-xs align-items-center mg-b-20">
+                                <div class="col-md-12">
                                     <label class="form-label mg-b-0">Status <span class="text-danger">*</span> </label>
                                 </div>
                                 <div class="col-md-12 mg-t-5">

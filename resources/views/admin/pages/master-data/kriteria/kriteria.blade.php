@@ -44,6 +44,13 @@
                         }
                     },
                     {
+                        data: "jenis",
+                        name: 'jenis',
+                        render: function(d) {
+                            return d != null ? d : 'Tidak Ada'
+                        }
+                    },
+                    {
                         data: "bobot_kriteria",
                         name: 'bobot_kriteria',
                         render: function(d) {
@@ -140,6 +147,7 @@
                                         <th class="wd-5p border-bottom-0">#</th>
                                         <th class="wd-10p border-bottom-0">Nama Kriteria</th>
                                         <th class="wd-10p border-bottom-0">Keterangan</th>
+                                        <th class="wd-10p border-bottom-0">Jenis Kriteria</th>
                                         <th class="wd-10p border-bottom-0">Bobot Kriteria</th>
                                         <th class="wd-10p border-bottom-0">Status</th>
                                     </tr>

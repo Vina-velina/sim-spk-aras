@@ -24,12 +24,12 @@ class KriteriaDatatableServices
             ->addIndexColumn()
             ->addColumn('action', function ($item) {
                 $element = '';
-                $element .= '<form id="delete-'.$item->id.'" action="'.route('admin.master-data.kriteria.delete', [$item->id_periode, $item->id]).'" method="POST"> ';
+                $element .= '<form id="delete-' . $item->id . '" action="' . route('admin.master-data.kriteria.delete', [$item->id_periode, $item->id]) . '" method="POST"> ';
                 $element .= csrf_field();
                 $element .= method_field('DELETE');
                 $element .= '<div class="btn-icon-list">';
-                $element .= '<a href="'.route('admin.master-data.kriteria.edit', [$item->id_periode, $item->id]).'" class="btn btn-sm btn-warning btn-icon mr-2" id=""><i class="typcn text-white typcn-edit"></i></a>';
-                $element .= '<button type="button" onclick ="alertConfirm(this)" data-id ="'.$item->id.'" class="btn btn-sm btn-danger btn-icon">
+                $element .= '<a href="' . route('admin.master-data.kriteria.edit', [$item->id_periode, $item->id]) . '" class="btn btn-sm btn-warning btn-icon mr-2" id=""><i class="typcn text-white typcn-edit"></i></a>';
+                $element .= '<button type="button" onclick ="alertConfirm(this)" data-id ="' . $item->id . '" class="btn btn-sm btn-danger btn-icon">
                                 <i class="typcn typcn-trash text-white"></i>
                             </button>';
                 $element .= '</div>';
@@ -40,6 +40,9 @@ class KriteriaDatatableServices
             ->addColumn('nama_kriteria', function ($item) {
                 return $item->masterKriteriaPenilaian->nama_kriteria;
             })
+            ->addColumn('jenis', function ($item) {
+                return ucWords($item->jenis);
+            })
             ->addColumn('status', function ($item) {
                 if ($item->status == 'aktif') {
                     $query = 'on';
@@ -48,7 +51,7 @@ class KriteriaDatatableServices
                 }
                 $toggle = '';
                 $toggle .= '<div class="main-toggle-group-demo">';
-                $toggle .= '<div class="main-toggle '.$query.'" onclick="changeStatusKriteria(this)" data-url_update="'.route('admin.master-data.kriteria.update.status', [$item->id_periode, $item->id]).'">';
+                $toggle .= '<div class="main-toggle ' . $query . '" onclick="changeStatusKriteria(this)" data-url_update="' . route('admin.master-data.kriteria.update.status', [$item->id_periode, $item->id]) . '">';
                 $toggle .= '<span></span>';
                 $toggle .= '</div>';
                 $toggle .= '</div>';
@@ -73,12 +76,12 @@ class KriteriaDatatableServices
             ->addIndexColumn()
             ->addColumn('action', function ($subKriteria) use ($request) {
                 $element = '';
-                $element .= '<form id="delete-'.$subKriteria->id.'" action="'.route('admin.master-data.sub-kriteria.delete', [$request->id_periode, $request->id_kriteria, $subKriteria->id]).'" method="POST"> ';
+                $element .= '<form id="delete-' . $subKriteria->id . '" action="' . route('admin.master-data.sub-kriteria.delete', [$request->id_periode, $request->id_kriteria, $subKriteria->id]) . '" method="POST"> ';
                 $element .= csrf_field();
                 $element .= method_field('DELETE');
                 $element .= '<div class="btn-icon-list">';
-                $element .= '<a href="'.route('admin.master-data.sub-kriteria.edit', [$request->id_periode, $request->id_kriteria, $subKriteria->id]).'" class="btn btn-sm btn-warning btn-icon mr-2" id=""><i class="typcn text-white typcn-edit"></i></a>';
-                $element .= '<button type="button" onclick ="alertConfirm(this)" data-id ="'.$subKriteria->id.'" class="btn btn-sm btn-danger btn-icon">
+                $element .= '<a href="' . route('admin.master-data.sub-kriteria.edit', [$request->id_periode, $request->id_kriteria, $subKriteria->id]) . '" class="btn btn-sm btn-warning btn-icon mr-2" id=""><i class="typcn text-white typcn-edit"></i></a>';
+                $element .= '<button type="button" onclick ="alertConfirm(this)" data-id ="' . $subKriteria->id . '" class="btn btn-sm btn-danger btn-icon">
                             <i class="typcn typcn-trash text-white"></i>
                         </button>';
                 $element .= '</div>';

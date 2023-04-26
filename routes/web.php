@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\KriteriaController;
 use App\Http\Controllers\Admin\MasterKriteriaController;
 use App\Http\Controllers\Admin\PenilaianController;
 use App\Http\Controllers\Admin\PeriodeController;
+use App\Http\Controllers\Admin\RekapanController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\General\GeneralController;
@@ -159,6 +160,18 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
                     Route::get('/{id_debitur}', [PenilaianController::class, 'createOrEditPenilaian'])->name('admin.penilaian.detail-penilaian.add-penilaian');
                     Route::post('/{id_debitur}', [PenilaianController::class, 'storeOrUpdatePenilaian'])->name('admin.penilaian.detail-penilaian.store-penilaian');
                 });
+            });
+        });
+    });
+
+
+    // Data Penilaian
+    Route::prefix('data-rekapan')->group(function () {
+        Route::get('/', [RekapanController::class, 'index'])->name('admin.rekapan-spk.index');
+        // Detail Periode
+        Route::group(['prefix' => 'periode', 'middleware' => ['allowActivePeriode', 'allowByBobot']], function () {
+            Route::prefix('{id_periode}')->group(function () {
+                Route::get('/', [RekapanController::class, 'detail'])->name('admin.rekapan-spk.detail');
             });
         });
     });

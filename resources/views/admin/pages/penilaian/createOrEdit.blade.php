@@ -1,13 +1,13 @@
 @extends('admin.layouts.app')
 
-@section('tittle', 'Data Periode')
+@section('tittle', 'Formulir Penilaian Periode')
 @section('content')
     <!-- container -->
     <div class="container-fluid mg-t-20">
 
         <!-- breadcrumb -->
         @include('admin.layouts.menu._breadcrumb', [
-            'page' => 'Data Penilaian',
+            'page' => 'Data Penilaian Periode',
             'active' => 'Formulir Penilaian',
         ])
         <!-- breadcrumb -->
