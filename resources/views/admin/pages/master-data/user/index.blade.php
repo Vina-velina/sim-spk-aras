@@ -80,13 +80,6 @@
 
         <!-- row opened -->
         <div class="row row-sm">
-            <div class="col-xl-12">
-                <div class="card">
-                    <div class="card-body">
-
-                    </div><!-- bd -->
-                </div><!-- bd -->
-            </div>
             <!--div-->
             <div class="col-xl-12">
                 <div class="card">
