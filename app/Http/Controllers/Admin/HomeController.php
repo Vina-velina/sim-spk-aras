@@ -10,8 +10,11 @@ use App\Services\Periode\PeriodeQueryServices;
 class HomeController extends Controller
 {
     protected $periodeQueryService;
+
     protected $masterKriteriaQueryService;
+
     protected $debiturQueryService;
+
     public function __construct(
         PeriodeQueryServices $periodeQueryService,
         MasterKriteriaQueryServices $masterKriteriaQueryService,
@@ -21,6 +24,7 @@ class HomeController extends Controller
         $this->masterKriteriaQueryService = $masterKriteriaQueryService;
         $this->debiturQueryService = $debiturQueryService;
     }
+
     public function index()
     {
         $total_periode = $this->periodeQueryService->getTotalPeriode();
