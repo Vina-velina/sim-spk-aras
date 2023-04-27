@@ -8,17 +8,6 @@
   <!-- Moment js -->
   <script src="{{ asset('assets/plugins/moment/moment.js') }}"></script>
 
-  <!-- P-scroll js -->
-  <script src="{{ asset('assets/plugins/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
-  <script src="{{ asset('assets/plugins/perfect-scrollbar/p-scroll.js') }}"></script>
-
-  <!-- Sidebar js -->
-  <script src="{{ asset('assets/plugins/side-menu/sidemenu.js') }}"></script>
-
-  <!-- Rating js-->
-  <script src="{{ asset('assets/plugins/rating/jquery.rating-stars.js') }}"></script>
-  <script src="{{ asset('assets/plugins/rating/jquery.barrating.js') }}"></script>
-
   <!-- Sticky js-->
   <script src="{{ asset('assets/js/sticky.js') }}"></script>
 

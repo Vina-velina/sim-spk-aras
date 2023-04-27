@@ -204,23 +204,25 @@
                             <h4 class="card-title mg-b-0">Data Debitur Terpilih</h4>
                         </div>
                         <div class="d-flex justify-content-end">
-                            @if ($periode->status == 'aktif')
-                                <div class="btn-icon-list">
-                                    <a href="javascript:void(0);" data-target="#modalTambahDebiturTerpilih"
-                                        data-toggle="modal" class="btn btn-sm btn-primary btn-icon"><i
-                                            class="typcn typcn-plus"></i>
-                                        Tambah
-                                    </a>
-                                </div>
+                            @if (Auth::user()->role_user == 'super_admin')
+                                @if ($periode->status == 'aktif')
+                                    <div class="btn-icon-list">
+                                        <a href="javascript:void(0);" data-target="#modalTambahDebiturTerpilih"
+                                            data-toggle="modal" class="btn btn-sm btn-primary btn-icon"><i
+                                                class="typcn typcn-plus"></i>
+                                            Tambah
+                                        </a>
+                                    </div>
 
-                                <form action="{{ route('admin.rekapan-spk.detail.publish-terpilih', $periode->id) }}"
-                                    id="publish-button" method="post">
-                                    @csrf
-                                    <a href="javascript:void(0);" onclick="alertConfirmPublish()"
-                                        class="btn btn-sm btn-success btn-icon ml-1"><i class="typcn typcn-upload"></i>
-                                        Publish
-                                    </a>
-                                </form>
+                                    <form action="{{ route('admin.rekapan-spk.detail.publish-terpilih', $periode->id) }}"
+                                        id="publish-button" method="post">
+                                        @csrf
+                                        <a href="javascript:void(0);" onclick="alertConfirmPublish()"
+                                            class="btn btn-sm btn-success btn-icon ml-1"><i class="typcn typcn-upload"></i>
+                                            Publish
+                                        </a>
+                                    </form>
+                                @endif
                             @endif
                         </div>
                     </div>

@@ -57,29 +57,20 @@
             var e = $('.main-header form[role="search"].active');
             e.find("input").val(""), e.removeClass("active");
         }
-        $(".rating-stars").ratingStars({
-            selectors: {
-                starsSelector: ".rating-stars",
-                starSelector: ".rating-star",
-                starActiveClass: "is--active",
-                starHoverClass: "is--hover",
-                starNoHoverClass: "is--no-hover",
-                targetFormElementSelector: ".rating-value",
-            },
+
+        $(".cover-image").each(function () {
+            var o = $(this).attr("data-image-src");
+            "undefined" !== e(o) &&
+                !1 !== o &&
+                $(this).css("background", "url(" + o + ") center center");
         }),
-            $(".cover-image").each(function () {
-                var o = $(this).attr("data-image-src");
-                "undefined" !== e(o) &&
-                    !1 !== o &&
-                    $(this).css("background", "url(" + o + ") center center");
-            }),
             $(window).on("scroll", function (e) {
                 $(window).scrollTop() >= 66
                     ? $("main-header").addClass("fixed-header")
                     : $(".main-header").removeClass("fixed-header");
             }),
             $('body, .main-header form[role="search"] button[type="reset"]').on(
-                "click keyup",
+                "click keyup"
                 // function (e) {
                 //     console.log(e.currentTarget),
                 //         ((27 == e.which &&

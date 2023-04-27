@@ -15,4 +15,9 @@ class MasterKriteriaQueryServices
     {
         return MasterKriteriaPenilaian::orderBy('updated_at', 'desc')->get();
     }
+
+    public function getTotalMasterKriteria()
+    {
+        return MasterKriteriaPenilaian::all()->count();
+    }
 }

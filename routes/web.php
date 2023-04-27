@@ -150,6 +150,10 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
     // Data Penilaian
     Route::prefix('data-penilaian')->group(function () {
         Route::get('/', [PenilaianController::class, 'index'])->name('admin.penilaian.index');
+        Route::group(['prefix' => 'datatable'], function () {
+            Route::get('/periode', [PeriodeController::class, 'datatable'])->name('admin.penilaian.datatable.periode');
+            Route::get('/debitur', [DebiturController::class, 'datatable'])->name('admin.penilaian.datatable.debitur');
+        });
         // Detail Periode
         Route::group(['prefix' => 'periode', 'middleware' => ['allowActivePeriode', 'allowByBobot']], function () {
             Route::prefix('{id_periode}')->group(function () {
@@ -168,8 +172,11 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
     Route::prefix('data-rekapan')->group(function () {
         Route::get('/', [RekapanController::class, 'index'])->name('admin.rekapan-spk.index');
         // Detail Periode
-        Route::get('/datatable-rekomendasi', [RekapanController::class, 'datatableRekomendasi'])->name('admin.rekapan-spk.datatable.rekomendasi');
-        Route::get('/datatable-terpilih', [RekapanController::class, 'datatableTerpilih'])->name('admin.rekapan-spk.datatable.terpilih');
+        Route::group(['prefix' => 'datatable'], function () {
+            Route::get('/periode', [PeriodeController::class, 'datatable'])->name('admin.rekapan-spk.datatable.periode');
+            Route::get('/rekomendasi', [RekapanController::class, 'datatableRekomendasi'])->name('admin.rekapan-spk.datatable.rekomendasi');
+            Route::get('/terpilih', [RekapanController::class, 'datatableTerpilih'])->name('admin.rekapan-spk.datatable.terpilih');
+        });
         Route::group(['prefix' => 'periode', 'middleware' => ['allowByBobot']], function () {
             Route::prefix('{id_periode}')->group(function () {
                 Route::get('/', [RekapanController::class, 'detail'])->name('admin.rekapan-spk.detail');

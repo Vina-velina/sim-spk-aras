@@ -15,4 +15,9 @@ class DebiturQueryServices
     {
         return Debitur::where('id', $id)->where('status', 'aktif')->firstOrFail();
     }
+
+    public function getTotaldebitur()
+    {
+        return Debitur::all()->count();
+    }
 }

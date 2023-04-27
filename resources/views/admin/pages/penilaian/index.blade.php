@@ -12,7 +12,7 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ route('admin.master-data.periode.datatable') }}",
+                    url: "{{ route('admin.penilaian.datatable.periode') }}",
                     data: function(d) {
                         d.status = "aktif";
                     }

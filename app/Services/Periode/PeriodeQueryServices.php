@@ -24,4 +24,9 @@ class PeriodeQueryServices
 
         return $periode;
     }
+
+    public function getTotalPeriode()
+    {
+        return Periode::all()->count();
+    }
 }

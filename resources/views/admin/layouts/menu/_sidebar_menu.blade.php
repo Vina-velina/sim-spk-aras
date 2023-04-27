@@ -56,48 +56,51 @@
             <span class="side-menu__label">Rekapan SPK</span>
         </a>
     </li>
-    <li class="slide {{ Route::is('admin.master-data.*') ? 'is-expanded' : '' }}">
-        <a class="side-menu__item {{ Route::is('admin.master-data.*') ? 'active' : '' }}" data-toggle="slide"
-            href="#">
-            <div class="side-angle1"></div>
-            <div class="side-angle2"></div>
-            <div class="side-arrow"></div>
-            <svg class="side-menu__icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24"
-                width="24">
-                <path d="M0 0h24v24H0V0z" fill="none" />
-                <path d="M5 5h4v4H5zm10 10h4v4h-4zM5 15h4v4H5zM16.66 4.52l-2.83 2.82 2.83 2.83 2.83-2.83z"
-                    opacity=".3" />
-                <path
-                    d="M16.66 1.69L11 7.34 16.66 13l5.66-5.66-5.66-5.65zm-2.83 5.65l2.83-2.83 2.83 2.83-2.83 2.83-2.83-2.83zM3 3v8h8V3H3zm6 6H5V5h4v4zM3 21h8v-8H3v8zm2-6h4v4H5v-4zm8-2v8h8v-8h-8zm6 6h-4v-4h4v4z" />
-            </svg>
-            <span class="side-menu__label">Master Data</span><i class="angle fe fe-chevron-right"></i>
-        </a>
-        <ul class="slide-menu">
-            <li>
-                <a class="sub-side-menu__item" href="{{ route('admin.master-data.user.index') }}"><span
-                        class="sub-side-menu__label {{ Route::is('admin.master-data.user.*') ? 'text-white text-bold' : '' }}">Data
-                        User</span></a>
-            </li>
-            <li>
-                <a class="sub-side-menu__item" href="{{ route('admin.master-data.debitur.index') }}"><span
-                        class="sub-side-menu__label {{ Route::is('admin.master-data.debitur.*') ? 'text-white text-bold' : '' }}">Data
-                        Debitur</span></a>
-            </li>
-            <li>
-                <a class="sub-side-menu__item" href="{{ route('admin.master-data.periode.index') }}"><span
-                        class="sub-side-menu__label {{ Route::is('admin.master-data.periode.*') ? 'text-white text-bold' : '' }}">Data
-                        Periode</span></a>
-            </li>
-            <li>
-                <a class="sub-side-menu__item" href="{{ route('admin.master-data.master-kriteria.index') }}"><span
-                        class="sub-side-menu__label {{ Route::is('admin.master-data.master-kriteria.*') ? 'text-white text-bold' : '' }}">Data
-                        Master Kriteria</span></a>
-            </li>
-            <li>
-                <a class="sub-side-menu__item" href="{{ route('admin.master-data.kriteria.index') }}"><span
-                        class="sub-side-menu__label {{ Route::is('admin.master-data.kriteria.*') ? 'text-white text-bold' : '' }}">Data
-                        Kriteria</span></a>
-            </li>
-        </ul>
-    </li>
+
+    @if (Auth::user()->role_user == 'super_admin')
+        <li class="slide {{ Route::is('admin.master-data.*') ? 'is-expanded' : '' }}">
+            <a class="side-menu__item {{ Route::is('admin.master-data.*') ? 'active' : '' }}" data-toggle="slide"
+                href="#">
+                <div class="side-angle1"></div>
+                <div class="side-angle2"></div>
+                <div class="side-arrow"></div>
+                <svg class="side-menu__icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24"
+                    width="24">
+                    <path d="M0 0h24v24H0V0z" fill="none" />
+                    <path d="M5 5h4v4H5zm10 10h4v4h-4zM5 15h4v4H5zM16.66 4.52l-2.83 2.82 2.83 2.83 2.83-2.83z"
+                        opacity=".3" />
+                    <path
+                        d="M16.66 1.69L11 7.34 16.66 13l5.66-5.66-5.66-5.65zm-2.83 5.65l2.83-2.83 2.83 2.83-2.83 2.83-2.83-2.83zM3 3v8h8V3H3zm6 6H5V5h4v4zM3 21h8v-8H3v8zm2-6h4v4H5v-4zm8-2v8h8v-8h-8zm6 6h-4v-4h4v4z" />
+                </svg>
+                <span class="side-menu__label">Master Data</span><i class="angle fe fe-chevron-right"></i>
+            </a>
+            <ul class="slide-menu">
+                <li>
+                    <a class="sub-side-menu__item" href="{{ route('admin.master-data.user.index') }}"><span
+                            class="sub-side-menu__label {{ Route::is('admin.master-data.user.*') ? 'text-white text-bold' : '' }}">Data
+                            User</span></a>
+                </li>
+                <li>
+                    <a class="sub-side-menu__item" href="{{ route('admin.master-data.debitur.index') }}"><span
+                            class="sub-side-menu__label {{ Route::is('admin.master-data.debitur.*') ? 'text-white text-bold' : '' }}">Data
+                            Debitur</span></a>
+                </li>
+                <li>
+                    <a class="sub-side-menu__item" href="{{ route('admin.master-data.periode.index') }}"><span
+                            class="sub-side-menu__label {{ Route::is('admin.master-data.periode.*') ? 'text-white text-bold' : '' }}">Data
+                            Periode</span></a>
+                </li>
+                <li>
+                    <a class="sub-side-menu__item" href="{{ route('admin.master-data.master-kriteria.index') }}"><span
+                            class="sub-side-menu__label {{ Route::is('admin.master-data.master-kriteria.*') ? 'text-white text-bold' : '' }}">Data
+                            Master Kriteria</span></a>
+                </li>
+                <li>
+                    <a class="sub-side-menu__item" href="{{ route('admin.master-data.kriteria.index') }}"><span
+                            class="sub-side-menu__label {{ Route::is('admin.master-data.kriteria.*') ? 'text-white text-bold' : '' }}">Data
+                            Kriteria</span></a>
+                </li>
+            </ul>
+        </li>
+    @endif
 </ul>

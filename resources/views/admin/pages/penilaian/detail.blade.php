@@ -10,7 +10,7 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ route('admin.master-data.debitur.datatable') }}",
+                    url: "{{ route('admin.penilaian.datatable.debitur') }}",
                     data: function(d) {
                         d.is_aktif = "aktif";
                         d.id_periode = "{{ $periode->id }}";
