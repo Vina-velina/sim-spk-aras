@@ -26,7 +26,7 @@ class ArasQueryHelpers
 
         // 1. Mendefinisikan Matriks Keputusan X / Nilai Alternatif Kriteria
         $alternatifs = Debitur::where('status', 'aktif')->orderBy('updated_at', 'DESC')->get();
-        $kriterias = KriteriaPenilaian::where('status', 'aktif')->where('id_periode', $periode->id)->orderBy('updated_at', 'DESC')->get();
+        $kriterias = KriteriaPenilaian::where('status', 'aktif')->where('id_periode', $periode->id)->orderBy('bobot_kriteria', 'DESC')->get();
         $matriks_x = [];
         foreach ($alternatifs as $alternatif) {
             foreach ($kriterias as $kriteria) {

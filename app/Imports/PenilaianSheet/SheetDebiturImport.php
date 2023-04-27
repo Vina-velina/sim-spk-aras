@@ -61,7 +61,7 @@ class SheetDebiturImport implements ToModel, WithStartRow, WithValidation
             ->select('master_kriteria_penilaians.nama_kriteria')
             ->where('kriteria_penilaians.id_periode', $this->id_periode)
             ->where('kriteria_penilaians.status', 'aktif')
-            ->orderBy('kriteria_penilaians.updated_at', 'DESC')
+            ->orderBy('kriteria_penilaians.bobot_kriteria', 'DESC')
             ->get();
 
         $delete_all_penilaian = Penilaian::where('id_periode', $this->id_periode)->where('id_debitur', $row[1])->delete();
@@ -97,7 +97,7 @@ class SheetDebiturImport implements ToModel, WithStartRow, WithValidation
             ->select('master_kriteria_penilaians.nama_kriteria')
             ->where('kriteria_penilaians.id_periode', $this->id_periode)
             ->where('kriteria_penilaians.status', 'aktif')
-            ->orderBy('kriteria_penilaians.updated_at', 'DESC')
+            ->orderBy('kriteria_penilaians.bobot_kriteria', 'DESC')
             ->get();
 
         $validation = [
@@ -125,7 +125,7 @@ class SheetDebiturImport implements ToModel, WithStartRow, WithValidation
             ->select('master_kriteria_penilaians.nama_kriteria')
             ->where('kriteria_penilaians.id_periode', $this->id_periode)
             ->where('kriteria_penilaians.status', 'aktif')
-            ->orderBy('kriteria_penilaians.updated_at', 'DESC')
+            ->orderBy('kriteria_penilaians.bobot_kriteria', 'DESC')
             ->get();
 
         $validation = [

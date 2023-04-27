@@ -18,7 +18,7 @@ class KriteriaDatatableServices
             $query->where('id_periode', $request->id_periode);
         }
 
-        $query->orderBy('updated_at', 'DESC');
+        $query->orderBy('bobot_kriteria', 'DESC');
 
         return DataTables::of($query->get())
             ->addIndexColumn()
@@ -70,7 +70,7 @@ class KriteriaDatatableServices
             $query->where('id_kriteria', $request->id_kriteria);
         }
 
-        $query->orderBy('updated_at', 'DESC');
+        $query->orderBy('nilai_sub_kriteria', 'DESC');
 
         return DataTables::of($query->get())
             ->addIndexColumn()

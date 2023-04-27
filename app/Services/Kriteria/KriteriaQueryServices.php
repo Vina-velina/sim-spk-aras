@@ -14,17 +14,17 @@ class KriteriaQueryServices
 
     public function getByIdPeriode(string $id)
     {
-        return KriteriaPenilaian::where('id_periode', $id)->orderBy('updated_at', 'desc')->get();
+        return KriteriaPenilaian::where('id_periode', $id)->orderBy('bobot_kriteria', 'desc')->get();
     }
 
     public function getByIdPeriodeWhereAktif(string $id)
     {
-        return KriteriaPenilaian::where('id_periode', $id)->where('status', 'aktif')->orderBy('updated_at', 'desc')->get();
+        return KriteriaPenilaian::where('id_periode', $id)->where('status', 'aktif')->orderBy('bobot_kriteria', 'desc')->get();
     }
 
     public function getAll()
     {
-        return KriteriaPenilaian::orderBy('updated_at', 'desc')->get();
+        return KriteriaPenilaian::orderBy('bobot_kriteria', 'desc')->get();
     }
 
     public function getSubKriteriaById(string $id)
