@@ -43,7 +43,7 @@
                                     </span>
                                 @enderror
                             </div>
-                            <button type="submit" class="btn btn-main-primary btn-block">Masuk</button>
+                            <button type="submit" class="btn btn-main-primary btn-block">Kirim Email Reset Password</button>
                         </form>
                     </div>
                 </div>
