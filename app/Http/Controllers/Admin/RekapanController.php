@@ -49,7 +49,7 @@ class RekapanController extends Controller
     {
         try {
             $periode = $this->periodeQueryService->getOne($id);
-            $periode->tgl_penilaian = FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_awal_penilaian) . ' s/d ' . FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_akhir_penilaian);
+            $periode->tgl_penilaian = FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_awal_penilaian).' s/d '.FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_akhir_penilaian);
             $periode->status_penilaian = self::_getStatusPenilaian($periode->tgl_awal_penilaian, $periode->tgl_akhir_penilaian);
 
             DB::beginTransaction();
@@ -76,6 +76,7 @@ class RekapanController extends Controller
     public function exportRekomendasi(string $id_periode)
     {
         $periode = $this->periodeQueryService->getOne($id_periode);
+
         return Excel::download(new RekomendasiDebiturExport($periode->id), 'export-data-rekomendasi-debitur.xlsx');
     }
 
@@ -146,6 +147,7 @@ class RekapanController extends Controller
     public function exportTerpilih(string $id_periode)
     {
         $periode = $this->periodeQueryService->getOne($id_periode);
+
         return Excel::download(new DebiturTerpilihExport($periode->id), 'export-data-debitur-terpilih.xlsx');
     }
 }
