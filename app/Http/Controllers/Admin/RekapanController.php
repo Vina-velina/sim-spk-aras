@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\DebiturTerpilihExport;
+use App\Exports\RekomendasiDebiturExport;
 use App\Helpers\ArasQueryHelpers;
 use App\Helpers\FormatDateToIndonesia;
 use App\Http\Controllers\Controller;
@@ -13,6 +15,7 @@ use App\Services\Periode\PeriodeQueryServices;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 use Throwable;
 
 class RekapanController extends Controller
@@ -46,7 +49,7 @@ class RekapanController extends Controller
     {
         try {
             $periode = $this->periodeQueryService->getOne($id);
-            $periode->tgl_penilaian = FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_awal_penilaian).' s/d '.FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_akhir_penilaian);
+            $periode->tgl_penilaian = FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_awal_penilaian) . ' s/d ' . FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_akhir_penilaian);
             $periode->status_penilaian = self::_getStatusPenilaian($periode->tgl_awal_penilaian, $periode->tgl_akhir_penilaian);
 
             DB::beginTransaction();
@@ -68,6 +71,12 @@ class RekapanController extends Controller
     public function datatableRekomendasi(Request $request)
     {
         return $this->hasilRekapanDatatableService->datatableRekomendasi($request);
+    }
+
+    public function exportRekomendasi(string $id_periode)
+    {
+        $periode = $this->periodeQueryService->getOne($id_periode);
+        return Excel::download(new RekomendasiDebiturExport($periode->id), 'export-data-rekomendasi-debitur.xlsx');
     }
 
     public function datatableTerpilih(Request $request)
@@ -132,5 +141,11 @@ class RekapanController extends Controller
 
             return to_route('admin.rekapan-spk.detail', $id_periode)->with('error', $th->getMessage());
         }
+    }
+
+    public function exportTerpilih(string $id_periode)
+    {
+        $periode = $this->periodeQueryService->getOne($id_periode);
+        return Excel::download(new DebiturTerpilihExport($periode->id), 'export-data-debitur-terpilih.xlsx');
     }
 }

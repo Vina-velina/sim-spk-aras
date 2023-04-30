@@ -173,6 +173,14 @@
                                     Perhitungan
                                 </a>
                             </div>
+                            <form action="{{ route('admin.rekapan-spk.detail.export-rekomendasi', $periode->id) }}"
+                                method="post">
+                                @csrf
+                                <button type="submit" class="btn btn-sm btn-warning btn-icon ml-1"><i
+                                        class="typcn typcn-download"></i>
+                                    Export
+                                </button>
+                            </form>
                         </div>
                     </div>
                     <div class="card-body">
@@ -223,6 +231,16 @@
                                         </a>
                                     </form>
                                 @endif
+                            @endif
+                            @if ($periode->status == 'nonaktif')
+                                <form action="{{ route('admin.rekapan-spk.detail.export-terpilih', $periode->id) }}"
+                                    method="post">
+                                    @csrf
+                                    <button type="submit" class="btn btn-sm btn-warning btn-icon ml-1"><i
+                                            class="typcn typcn-download"></i>
+                                        Export
+                                    </button>
+                                </form>
                             @endif
                         </div>
                     </div>

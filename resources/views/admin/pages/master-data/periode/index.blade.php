@@ -13,9 +13,9 @@
                 serverSide: true,
                 ajax: {
                     url: "{{ route('admin.master-data.periode.datatable') }}",
-                    data: function(d) {
-                        d.status = $('#statusPeriodeFilter').val();
-                    }
+                    // data: function(d) {
+                    //     d.status = $('#statusPeriodeFilter').val();
+                    // }
                 },
                 columns: [{
                         data: "DT_RowIndex",
@@ -84,9 +84,9 @@
             });
         }
 
-        const filterDatatable = () => {
-            table.DataTable().ajax.reload();
-        }
+        // const filterDatatable = () => {
+        //     table.DataTable().ajax.reload();
+        // }
 
         const detailPeriode = (button) => {
             const url_detail = $(button).data('url_detail');
@@ -132,7 +132,7 @@
         <!-- row opened -->
         <div class="row row-sm">
             <!--div-->
-            <div class="col-xl-12">
+            {{-- <div class="col-xl-12">
                 <div class="card">
                     <div class="card-header pb-0 pd-t-25">
                         <div class="d-flex justify-content-between">
@@ -159,7 +159,7 @@
                         </div>
                     </div><!-- bd -->
                 </div><!-- bd -->
-            </div>
+            </div> --}}
 
             <div class="col-xl-12">
                 <div class="card">
