@@ -26,8 +26,8 @@ class PeriodeStoreRequest extends FormRequest
         return [
             'nama_periode' => 'required|string|max:255',
             'keterangan' => 'nullable|string|max:500',
-            'tgl_awal_penilaian' => 'required|date|before_or_equal:tgl_akhir_penilaian',
-            'tgl_akhir_penilaian' => 'required|date|after_or_equal:tgl_awal_penilaian',
+            'tgl_awal_penilaian' => 'required|date|before:tgl_akhir_penilaian',
+            'tgl_akhir_penilaian' => 'required|date|after:tgl_awal_penilaian',
             'status' => 'nullable|in:aktif,nonaktif',
         ];
     }
