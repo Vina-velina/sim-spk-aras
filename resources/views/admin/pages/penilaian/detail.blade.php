@@ -101,6 +101,7 @@
                 </div><!-- bd -->
             </div>
             <div class="col-xl-12">
+                @include('generals._validation')
                 <div class="card">
                     <div class="card-header pb-0 pd-t-25">
                         <div class="d-flex justify-content-between">
