@@ -134,7 +134,6 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
                 });
             });
 
-
             // sub Kriteria
             Route::group(['prefix' => 'sub-kriteria', 'middleware' => 'allowActivePeriode'], function () {
                 Route::prefix('{id_periode}')->group(function () {
@@ -148,7 +147,6 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
             });
         });
     });
-
 
     // Data Penilaian
     Route::prefix('data-penilaian')->group(function () {

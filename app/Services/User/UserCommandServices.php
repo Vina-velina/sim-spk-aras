@@ -98,7 +98,7 @@ class UserCommandServices
     {
         $user = User::find($id);
         // delete file
-        $path = storage_path('app/public/foto-user/' . $user->foto_profil);
+        $path = storage_path('app/public/foto-user/'.$user->foto_profil);
         FileHelpers::deleteFile($path);
         // delete user
         $user->delete();
@@ -108,7 +108,7 @@ class UserCommandServices
 
     protected static function generateNameImage($extension, $unique)
     {
-        $name = 'foto-user-' . $unique . '-' . time() . '.' . $extension;
+        $name = 'foto-user-'.$unique.'-'.time().'.'.$extension;
 
         return $name;
     }

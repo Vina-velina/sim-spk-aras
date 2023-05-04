@@ -45,10 +45,12 @@ class UserController extends Controller
             DB::beginTransaction();
             $this->userCommandServices->store($request);
             DB::commit();
+
             return redirect()->route('admin.master-data.user.index')->with('success', 'Berhasil menambahkan data user');
         } catch (\Throwable $th) {
             dd($th);
             DB::rollBack();
+
             return redirect()->route('admin.master-data.user.index')->with('error', 'Gagal menambahkan data user');
         }
     }
@@ -66,6 +68,7 @@ class UserController extends Controller
             DB::beginTransaction();
             $this->userCommandServices->update($request, $id);
             DB::commit();
+
             return redirect()->route('admin.master-data.user.index')->with('success', 'Berhasil mengubah data user');
         } catch (\Throwable $th) {
             // dd($th);
@@ -79,6 +82,7 @@ class UserController extends Controller
             DB::beginTransaction();
             $this->userCommandServices->destroy($id);
             DB::commit();
+
             return redirect()->route('admin.master-data.user.index')->with('success', 'Berhasil menghapus data user');
         } catch (\Throwable $th) {
             // dd($th);

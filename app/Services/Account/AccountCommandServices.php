@@ -55,7 +55,7 @@ class AccountCommandServices
 
     protected static function generateNameImage($extension, $unique)
     {
-        $name = 'foto-user' . $unique . '-' . time() . '.' . $extension;
+        $name = 'foto-user'.$unique.'-'.time().'.'.$extension;
 
         return $name;
     }

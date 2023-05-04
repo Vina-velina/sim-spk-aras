@@ -8,7 +8,6 @@ use App\Http\Requests\Kriteria\KriteriaStoreRequest;
 use App\Http\Requests\Kriteria\KriteriaUpdateRequest;
 use App\Http\Requests\Kriteria\SubKriteriaStoreRequest;
 use App\Http\Requests\Kriteria\SubKriteriaUpdateRequest;
-use App\Models\KriteriaPenilaian;
 use App\Models\MasterKriteriaPenilaian;
 use App\Models\SubKriteriaPenilaian;
 use App\Services\Kriteria\KriteriaCommandServices;
@@ -22,7 +21,6 @@ use Throwable;
 
 class KriteriaController extends Controller
 {
-
     protected $kriteriaCommandServices;
 
     protected $kriteriaDatatableServices;
@@ -54,10 +52,9 @@ class KriteriaController extends Controller
 
     public function kriteria(string $id_periode)
     {
-
         $periode = $this->periodeQueryServices->getOneWhereAktif($id_periode);
         if (isset($periode)) {
-            $periode->tgl_penilaian =  FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_awal_penilaian) . ' s/d ' .  FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_akhir_penilaian);
+            $periode->tgl_penilaian = FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_awal_penilaian).' s/d '.FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_akhir_penilaian);
         }
         $kriteria = $this->kriteriaQueryServices->getByIdPeriodeWhereAktif($id_periode);
         $total_bobot = 0;
@@ -73,7 +70,7 @@ class KriteriaController extends Controller
         $kriteria = $this->kriteriaQueryServices->getByIdPeriodeWhereAktif($id_periode);
         $periode = $this->periodeQueryServices->getOne($id_periode);
         if (isset($periode)) {
-            $periode->tgl_penilaian =  FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_awal_penilaian) . ' s/d ' .  FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_akhir_penilaian);
+            $periode->tgl_penilaian = FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_awal_penilaian).' s/d '.FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_akhir_penilaian);
         }
 
         // find total bobot
@@ -112,6 +109,7 @@ class KriteriaController extends Controller
             return to_route('admin.master-data.kriteria.edit', [$id, $kriteria->id])->with('success', 'Data Berhasil Di Simpan');
         } catch (Throwable $th) {
             DB::rollBack();
+
             return to_route('admin.master-data.kriteria.kriteria', $id)->with('error', 'Data Gagal Di Simpan');
         }
     }
@@ -123,7 +121,7 @@ class KriteriaController extends Controller
 
         $periode = $this->periodeQueryServices->getOne($id_periode);
         if (isset($periode)) {
-            $periode->tgl_penilaian =  FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_awal_penilaian) . ' s/d ' .  FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_akhir_penilaian);
+            $periode->tgl_penilaian = FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_awal_penilaian).' s/d '.FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_akhir_penilaian);
         }
 
         // find total bobot
@@ -162,9 +160,11 @@ class KriteriaController extends Controller
             DB::beginTransaction();
             $this->kriteriaCommandServices->update($request, $id_kriteria);
             DB::commit();
+
             return to_route('admin.master-data.kriteria.kriteria', $id_periode)->with('success', 'Data Berhasil Di Update');
         } catch (Throwable $th) {
             DB::rollBack();
+
             return to_route('admin.master-data.kriteria.kriteria', $id_periode)->with('error', 'Data Gagal Di Update');
         }
     }
@@ -175,6 +175,7 @@ class KriteriaController extends Controller
             DB::beginTransaction();
             $status = $this->kriteriaCommandServices->updateStatus($id);
             DB::commit();
+
             return response()->json([
                 'success' => true,
                 'message' => 'Berhasil mengubah status Kriteria',
@@ -182,6 +183,7 @@ class KriteriaController extends Controller
             ]);
         } catch (Throwable $th) {
             DB::rollBack();
+
             return response()->json([
                 'success' => false,
                 'message' => 'Gagal mengubah status Kriteria',
@@ -196,9 +198,11 @@ class KriteriaController extends Controller
             DB::beginTransaction();
             $this->kriteriaCommandServices->destroy($id_kriteria);
             DB::commit();
+
             return to_route('admin.master-data.kriteria.kriteria', $id_periode)->with('success', 'Data Berhasil Di Hapus');
         } catch (Throwable $th) {
             DB::rollBack();
+
             return to_route('admin.master-data.kriteria.kriteria', $id_periode)->with('error', 'Data Gagal Di Hapus');
         }
     }
@@ -214,7 +218,7 @@ class KriteriaController extends Controller
         // $kriteriaPenilaian = $this->kriteriaQueryServices->getOne($id_kriteria);
 
         if (isset($periode)) {
-            $periode->tgl_penilaian =  FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_awal_penilaian) . ' s/d ' .  FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_akhir_penilaian);
+            $periode->tgl_penilaian = FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_awal_penilaian).' s/d '.FormatDateToIndonesia::getIndonesiaDateTime($periode->tgl_akhir_penilaian);
         }
 
         return view('admin.pages.master-data.kriteria.sub-kriteria.create', compact('id_kriteria', 'periode'));
@@ -226,9 +230,11 @@ class KriteriaController extends Controller
             DB::beginTransaction();
             $this->kriteriaCommandServices->subStore($request, $id_kriteria);
             DB::commit();
+
             return to_route('admin.master-data.kriteria.edit', [$id_periode, $id_kriteria])->with('success', 'Data Berhasil Di Simpan');
         } catch (Throwable $th) {
             DB::rollBack();
+
             return to_route('admin.master-data.kriteria.edit', [$id_periode, $id_kriteria])->with('error', 'Data Gagal Di Simpan');
         }
     }
@@ -237,7 +243,7 @@ class KriteriaController extends Controller
     {
         $subKriteriaPenilaian = $this->kriteriaQueryServices->getSubKriteriaById($id_sub_kriteria);
 
-        return view('admin.pages.master-data.kriteria.sub-kriteria.edit', compact('subKriteriaPenilaian',  'id_kriteria', 'id_periode'));
+        return view('admin.pages.master-data.kriteria.sub-kriteria.edit', compact('subKriteriaPenilaian', 'id_kriteria', 'id_periode'));
     }
 
     public function subUpdate(SubKriteriaUpdateRequest $request, string $id_periode, string $id_kriteria, string $id_sub_kriteria)
