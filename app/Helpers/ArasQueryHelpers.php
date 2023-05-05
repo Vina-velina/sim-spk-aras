@@ -15,7 +15,7 @@ class ArasQueryHelpers
         // =================================================
         // Validasi Periode
         // =================================================
-        if (! isset($id_periode)) {
+        if (!isset($id_periode)) {
             throw new \Exception('Invalid Parameter');
         }
         $periode = Periode::where('id', $id_periode)->first();
@@ -46,7 +46,7 @@ class ArasQueryHelpers
             if ($type_kriteria == 'benefit') {
                 $id_kriteria = $kriteria->id;
                 $x0 = max($matriks_x[$id_kriteria]);
-            } elseif ($type_kriteria == 'cost') {
+            } else {
                 $id_kriteria = $kriteria->id;
                 $x0 = min($matriks_x[$id_kriteria]);
             }
@@ -68,7 +68,7 @@ class ArasQueryHelpers
                 $type_kriteria = $kriteria->jenis;
                 if ($type_kriteria == 'benefit') {
                     $x2 = $x;
-                } elseif ($type_kriteria == 'cost') {
+                } else {
                     if ($x != 0) {
                         $x2 = 1 / $x;
                     } elseif ($x == 0) {
@@ -88,7 +88,7 @@ class ArasQueryHelpers
             $x0 = $matriks_x0[$id_kriteria];
             if ($type_kriteria == 'benefit') {
                 $x02 = $x0;
-            } elseif ($type_kriteria == 'cost') {
+            } else {
                 if ($x0 != 0) {
                     $x02 = 1 / $x0;
                 } elseif ($x0 == 0) {
