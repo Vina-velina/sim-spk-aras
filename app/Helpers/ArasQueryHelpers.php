@@ -181,7 +181,7 @@ class ArasQueryHelpers
         //  Hasil Akhir dan Store Ke Database
         // =================================================
 
-        // 12. Hasil Akhir Perhitungan Tidak Termasuk Nilai X0
+        // 11. Hasil Akhir Perhitungan Tidak Termasuk Nilai X0
         $hasil_akhir = [];
         foreach ($alternatifs as $alternatif) {
             $id_alternatif = $alternatif->id;
