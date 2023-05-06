@@ -71,7 +71,7 @@ class ArasQueryHelpers
                 } else {
                     if ($x != 0) {
                         $x2 = 1 / $x;
-                    } elseif ($x == 0) {
+                    } else {
                         $x2 = 0;
                     }
                 }
@@ -91,7 +91,7 @@ class ArasQueryHelpers
             } else {
                 if ($x0 != 0) {
                     $x02 = 1 / $x0;
-                } elseif ($x0 == 0) {
+                } else {
                     $x02 = 0;
                 }
             }
