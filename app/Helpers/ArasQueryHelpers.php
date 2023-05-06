@@ -18,13 +18,13 @@ class ArasQueryHelpers
         if (!isset($id_periode)) {
             throw new \Exception('Invalid Parameter');
         }
-        $periode = Periode::where('id', $id_periode)->first();
-
+        
         // =================================================
         // Pembentukan Matriks Keputusan (X)
         // =================================================
-
+        
         // 1. Mendefinisikan Matriks Keputusan X / Nilai Alternatif Kriteria
+        $periode = Periode::where('id', $id_periode)->first();
         $alternatifs = Debitur::where('status', 'aktif')->orderBy('updated_at', 'DESC')->get();
         $kriterias = KriteriaPenilaian::where('status', 'aktif')->where('id_periode', $periode->id)->orderBy('bobot_kriteria', 'DESC')->get();
         $matriks_x = [];
