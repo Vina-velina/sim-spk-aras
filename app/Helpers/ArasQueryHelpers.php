@@ -15,6 +15,7 @@ class ArasQueryHelpers
         // =================================================
         // Validasi Periode
         // =================================================
+        // 1. Validasi Periode
         if (!isset($id_periode)) {
             throw new \Exception('Invalid Parameter');
         }
@@ -23,7 +24,7 @@ class ArasQueryHelpers
         // Pembentukan Matriks Keputusan (X)
         // =================================================
         
-        // 1. Mendefinisikan Matriks Keputusan X / Nilai Alternatif Kriteria
+        // 2. Mendefinisikan Matriks Keputusan X / Nilai Alternatif Kriteria
         $periode = Periode::where('id', $id_periode)->first();
         $alternatifs = Debitur::where('status', 'aktif')->orderBy('updated_at', 'DESC')->get();
         $kriterias = KriteriaPenilaian::where('status', 'aktif')->where('id_periode', $periode->id)->orderBy('bobot_kriteria', 'DESC')->get();
@@ -39,7 +40,7 @@ class ArasQueryHelpers
                 $matriks_x[$id_kriteria][$id_alternatif] = $nilai;
             }
         }
-        // 2. Mendapatkan Nilai X0 Berdasarkan Matriks Keputusan X
+        // 3. Mendapatkan Nilai X0 Berdasarkan Matriks Keputusan X
         $matriks_x0 = [];
         foreach ($kriterias as $kriteria) {
             $type_kriteria = $kriteria->jenis;
@@ -57,7 +58,7 @@ class ArasQueryHelpers
         // Merumuskan Matriks Keputusan (X)
         // =================================================
 
-        // 3. Mendapatkan Nilai Selain Nilai X0
+        // 4. Mendapatkan Nilai Selain Nilai X0
         $matriks_x2 = [];
         foreach ($alternatifs as $alternatif) {
             foreach ($kriterias as $kriteria) {
@@ -80,7 +81,7 @@ class ArasQueryHelpers
             }
         }
 
-        // 4. Mendapatkan Nilai Normalisasi Untuk XO
+        // 5. Mendapatkan Nilai Normalisasi Untuk XO
         $matriks_x02 = [];
         foreach ($kriterias as $kriteria) {
             $id_kriteria = $kriteria->id;
@@ -99,7 +100,7 @@ class ArasQueryHelpers
             $matriks_x02[$id_kriteria] = $x02;
         }
 
-        // 5. Mendapatkan Nilai Total Matriks X , Digunakan Untuk Proses Normalisasi
+        // 6. Mendapatkan Nilai Total Matriks X , Digunakan Untuk Proses Normalisasi
         $total_matriks_x = [];
         foreach ($kriterias as $kriteria) {
             $tx = 0;
@@ -117,7 +118,7 @@ class ArasQueryHelpers
         // Matriks Normalisasi
         // =================================================
 
-        // 6. Normalisasi Matriks Keputusan Selain X0
+        // 7. Normalisasi Matriks Keputusan Selain X0
         $matriks_r = [];
         foreach ($alternatifs as $alternatif) {
             foreach ($kriterias as $kriteria) {
@@ -130,7 +131,7 @@ class ArasQueryHelpers
             }
         }
 
-        // 7. Normalisasi Matriks Keputusan Untuk X0
+        // 8. Normalisasi Matriks Keputusan Untuk X0
         $matriks_r0 = [];
         foreach ($kriterias as $kriteria) {
             $id_kriteria = $kriteria->id;
@@ -143,7 +144,7 @@ class ArasQueryHelpers
         // Matriks Normalisasi Terbobot
         // =================================================
 
-        // 8. Membentuk Matriks Normalisasi Terbobot
+        // 9. Membentuk Matriks Normalisasi Terbobot
         $matriks_rb = [];
         $total_rb = [];
         foreach ($alternatifs as $alternatif) {
@@ -164,7 +165,7 @@ class ArasQueryHelpers
         //  Perhitungan Nilai Akhir
         // =================================================
 
-        // 9. Melakukan Perhitungan Nilai Akhir
+        // 10. Melakukan Perhitungan Nilai Akhir
         $matriks_rb0 = [];
         $total_rb0 = 0;
         foreach ($kriterias as $kriteria) {
@@ -180,7 +181,7 @@ class ArasQueryHelpers
         //  Hasil Akhir dan Store Ke Database
         // =================================================
 
-        // 10. Hasil Akhir Perhitungan Tidak Termasuk Nilai X0
+        // 12. Hasil Akhir Perhitungan Tidak Termasuk Nilai X0
         $hasil_akhir = [];
         foreach ($alternatifs as $alternatif) {
             $id_alternatif = $alternatif->id;
@@ -193,14 +194,13 @@ class ArasQueryHelpers
             $obj->storeRekomendasi($id_alternatif, $id_periode, $nilai);
         }
 
-        // 11. Hasil Akhir Untuk X0
+        // Hasil Akhir Untuk X0
         $hasil_akhir_rb0 = $total_rb0 / $total_rb0;
 
         // =================================================
         //  Return Data
         // =================================================
-
-        // 12. Prepare to return nilai, return as array
+        // Prepare to return nilai, return as array
 
         $data_return = [
             'kriteria' => $kriterias,
@@ -220,6 +220,7 @@ class ArasQueryHelpers
             'hasil_akhir_x0' => $hasil_akhir_rb0,
         ];
 
+        // Tidak usah diuji
         return $data_return;
     }
 }
