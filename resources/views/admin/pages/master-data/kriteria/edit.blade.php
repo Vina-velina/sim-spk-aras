@@ -3,13 +3,7 @@
 @php
     $jatah = 100 - $total_bobot + $kriteria->bobot_kriteria;
 
-    $nama_kriteria = '';
-
-    foreach ($master_kriteria as $item) {
-        if ($item->id == $kriteria->id_master_kriteria) {
-            $nama_kriteria = $item->nama_kriteria;
-        }
-    }
+    $nama_kriteria = $kriteria->nama_kriteria;
 @endphp
 
 @section('tittle', 'Data Kriteria')
@@ -78,7 +72,6 @@
 @section('content')
     <!-- container -->
     <div class="container-fluid mg-t-20">
-
         <!-- breadcrumb -->
         @include('admin.layouts.menu._breadcrumb', [
             'page' => 'Data Kriteria',
@@ -111,20 +104,16 @@
                             @csrf
                             <input type="hidden" name="id_periode" value="{{ $periode->id }}">
                             <p class="text-danger">* Wajib diisi</p>
+
                             <div class="row row-xs align-items-center mg-b-20">
                                 <div class="col-md-12">
                                     <label class="form-label mg-b-0">Nama Kriteria <span
                                             class="text-danger">*</span></label>
                                 </div>
                                 <div class="col-md-12 mg-t-5">
-                                    <select name="id_master_kriteria"
-                                        class="form-control form-control-sm @error('id_master_kriteria') is-invalid @enderror"
-                                        id="">
-                                        @foreach ($master_kriteria as $item)
-                                            <option {{ $kriteria->id_master_kriteria == $item->id ? 'selected' : '' }}
-                                                value="{{ $item->id }}">{{ $item->nama_kriteria }}</option>
-                                        @endforeach
-                                    </select>
+                                    <input class="form-control form-control-sm" name="nama_kriteria"
+                                        placeholder="Masukkan Nama Kriteria" type="text"
+                                        value="{{ $kriteria->nama_kriteria }}" disabled>
                                 </div>
                             </div>
                             <div class="row row-xs align-items-center mg-b-20">

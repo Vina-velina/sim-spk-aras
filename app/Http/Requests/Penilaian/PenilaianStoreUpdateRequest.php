@@ -36,8 +36,8 @@ class PenilaianStoreUpdateRequest extends FormRequest
         $messages = [];
         foreach (request()->penilaian as $kriteriaId => $nilai) {
             $kriteria = KriteriaPenilaian::find($kriteriaId);
-            $messages["penilaian.{$kriteriaId}.required"] = 'Kolom Nilai Pada Kriteria "'.$kriteria->masterKriteriaPenilaian->nama_kriteria.'" Harus Diisi.';
-            $messages["penilaian.{$kriteriaId}.numeric"] = 'Kolom Nilai Pada Kriteria "'.$kriteria->masterKriteriaPenilaian->nama_kriteria.'" Harus Berupa Angka.';
+            $messages["penilaian.{$kriteriaId}.required"] = 'Kolom Nilai Pada Kriteria "'.$kriteria->nama_kriteria.'" Harus Diisi.';
+            $messages["penilaian.{$kriteriaId}.numeric"] = 'Kolom Nilai Pada Kriteria "'.$kriteria->nama_kriteria.'" Harus Berupa Angka.';
         }
 
         return $messages;

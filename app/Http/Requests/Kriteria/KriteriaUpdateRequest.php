@@ -25,7 +25,6 @@ class KriteriaUpdateRequest extends FormRequest
     {
         return [
             'id_periode' => 'required|exists:periodes,id|string',
-            'id_master_kriteria' => 'required|exists:master_kriteria_penilaians,id|string',
             'keterangan' => 'nullable|string|max:255',
             'bobot_kriteria' => 'required|integer|between:1,100',
             'jenis_kriteria' => 'required|in:benefit,cost|string',

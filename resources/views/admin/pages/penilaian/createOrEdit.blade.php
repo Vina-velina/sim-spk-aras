@@ -77,7 +77,7 @@
                             @foreach ($kriteria as $item)
                                 <div class="row row-xs align-items-center mg-b-20">
                                     <div class="col-md-12">
-                                        <label class="form-label mg-b-0">{{ $item->masterKriteriaPenilaian->nama_kriteria }}
+                                        <label class="form-label mg-b-0">{{ $item->nama_kriteria }}
                                             <span class="text-danger">*</span></label>
                                     </div>
                                     <div class="col-md-12 mg-t-5">
@@ -98,7 +98,7 @@
                                             <input
                                                 class="form-control form-control-sm @error('penilaian.{$item->id}') is-invalid @enderror"
                                                 name="penilaian[{{ $item->id }}]"
-                                                placeholder="Masukkan Nilai Dari Kriteria {{ $item->masterKriteriaPenilaian->nama_kriteria }}"
+                                                placeholder="Masukkan Nilai Dari Kriteria {{ $item->nama_kriteria }}"
                                                 type="number"
                                                 value="{{ $item->relasi_penilaian != null ? $item->relasi_penilaian->nilai : old('penilaian.{$item->id}') }}">
                                         @endif

@@ -129,12 +129,7 @@ class KriteriaController extends Controller
 
         $kriteria = $this->kriteriaQueryServices->getOne($id_kriteria);
 
-        // ambil data master kriteria yang belum di pilih di periode ini tidak termasuk kriteria yang sedang diedit
-        $master_kriteria = MasterKriteriaPenilaian::whereNotIn('id', function ($query) use ($id_periode, $kriteria) {
-            $query->select('id_master_kriteria')->from('kriteria_penilaians')->where('id_periode', $id_periode)->where('id', '!=', $kriteria->id);
-        })->get();
-
-        return view('admin.pages.master-data.kriteria.edit', compact('kriteria', 'total_bobot', 'periode', 'master_kriteria'));
+        return view('admin.pages.master-data.kriteria.edit', compact('kriteria', 'total_bobot', 'periode'));
     }
 
     public function update(KriteriaUpdateRequest $request, string $id_periode, string $id_kriteria)

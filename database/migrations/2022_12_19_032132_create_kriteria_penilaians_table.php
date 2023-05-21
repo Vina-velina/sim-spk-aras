@@ -15,7 +15,12 @@ return new class extends Migration
     {
         Schema::create('kriteria_penilaians', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('id_master_kriteria')->constrained('master_kriteria_penilaians')->cascadeOnDelete();
+            $table->foreignUuid('id_master_kriteria')
+                ->nullable()
+                ->constrained('master_kriteria_penilaians')
+                ->onDelete('set null')
+                ->onUpdate('set null');
+            $table->string('nama_kriteria');
             $table->foreignUuid('id_periode')->constrained('periodes')->cascadeOnDelete();
             $table->text('keterangan');
             $table->tinyInteger('bobot_kriteria');

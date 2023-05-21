@@ -7,6 +7,7 @@ use App\Http\Requests\Kriteria\KriteriaUpdateRequest;
 use App\Http\Requests\Kriteria\SubKriteriaStoreRequest;
 use App\Http\Requests\Kriteria\SubKriteriaUpdateRequest;
 use App\Models\KriteriaPenilaian;
+use App\Models\MasterKriteriaPenilaian;
 use App\Models\SubKriteriaPenilaian;
 
 class KriteriaCommandServices
@@ -15,9 +16,12 @@ class KriteriaCommandServices
     {
         $request->validated();
 
+        $find_master = MasterKriteriaPenilaian::findOrFail($request->id_master_kriteria);
+
         $query = new KriteriaPenilaian();
         $query->id_periode = $request->id_periode;
         $query->id_master_kriteria = $request->id_master_kriteria;
+        $query->nama_kriteria = $find_master->nama_kriteria;
         $query->bobot_kriteria = $request->bobot_kriteria;
         $query->jenis = $request->jenis_kriteria;
         $query->keterangan = $request->keterangan;
@@ -33,7 +37,6 @@ class KriteriaCommandServices
         $request->validated();
 
         $query->id_periode = $request->id_periode;
-        $query->id_master_kriteria = $request->id_master_kriteria;
         $query->bobot_kriteria = $request->bobot_kriteria;
         $query->jenis = $request->jenis_kriteria;
         $query->status = $request->status;

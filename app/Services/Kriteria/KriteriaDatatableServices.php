@@ -38,7 +38,7 @@ class KriteriaDatatableServices
                 return $element;
             })
             ->addColumn('nama_kriteria', function ($item) {
-                return $item->masterKriteriaPenilaian->nama_kriteria;
+                return $item->nama_kriteria;
             })
             ->addColumn('jenis', function ($item) {
                 return ucwords($item->jenis);
