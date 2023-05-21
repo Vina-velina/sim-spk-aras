@@ -16,7 +16,7 @@ class ArasQueryHelpers
         // Validasi Periode
         // =================================================
         // 1. Validasi Periode
-        if (!isset($id_periode)) {
+        if (! isset($id_periode)) {
             throw new \Exception('Invalid Parameter');
         }
 

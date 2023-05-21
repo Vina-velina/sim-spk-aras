@@ -47,8 +47,8 @@ class SheetDebiturExport implements FromCollection, WithTitle, WithHeadings, Sho
             $kriteriaArray = [];
             foreach ($kriteriaData as $index => $kriteria) {
                 $sub_kriteria = null;
-                $kriteriaArray['kode-' . $kriteria->id_kriteria] = $kriteria->id_kriteria;
-                $kriteriaArray['nama-' . $kriteria->id_kriteria] = $sub_kriteria;
+                $kriteriaArray['kode-'.$kriteria->id_kriteria] = $kriteria->id_kriteria;
+                $kriteriaArray['nama-'.$kriteria->id_kriteria] = $sub_kriteria;
             }
 
             // Gabungkan data kriteria dengan data debitur
@@ -77,8 +77,8 @@ class SheetDebiturExport implements FromCollection, WithTitle, WithHeadings, Sho
             ->get();
 
         foreach ($kriteriaData as $kriteria) {
-            array_push($data, $item['kode-' . $kriteria->id_kriteria]);
-            array_push($data, $item['nama-' . $kriteria->id_kriteria]);
+            array_push($data, $item['kode-'.$kriteria->id_kriteria]);
+            array_push($data, $item['nama-'.$kriteria->id_kriteria]);
         }
 
         return $data;
@@ -101,8 +101,8 @@ class SheetDebiturExport implements FromCollection, WithTitle, WithHeadings, Sho
 
         $headings = ['Id Periode', 'Id Debitur', 'Nama Debitur', 'Alamat Debitur'];
         foreach ($kriteriaData as $kriteria) {
-            array_push($headings, 'Kode ' . $kriteria->nama_kriteria);
-            array_push($headings, 'Nilai ' . $kriteria->nama_kriteria . '*');
+            array_push($headings, 'Kode '.$kriteria->nama_kriteria);
+            array_push($headings, 'Nilai '.$kriteria->nama_kriteria.'*');
         }
 
         return $headings;
@@ -136,7 +136,7 @@ class SheetDebiturExport implements FromCollection, WithTitle, WithHeadings, Sho
                         // Menyusun data sub-kriteria penilaian menjadi format string yang sesuai dengan data validasi dropdown
                         $dropdownData = implode(',', $sub_kriteria);
 
-                        $dropdownRange = 'Penilaian Debitur!' . Coordinate::stringFromColumnIndex($headingColumns) . '2:' . Coordinate::stringFromColumnIndex($headingColumns) . $highestRow;
+                        $dropdownRange = 'Penilaian Debitur!'.Coordinate::stringFromColumnIndex($headingColumns).'2:'.Coordinate::stringFromColumnIndex($headingColumns).$highestRow;
 
                         // Set data validasi dengan dropdownData sebagai source
                         $validation = $worksheet->getCellByColumnAndRow($headingColumns, 2)->getDataValidation();
@@ -150,8 +150,8 @@ class SheetDebiturExport implements FromCollection, WithTitle, WithHeadings, Sho
                             ->setError('Value is not in list.')
                             ->setPromptTitle('Pick from list')
                             ->setPrompt('Please pick a value from the drop-down list.')
-                            ->setFormula1('"' . $dropdownData . '"')
-                            ->setFormula2('"' . $dropdownData . '"');
+                            ->setFormula1('"'.$dropdownData.'"')
+                            ->setFormula2('"'.$dropdownData.'"');
 
                         // Set data validasi dropdown pada seluruh baris di kolom yang sama
                         for ($i = 3; $i <= $highestRow; $i++) {
