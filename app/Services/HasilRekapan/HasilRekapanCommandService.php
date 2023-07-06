@@ -82,6 +82,10 @@ class HasilRekapanCommandService
 
         $find_terpilih = DebiturTerpilih::where('id_periode', $find_periode->id)->get();
 
+        if ($find_terpilih->count() <= 0) {
+            throw new \Exception('Tidak Dapat Mempublish, Debitur Terpilih Masih Kosong');
+        }
+
         foreach ($find_terpilih as $data) {
             $data->status = 'publish';
             $data->save();
