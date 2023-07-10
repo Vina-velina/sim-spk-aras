@@ -53,11 +53,14 @@ class RekapanController extends Controller
             $periode->status_penilaian = self::_getStatusPenilaian($periode->tgl_awal_penilaian, $periode->tgl_akhir_penilaian);
 
             DB::beginTransaction();
+            // Menghapus rekomendasi sebelumnya
             $deleteRekomendasi = $this->hasilRekapanCommandService->deleteRekomendasi($periode->id);
+            // Mengeksekusi QUERY ARAS
             $dssData = ArasQueryHelpers::dss($periode->id);
             $orderData = $this->hasilRekapanCommandService->updateOrder($periode->id);
             DB::commit();
 
+            // Muncul di modal tambah debitur terpilih
             $rekomendasiByPeriode = $this->hasilRekapanQueryService->getRekomendasiByPeriode($periode->id);
 
             return view('admin.pages.rekapan.hasil', compact('periode', 'orderData', 'dssData', 'rekomendasiByPeriode'));

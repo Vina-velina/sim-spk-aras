@@ -170,6 +170,7 @@
                             <div class="btn-icon-list">
                                 <a href="javascript:void(0);" data-target="#modalPerhitunganAras" data-toggle="modal"
                                     class="btn btn-sm btn-info btn-icon"><i class="typcn typcn-eye"></i>
+                                    {{-- Akan dihide ketika sudah production --}}
                                     Perhitungan
                                 </a>
                             </div>

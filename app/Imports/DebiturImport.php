@@ -27,6 +27,7 @@ class DebiturImport implements ToModel, WithStartRow, WithValidation
 
     public function model(array $row)
     {
+        // Business Logic
         if (isset($row[4])) {
             $find_ktp = Debitur::where('no_ktp', $row[4])->first();
             if ($find_ktp) {
@@ -40,7 +41,9 @@ class DebiturImport implements ToModel, WithStartRow, WithValidation
                 throw new \Exception('Nomor Telepon Sudah Digunakan Untuk Data Pada Kolom Ke-'.$this->rowError);
             }
         }
+        // End Business Logic
 
+        // Save Data
         $data_debitur = Debitur::create([
             'nama' => $row[0],
             'alamat' => $row[1],
@@ -50,6 +53,7 @@ class DebiturImport implements ToModel, WithStartRow, WithValidation
             'status' => $row[5],
         ]);
 
+        // Return Data
         return $data_debitur;
     }
 

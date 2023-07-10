@@ -48,6 +48,7 @@ class PeriodeDatatableServices
                 return $element;
             })
             ->addColumn('action_rekapan', function ($item) {
+                // Fungsinya untuk memunculkan button detail di fitur rekapan
                 $element = '';
                 $element .= '<div class="btn-icon-list">';
                 $element .= '<a href="'.route('admin.rekapan-spk.detail', $item->id).'" class="btn btn-sm btn-primary btn-icon mr-2" id=""><i class="typcn text-white typcn-eye"></i></a>';

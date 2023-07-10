@@ -75,8 +75,11 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
             Route::get('/update-status/{id}', [DebiturController::class, 'updateStatus'])->name('admin.master-data.debitur.update.status');
             Route::post('/store', [DebiturController::class, 'store'])->name('admin.master-data.debitur.store');
             Route::delete('/delete/{id}', [DebiturController::class, 'delete'])->name('admin.master-data.debitur.delete');
+            // Untuk mendapatkan format import data
             Route::get('download-template-import', [DebiturController::class, 'downloadTemplate'])->name('admin.master-data.debitur.download-template');
+            // Berfungsi untuk mengeksekusi proses import data
             Route::post('import-debitur', [DebiturController::class, 'import'])->name('admin.master-data.debitur.import');
+            // Berfungsi untuk mengeksekusi proses export data
             Route::get('export-debitur', [DebiturController::class, 'export'])->name('admin.master-data.debitur.export');
         });
 
@@ -168,7 +171,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['aut
         });
     });
 
-    // Data Penilaian
+    // Data Rekapan
     Route::prefix('data-rekapan')->group(function () {
         Route::get('/', [RekapanController::class, 'index'])->name('admin.rekapan-spk.index');
         Route::post('/export/{id_periode}', [RekapanController::class, 'exportRekomendasi'])->name('admin.rekapan-spk.detail.export-rekomendasi');
