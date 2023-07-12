@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignUuid('id_debitur')->constrained('debiturs')->cascadeOnDelete();
             $table->foreignUuid('id_kriteria')->constrained('kriteria_penilaians')->cascadeOnDelete();
             $table->foreignUuid('id_periode')->constrained('periodes')->cascadeOnDelete();
-            $table->integer('nilai');
+            $table->bigInteger('nilai');
             $table->timestamps();
         });
     }
