@@ -51,12 +51,12 @@
                         }
                     },
 
-                    {
-                        data: "status",
-                        orderable: false,
-                        searchable: false,
-                        name: 'status',
-                    },
+                    // {
+                    //     data: "status",
+                    //     orderable: false,
+                    //     searchable: false,
+                    //     name: 'status',
+                    // },
 
 
                 ],
@@ -190,7 +190,7 @@
                                         <th class="wd-10p border-bottom-0">Nama Periode</th>
                                         <th class="wd-10p border-bottom-0">Tgl Awal Penilaian</th>
                                         <th class="wd-10p border-bottom-0">Tgl Akhir Penilaian</th>
-                                        <th class="wd-10p border-bottom-0">Status</th>
+                                        {{-- <th class="wd-10p border-bottom-0">Status</th> --}}
                                     </tr>
                                 </thead>
 

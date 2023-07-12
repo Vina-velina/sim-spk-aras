@@ -80,18 +80,18 @@ class PeriodeDatatableServices
                 return $toggle;
             })
 
-            ->addColumn('status_penilaian', function ($item) {
-                $element = '';
-                if (Carbon::now()->format('Y-m-d H:i:s') < $item->tgl_awal_penilaian) {
-                    $element .= '<div class="badge badge-pill badge-info"> Belum Dimulai </div>';
-                } elseif (Carbon::now()->format('Y-m-d H:i:s') > $item->tgl_akhir_penilaian) {
-                    $element .= '<div class="badge badge-pill badge-danger"> Sudah Berakhir </div>';
-                } else {
-                    $element .= '<div class="badge badge-pill badge-success"> Sedang Berlangsung </div>';
-                }
+            // ->addColumn('status_penilaian', function ($item) {
+            //     $element = '';
+            //     if (Carbon::now()->format('Y-m-d H:i:s') < $item->tgl_awal_penilaian) {
+            //         $element .= '<div class="badge badge-pill badge-info"> Belum Dimulai </div>';
+            //     } elseif (Carbon::now()->format('Y-m-d H:i:s') > $item->tgl_akhir_penilaian) {
+            //         $element .= '<div class="badge badge-pill badge-danger"> Sudah Berakhir </div>';
+            //     } else {
+            //         $element .= '<div class="badge badge-pill badge-success"> Sedang Berlangsung </div>';
+            //     }
 
-                return $element;
-            })
+            //     return $element;
+            // })
             ->addColumn('tgl_penilaian', function ($item) {
                 $element = FormatDateToIndonesia::getIndonesiaDate($item->tgl_awal_penilaian).' s/d '.FormatDateToIndonesia::getIndonesiaDate($item->tgl_akhir_penilaian);
 
