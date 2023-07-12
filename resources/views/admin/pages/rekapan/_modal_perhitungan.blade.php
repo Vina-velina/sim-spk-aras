@@ -14,7 +14,7 @@
                                 <tr align="center">
                                     <th>Alternatif</th>
                                     @foreach ($dssData['kriteria'] as $kriteria)
-                                        <th>{{ $kriteria->nama_kriteria }}</th>
+                                        <th>{{ $kriteria->nama_kriteria }} - Bobot {{ $kriteria->bobot_kriteria }}%</th>
                                     @endforeach
                                 </tr>
                             </thead>

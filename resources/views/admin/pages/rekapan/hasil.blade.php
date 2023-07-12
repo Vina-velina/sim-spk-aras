@@ -167,13 +167,16 @@
                             <h4 class="card-title mg-b-0">Data Rekomendasi ARAS</h4>
                         </div>
                         <div class="d-flex justify-content-end">
-                            <div class="btn-icon-list">
-                                <a href="javascript:void(0);" data-target="#modalPerhitunganAras" data-toggle="modal"
-                                    class="btn btn-sm btn-info btn-icon"><i class="typcn typcn-eye"></i>
-                                    {{-- Akan dihide ketika sudah production --}}
-                                    Perhitungan
-                                </a>
-                            </div>
+                            @if (config('app.debug') == true)
+                                <div class="btn-icon-list">
+                                    <a href="javascript:void(0);" data-target="#modalPerhitunganAras" data-toggle="modal"
+                                        class="btn btn-sm btn-info btn-icon"><i class="typcn typcn-eye"></i>
+                                        {{-- Akan dihide ketika sudah production --}}
+                                        Perhitungan
+                                    </a>
+                                </div>
+                            @endif
+
                             <form action="{{ route('admin.rekapan-spk.detail.export-rekomendasi', $periode->id) }}"
                                 method="post">
                                 @csrf

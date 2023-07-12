@@ -26,4 +26,9 @@ class Debitur extends Model
     {
         return $this->hasMany(RekomendasiDebitur::class, 'id_debitur', 'id');
     }
+
+    public function userPeriode()
+    {
+        return $this->hasMany(UserPeriode::class, 'id_debitur', 'id');
+    }
 }

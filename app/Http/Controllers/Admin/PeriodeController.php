@@ -6,6 +6,7 @@ use App\Helpers\FormatDateToIndonesia;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Periode\PeriodeStoreRequest;
 use App\Http\Requests\Periode\PeriodeUpdateRequest;
+use App\Services\Debitur\DebiturQueryServices;
 use App\Services\Periode\PeriodeCommandServices;
 use App\Services\Periode\PeriodeDatatableServices;
 use App\Services\Periode\PeriodeQueryServices;
@@ -21,14 +22,18 @@ class PeriodeController extends Controller
 
     protected $periodeQueryServices;
 
+    protected $debiturQueryServices;
+
     public function __construct(
         PeriodeQueryServices $periodeQueryServices,
         PeriodeDatatableServices $periodeDatatableServices,
-        PeriodeCommandServices $periodeCommandServices
+        PeriodeCommandServices $periodeCommandServices,
+        DebiturQueryServices $debiturQueryServices
     ) {
         $this->periodeCommandServices = $periodeCommandServices;
         $this->periodeDatatableServices = $periodeDatatableServices;
         $this->periodeQueryServices = $periodeQueryServices;
+        $this->debiturQueryServices = $debiturQueryServices;
     }
 
     // Halaman index periode
@@ -44,11 +49,17 @@ class PeriodeController extends Controller
 
             $detail->tgl_awal_penilaian = FormatDateToIndonesia::getIndonesiaDateTime($detail->tgl_awal_penilaian);
             $detail->tgl_akhir_penilaian = FormatDateToIndonesia::getIndonesiaDateTime($detail->tgl_akhir_penilaian);
+            $listUser = $detail->userPeriode;
+            $user_periode = '';
+            foreach ($listUser as  $index => $item) {
+                $user_periode .= '<span class="badge bg-info ml-1">' . $item->debitur->nama . ' - ' . $item->debitur->alamat . '</span>';
+            }
 
             return response()->json([
                 'success' => true,
                 'message' => 'Data Berhasil Didapatkan',
                 'data' => $detail,
+                'userPeriode' => $user_periode
             ]);
         } catch (Throwable $th) {
             return response()->json([
@@ -61,7 +72,8 @@ class PeriodeController extends Controller
     // Penambahan data periode
     public function create()
     {
-        return view('admin.pages.master-data.periode.create');
+        $debiturs = $this->debiturQueryServices->getAll();
+        return view('admin.pages.master-data.periode.create', compact('debiturs'));
     }
 
     public function store(PeriodeStoreRequest $request)
@@ -107,14 +119,15 @@ class PeriodeController extends Controller
     public function edit($id)
     {
         $periode = $this->periodeQueryServices->getOne($id);
-
-        return view('admin.pages.master-data.periode.edit', compact('periode'));
+        $debiturs = $this->debiturQueryServices->getAll();
+        $user_periode = $this->periodeQueryServices->getDebiturInPeriode($id);
+        return view('admin.pages.master-data.periode.edit', compact('periode', 'debiturs', 'user_periode'));
     }
 
     public function update(PeriodeUpdateRequest $request, string $id)
     {
         try {
-            $allPeriode = $this->periodeQueryServices->getAll();
+            $allPeriode = $this->periodeQueryServices->getAllNotInclude($id);
 
             for ($i = 0; $i < count($allPeriode); $i++) {
                 // check jika saat ini bukan periode yang sedang di edit

@@ -93,7 +93,6 @@
                         form.find('textarea[name=alamat_debitur]').val(data.alamat);
                         form.find('input[name=pekerjaan_debitur]').val(data.pekerjaan);
                         form.find('input[name=nomor_telepon]').val(data.no_telp);
-                        form.find('input[name=nomor_ktp]').val(data.no_ktp);
                         form.find(`select[name=status] option[value="${data.status}"]`).attr('selected',
                             true);
                         if (data.foto != null) {

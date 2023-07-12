@@ -28,17 +28,10 @@ class DebiturImport implements ToModel, WithStartRow, WithValidation
     public function model(array $row)
     {
         // Business Logic
-        if (isset($row[4])) {
-            $find_ktp = Debitur::where('no_ktp', $row[4])->first();
-            if ($find_ktp) {
-                throw new \Exception('Nomor KTP Sudah Digunakan Untuk Data Pada Kolom Ke-'.$this->rowError);
-            }
-        }
-
         if (isset($row[3])) {
             $find_ktp = Debitur::where('no_telp', $row[3])->first();
             if ($find_ktp) {
-                throw new \Exception('Nomor Telepon Sudah Digunakan Untuk Data Pada Kolom Ke-'.$this->rowError);
+                throw new \Exception('Nomor Telepon Sudah Digunakan Untuk Data Pada Kolom Ke-' . $this->rowError);
             }
         }
         // End Business Logic
@@ -49,8 +42,7 @@ class DebiturImport implements ToModel, WithStartRow, WithValidation
             'alamat' => $row[1],
             'pekerjaan' => $row[2],
             'no_telp' => $row[3],
-            'no_ktp' => $row[4],
-            'status' => $row[5],
+            'status' => $row[4],
         ]);
 
         // Return Data
@@ -64,8 +56,7 @@ class DebiturImport implements ToModel, WithStartRow, WithValidation
             '1' => 'required|string|max:500',
             '2' => 'nullable|string|max:255',
             '3' => ['nullable', 'numeric', 'digits_between:10,13', Rule::phone()->detect()->country('ID')],
-            '4' => 'nullable|numeric|digits_between:10,16',
-            '5' => 'nullable|in:aktif,nonaktif',
+            '4' => 'nullable|in:aktif,nonaktif',
         ];
     }
 
@@ -76,8 +67,7 @@ class DebiturImport implements ToModel, WithStartRow, WithValidation
             '1' => 'Alamat Debitur',
             '2' => 'Pekerjaan Debitur',
             '3' => 'Nomor Telepon',
-            '4' => 'Nomor KTP',
-            '5' => 'Status Aktif',
+            '4' => 'Status Aktif',
         ];
     }
 }

@@ -16,7 +16,7 @@ class ArasQueryHelpers
         // Validasi Periode
         // =================================================
         // 1. Validasi Periode
-        if (! isset($id_periode)) {
+        if (!isset($id_periode)) {
             throw new \Exception('Invalid Parameter');
         }
 
@@ -27,9 +27,19 @@ class ArasQueryHelpers
         // 2. Mendefinisikan Matriks Keputusan X / Nilai Alternatif Kriteria
         $periode = Periode::where('id', $id_periode)->first();
         $alternatifs = Debitur::where('status', 'aktif')
+            ->whereHas('userPeriode', function ($query) use ($id_periode) {
+                $query->where('id_periode', $id_periode);
+            })
+            ->whereHas('penilaian', function ($query) use ($id_periode) {
+                $query->where('id_periode', $id_periode);
+            })
             ->orderBy('updated_at', 'DESC')
-            ->has('penilaian')
             ->get();
+
+        if (count($alternatifs) <= 0) {
+            throw new \Exception('Belum ada penilaian yang masuk');
+        }
+
         $kriterias = KriteriaPenilaian::where('status', 'aktif')->where('id_periode', $periode->id)->orderBy('bobot_kriteria', 'DESC')->get();
         $matriks_x = [];
         foreach ($alternatifs as $alternatif) {

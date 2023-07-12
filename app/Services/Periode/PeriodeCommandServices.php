@@ -6,6 +6,7 @@ use App\Http\Requests\Periode\PeriodeStoreRequest;
 use App\Http\Requests\Periode\PeriodeUpdateRequest;
 use App\Models\DebiturTerpilih;
 use App\Models\Periode;
+use App\Models\UserPeriode;
 
 class PeriodeCommandServices
 {
@@ -20,6 +21,13 @@ class PeriodeCommandServices
         $query->status = 'aktif';
         $query->save();
 
+        foreach ($request->user_periode as $item) {
+            UserPeriode::create([
+                'id_debitur' => $item,
+                'id_periode' => $query->id,
+            ]);
+        }
+
         return $query;
     }
 
@@ -33,6 +41,15 @@ class PeriodeCommandServices
         $query->tgl_akhir_penilaian = $request->tgl_akhir_penilaian;
         $query->status = $query->status;
         $query->save();
+
+        UserPeriode::where('id_periode', $id)->delete();
+
+        foreach ($request->user_periode as $item) {
+            UserPeriode::create([
+                'id_debitur' => $item,
+                'id_periode' => $query->id,
+            ]);
+        }
 
         return $query;
     }

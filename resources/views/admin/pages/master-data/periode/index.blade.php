@@ -50,6 +50,7 @@
                             return d != null ? d : 'Tidak Ada'
                         }
                     },
+
                     {
                         data: "status",
                         orderable: false,
@@ -105,6 +106,8 @@
                         form.find('input[name=tgl_pengumuman]').val(data.tgl_pengumuman);
                         form.find(`select[name=status] option[value="${data.status}"]`).attr('selected',
                             true);
+                        form.find('#userPeriodeDetail').empty();
+                        form.find('#userPeriodeDetail').append(response.userPeriode);
                         // if (data.foto != null) {
                         //     $('#fotoDebitur').attr('src', data.link_foto)
                         // } else {

@@ -17,7 +17,6 @@ class FormatImportDebiturExport implements FromCollection, WithTitle, WithHeadin
                 'alamat_debitur' => 'Kaliasem',
                 'pekerjaan' => 'Wiraswasta',
                 'no_telp' => '81234567890',
-                'no_ktp' => '5108062202990112',
                 'status' => 'aktif',
                 'notif' => '(Ini Adalah Contoh Pengisian Data, Hapus Baris Ini Sebelum Mengisi Data)',
             ],
@@ -38,7 +37,6 @@ class FormatImportDebiturExport implements FromCollection, WithTitle, WithHeadin
             'Alamat Debitur *',
             'Pekerjaan',
             'Nomor Telepon',
-            'Nomor KTP',
             'Status Aktif (Opsi: aktif/nonaktif) *',
         ];
     }

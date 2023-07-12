@@ -64,15 +64,6 @@
                         </div>
                         <div class="row row-xs align-items-center mg-b-20">
                             <div class="col-md-12">
-                                <label class="form-label mg-b-0">Nomor KTP</label>
-                            </div>
-                            <div class="col-md-12 mg-t-5">
-                                <input disabled class="form-control form-control-sm" name="nomor_ktp"
-                                    placeholder="xxxxxxxxxxxxxxxx" value="" type="number">
-                            </div>
-                        </div>
-                        <div class="row row-xs align-items-center mg-b-20">
-                            <div class="col-md-12">
                                 <label class="form-label mg-b-0">Status</label>
                             </div>
                             <div class="col-md-12 mg-t-5">

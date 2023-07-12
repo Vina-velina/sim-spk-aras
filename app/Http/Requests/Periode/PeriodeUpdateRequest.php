@@ -29,6 +29,8 @@ class PeriodeUpdateRequest extends FormRequest
             'tgl_awal_penilaian' => 'required|date|before:tgl_akhir_penilaian',
             'tgl_akhir_penilaian' => 'required|date|after:tgl_awal_penilaian',
             'status' => 'nullable|in:aktif,nonaktif',
+            'user_periode' => 'required|array|min:1',
+            'user_periode.*' => 'required|string|uuid',
         ];
     }
 }

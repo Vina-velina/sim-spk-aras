@@ -33,7 +33,6 @@ class DebiturCommandServices
         $query->foto = $filenamesave;
         $query->pekerjaan = $request->pekerjaan_debitur;
         $query->no_telp = $request->nomor_telepon;
-        $query->no_ktp = $request->nomor_ktp;
         $query->status = $request->status;
         $query->save();
 
@@ -59,7 +58,6 @@ class DebiturCommandServices
         $query->foto = $filenamesave;
         $query->pekerjaan = $request->pekerjaan_debitur;
         $query->no_telp = $request->nomor_telepon;
-        $query->no_ktp = $request->nomor_ktp;
         $query->status = $request->status;
         $query->save();
 

@@ -20,4 +20,9 @@ class DebiturQueryServices
     {
         return Debitur::all()->count();
     }
+
+    public function getAll()
+    {
+        return Debitur::where('status', 'aktif')->get();
+    }
 }

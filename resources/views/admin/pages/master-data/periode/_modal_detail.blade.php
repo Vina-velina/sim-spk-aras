@@ -68,6 +68,14 @@
                                 </select>
                             </div>
                         </div>
+                        <div class="row row-xs align-items-center mg-b-20">
+                            <div class="col-md-12">
+                                <label class="form-label mg-b-0">Debitur Dalam Periode Ini</label>
+                            </div>
+                            <div class="col-md-12 mg-t-5" id="userPeriodeDetail">
+
+                            </div>
+                        </div>
                     </div>
                 </div>
             </form>

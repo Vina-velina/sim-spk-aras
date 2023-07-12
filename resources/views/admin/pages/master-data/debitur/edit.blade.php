@@ -108,19 +108,6 @@
                                     </div>
                                     <div class="row row-xs align-items-center mg-b-20">
                                         <div class="col-md-12">
-                                            <label class="form-label mg-b-0">Nomor KTP</label>
-                                        </div>
-                                        <div class="col-md-12 mg-t-5">
-                                            <input
-                                                class="form-control form-control-sm @error('nomor_ktp') is-invalid @enderror"
-                                                name="nomor_ktp" placeholder="xxxxxxxxxxxxxxxx"
-                                                onkeyup="this.value = +this.value.replace(/[^0-9]/g, '');"
-                                                value="{{ old('nomor_ktp') ? old('nomor_ktp') : $detail->no_ktp }}"
-                                                type="text">
-                                        </div>
-                                    </div>
-                                    <div class="row row-xs align-items-center mg-b-20">
-                                        <div class="col-md-12">
                                             <label class="form-label mg-b-0">Status <span
                                                     class="text-danger">*</span></label>
                                         </div>

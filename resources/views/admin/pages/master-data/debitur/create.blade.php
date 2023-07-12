@@ -95,19 +95,6 @@
                                                     type="text" value="{{ old('nomor_telepon') }}">
                                             </div>
                                         </div>
-
-                                    </div>
-                                    <div class="row row-xs align-items-center mg-b-20">
-                                        <div class="col-md-12">
-                                            <label class="form-label mg-b-0">Nomor KTP</label>
-                                        </div>
-                                        <div class="col-md-12 mg-t-5">
-                                            <input
-                                                class="form-control form-control-sm @error('nomor_ktp') is-invalid @enderror"
-                                                name="nomor_ktp" placeholder="xxxxxxxxxxxxxxxx"
-                                                onkeyup="this.value = +this.value.replace(/[^0-9]/g, '');" type="text"
-                                                value="{{ old('nomor_ktp') }}">
-                                        </div>
                                     </div>
                                     <div class="row row-xs align-items-center mg-b-20">
                                         <div class="col-md-12">

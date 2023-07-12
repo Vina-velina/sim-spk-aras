@@ -47,7 +47,6 @@ class DebiturExport implements FromQuery, WithTitle, WithHeadings, WithStyles, S
             $item->alamat,
             $item->pekerjaan,
             $item->no_telp,
-            $item->no_ktp,
             $item->status,
         ];
     }
@@ -80,7 +79,6 @@ class DebiturExport implements FromQuery, WithTitle, WithHeadings, WithStyles, S
             'Alamat Debitur',
             'Pekerjaan',
             'Nomor Telepon',
-            'Nomor KTP',
             'Status Aktif',
         ];
     }
