@@ -39,6 +39,7 @@ class PeriodeQueryServices
     {
         $find_periode = Periode::findOrFail($id);
         $user_periode = $find_periode->userPeriode;
+
         return $user_periode;
     }
 }

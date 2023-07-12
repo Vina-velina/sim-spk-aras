@@ -52,14 +52,14 @@ class PeriodeController extends Controller
             $listUser = $detail->userPeriode;
             $user_periode = '';
             foreach ($listUser as  $index => $item) {
-                $user_periode .= '<span class="badge bg-info ml-1">' . $item->debitur->nama . ' - ' . $item->debitur->alamat . '</span>';
+                $user_periode .= '<span class="badge bg-info ml-1">'.$item->debitur->nama.' - '.$item->debitur->alamat.'</span>';
             }
 
             return response()->json([
                 'success' => true,
                 'message' => 'Data Berhasil Didapatkan',
                 'data' => $detail,
-                'userPeriode' => $user_periode
+                'userPeriode' => $user_periode,
             ]);
         } catch (Throwable $th) {
             return response()->json([
@@ -73,6 +73,7 @@ class PeriodeController extends Controller
     public function create()
     {
         $debiturs = $this->debiturQueryServices->getAll();
+
         return view('admin.pages.master-data.periode.create', compact('debiturs'));
     }
 
@@ -121,6 +122,7 @@ class PeriodeController extends Controller
         $periode = $this->periodeQueryServices->getOne($id);
         $debiturs = $this->debiturQueryServices->getAll();
         $user_periode = $this->periodeQueryServices->getDebiturInPeriode($id);
+
         return view('admin.pages.master-data.periode.edit', compact('periode', 'debiturs', 'user_periode'));
     }
 
