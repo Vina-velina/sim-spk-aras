@@ -1,6 +1,48 @@
 @extends('admin.layouts.app')
 
 @section('tittle', 'Formulir Penilaian Periode')
+@section('otherJsQuery')
+    <script>
+        $(document).ready(function() {
+            // Fungsi untuk mengubah format ribuan
+            const formatRibuan = (nilai) => {
+                // Menghapus semua karakter selain angka
+                nilai = nilai.replace(/[^0-9]/g, "");
+
+                // Jika nilai tidak ada, ubah menjadi 0
+                if (nilai === "") {
+                    nilai = "0";
+                }
+
+                // Mengubah format ribuan dengan menambahkan titik setiap 3 angka
+                nilai = parseInt(nilai, 10).toLocaleString();
+
+                return nilai;
+            }
+
+            // Mendapatkan semua elemen input menggunakan selector jQuery
+            var inputElements = $("input[type='text']");
+
+            // Mengubah format ribuan pada nilai input saat halaman dimuat
+            inputElements.each(function() {
+                var nilai = $(this).val();
+                $(this).val(formatRibuan(nilai));
+            });
+
+            // Menambahkan event listener pada keyup menggunakan metode on()
+            inputElements.on("keyup", function(event) {
+                // Mendapatkan nilai dari input
+                var nilai = $(this).val();
+
+                // Mengubah format ribuan dengan menambahkan titik setiap 3 angka
+                nilai = formatRibuan(nilai);
+
+                // Mengatur nilai kembali ke input menggunakan metode val()
+                $(this).val(nilai);
+            });
+        });
+    </script>
+@endsection
 @section('content')
     <!-- container -->
     <div class="container-fluid mg-t-20">
@@ -99,7 +141,7 @@
                                                 class="form-control form-control-sm @error('penilaian.{$item->id}') is-invalid @enderror"
                                                 name="penilaian[{{ $item->id }}]"
                                                 placeholder="Masukkan Nilai Dari Kriteria {{ $item->nama_kriteria }}"
-                                                type="number"
+                                                type="text"
                                                 value="{{ $item->relasi_penilaian != null ? $item->relasi_penilaian->nilai : old('penilaian.{$item->id}') }}">
                                         @endif
                                     </div>
